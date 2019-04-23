@@ -36,27 +36,43 @@ print(img_dict['0'][0].shape)
 #cv2.imshow("draw", img_dict['0'][0])
 #cv2.waitKey(0)
 
+
+
 def onclick(event):
     global n
     if(event.key == 'right'):
       n += 1
-      print()
+      print("right")
+      plt.close()
+
     elif(event.key == 'left'):
       n -= 1
+      print("left")
+      plt.close()
+     
+fig = plt.figure(n)
 
-      
-fig = plt.figure()
+while(n<8):
 
-for i in range(10):
-  subplot = fig.add_subplot(2, 5, i+1)
+  fig = plt.figure(n)
+  for i in range(10):
+    subplot = fig.add_subplot(2, 5, i+1)
+    subplot.set_xticks([])
+    subplot.set_yticks([])
 
-  subplot.set_xticks([])
-  subplot.set_yticks([])
-
-  subplot.set_title('{}'.format(i))
+    subplot.set_title('{}'.format(i))
+    #cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick)
+    subplot.imshow(img_dict['{}'.format(i)][n],cmap=plt.cm.gray_r)
+   
+  
   cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick)
-  subplot.imshow(img_dict['{}'.format(i)][7],cmap=plt.cm.gray_r)
+  plt.show(fig)
+  
 
-plt.show()
+
+  #cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick)
+ # plt.close(fig)
+
+
 #print(img_dict['1'][3].shape)
 
