@@ -40,31 +40,10 @@ def onclick(event):
     global n
     if(event.key == 'right'):
       n += 1
-      for i in range(10):
-        subplot = fig.add_subplot(2, 5, i+1)
-
-        subplot.set_xticks([])
-        subplot.set_yticks([])
-
-        subplot.set_title('{}'.format(i))
-        cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick)
-        subplot.imshow(img_dict['{}'.format(i)][n],cmap=plt.cm.gray_r)
-
-        plt.show()
+      print()
     elif(event.key == 'left'):
       n -= 1
-      
-      for i in range(10):
-        subplot = fig.add_subplot(2, 5, i+1)
 
-        subplot.set_xticks([])
-        subplot.set_yticks([])
-
-        subplot.set_title('{}'.format(i))
-        cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick)
-        subplot.imshow(img_dict['{}'.format(i)][n],cmap=plt.cm.gray_r)
-
-        plt.show()
       
 fig = plt.figure()
 
