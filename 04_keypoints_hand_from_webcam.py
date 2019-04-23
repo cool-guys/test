@@ -76,6 +76,7 @@ i = 0
 prev_char = -1
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 Record = False
+img = np.zeros((500, 500, 1), np.uint8)
 while(True):
     ret_val, image = cam.read()
     datum.cvInputData = image
@@ -109,6 +110,7 @@ while(True):
             prev_char = cur_char
 
         if(c == ord('0')):
+            img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
             while(os.path.exists("./DATA/0/0train_{}".format(i))):
@@ -118,6 +120,7 @@ while(True):
                 Record = True
                 i=0
         elif(c == ord('1')):
+            img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
             while(os.path.exists("./DATA/1/1train_{}".format(i))):
@@ -128,6 +131,7 @@ while(True):
                 i=0
 
         elif(c == ord('2')):
+            img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
             while(os.path.exists("./DATA/2/2train_{}".format(i))):
@@ -138,6 +142,7 @@ while(True):
                 i=0
         
         elif(c == ord('3')):
+            img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
             while(os.path.exists("./DATA/3/3train_{}".format(i))):
@@ -148,6 +153,7 @@ while(True):
                 i=0
          
         elif(c == ord('4')):
+            img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
             while(os.path.exists("./DATA/4/4train_{}".format(i))):
@@ -158,6 +164,7 @@ while(True):
                 i=0
    
         elif(c == ord('5')):
+            img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
             while(os.path.exists("./DATA/5/5train_{}".format(i))):
@@ -168,6 +175,7 @@ while(True):
                 i=0
         
         elif(c == ord('6')):
+            img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
             while(os.path.exists("./DATA/6/6train_{}".format(i))):
@@ -178,6 +186,7 @@ while(True):
                 i=0
            
         elif(c == ord('7')):
+            img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
             while(os.path.exists("./DATA/7/7train_{}".format(i))):
@@ -188,6 +197,7 @@ while(True):
                 i=0
           
         elif(c == ord('8')):
+            img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
             while(os.path.exists("./DATA/8/8train_{}".format(i))):
@@ -198,6 +208,7 @@ while(True):
                 i=0
          
         elif(c == ord('9')):
+            img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
             while(os.path.exists("./DATA/9/9train_{}".format(i))):
@@ -213,6 +224,13 @@ while(True):
                     i += 1 
                 dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]
                 dataframe.to_csv("./DATA/0/0train_{}".format(i), index=False)
+                for k in range(len(dataframe.values)):
+                    if(k != len(dataframe.values)-1):
+                        cv2.line(img, (dataframe.values[k][0],dataframe.values[k][1]), (dataframe.values[k+1][0],dataframe.values[k+1][1]), (255,255,255), 25)
+                img = cv2.flip(img, 1)
+                img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+                cv2.imshow("pre", img)
+
                 i=0
                 Record = False
                 data = []
@@ -222,6 +240,13 @@ while(True):
                     i += 1 
                 dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]    
                 dataframe.to_csv("./DATA/1/1train_{}".format(i), index=False)
+                for k in range(len(dataframe.values)):
+                    if(k != len(dataframe.values)-1):
+                        cv2.line(img, (dataframe.values[k][0],dataframe.values[k][1]), (dataframe.values[k+1][0],dataframe.values[k+1][1]), (255,255,255), 25)
+                img = cv2.flip(img, 1)
+                img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+                cv2.imshow("pre", img)
+
                 i=0
                 Record = False
                 data = []
@@ -231,6 +256,13 @@ while(True):
                     i += 1
                 dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
                 dataframe.to_csv("./DATA/2/2train_{}".format(i), index=False)
+                for k in range(len(dataframe.values)):
+                    if(k != len(dataframe.values)-1):
+                        cv2.line(img, (dataframe.values[k][0],dataframe.values[k][1]), (dataframe.values[k+1][0],dataframe.values[k+1][1]), (255,255,255), 25)
+                img = cv2.flip(img, 1)
+                img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+                cv2.imshow("pre", img)
+
                 i=0
                 Record = False
                 data = []
@@ -240,6 +272,13 @@ while(True):
                     i += 1
                 dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]
                 dataframe.to_csv("./DATA/3/3train_{}".format(i), index=False)
+                for k in range(len(dataframe.values)):
+                    if(k != len(dataframe.values)-1):
+                        cv2.line(img, (dataframe.values[k][0],dataframe.values[k][1]), (dataframe.values[k+1][0],dataframe.values[k+1][1]), (255,255,255), 25)
+                img = cv2.flip(img, 1)
+                img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+                cv2.imshow("pre", img)
+
                 i=0
                 Record = False
                 data = []
@@ -249,6 +288,13 @@ while(True):
                     i += 1
                 dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
                 dataframe.to_csv("./DATA/4/4train_{}".format(i), index=False)
+                for k in range(len(dataframe.values)):
+                    if(k != len(dataframe.values)-1):
+                        cv2.line(img, (dataframe.values[k][0],dataframe.values[k][1]), (dataframe.values[k+1][0],dataframe.values[k+1][1]), (255,255,255), 25)
+                img = cv2.flip(img, 1)
+                img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+                cv2.imshow("pre", img)
+            
                 i=0
                 Record = False
                 data = []
@@ -258,6 +304,13 @@ while(True):
                     i += 1
                 dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                     
                 dataframe.to_csv("./DATA/5/5train_{}".format(i), index=False)
+                for k in range(len(dataframe.values)):
+                    if(k != len(dataframe.values)-1):
+                        cv2.line(img, (dataframe.values[k][0],dataframe.values[k][1]), (dataframe.values[k+1][0],dataframe.values[k+1][1]), (255,255,255), 25)
+                img = cv2.flip(img, 1)
+                img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+                cv2.imshow("pre", img)
+
                 i=0
                 Record = False
                 data = []
@@ -267,6 +320,13 @@ while(True):
                     i += 1 
                 dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
                 dataframe.to_csv("./DATA/6/6train_{}".format(i), index=False)
+                for k in range(len(dataframe.values)):
+                    if(k != len(dataframe.values)-1):
+                        cv2.line(img, (dataframe.values[k][0],dataframe.values[k][1]), (dataframe.values[k+1][0],dataframe.values[k+1][1]), (255,255,255), 25)
+                img = cv2.flip(img, 1)
+                img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+                cv2.imshow("pre", img)
+
                 i=0
                 Record = False
                 data = []
@@ -276,6 +336,13 @@ while(True):
                     i += 1 
                 dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
                 dataframe.to_csv("./DATA/7/7train_{}".format(i), index=False)
+                for k in range(len(dataframe.values)):
+                    if(k != len(dataframe.values)-1):
+                        cv2.line(img, (dataframe.values[k][0],dataframe.values[k][1]), (dataframe.values[k+1][0],dataframe.values[k+1][1]), (255,255,255), 25)
+                img = cv2.flip(img, 1)
+                img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+                cv2.imshow("pre", img)
+
                 i=0
                 Record = False
                 data = []
@@ -285,6 +352,13 @@ while(True):
                     i += 1 
                 dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
                 dataframe.to_csv("./DATA/8/8train_{}".format(i), index=False)
+                for k in range(len(dataframe.values)):
+                    if(k != len(dataframe.values)-1):
+                        cv2.line(img, (dataframe.values[k][0],dataframe.values[k][1]), (dataframe.values[k+1][0],dataframe.values[k+1][1]), (255,255,255), 25)
+                img = cv2.flip(img, 1)
+                img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+                cv2.imshow("pre", img)
+
                 i=0
                 Record = False
                 data = []
@@ -294,6 +368,13 @@ while(True):
                     i += 1 
                 dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
                 dataframe.to_csv("./DATA/9/9train_{}".format(i), index=False)
+                for k in range(len(dataframe.values)):
+                    if(k != len(dataframe.values)-1):
+                        cv2.line(img, (dataframe.values[k][0],dataframe.values[k][1]), (dataframe.values[k+1][0],dataframe.values[k+1][1]), (255,255,255), 25)
+                img = cv2.flip(img, 1)
+                img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+                cv2.imshow("pre", img)
+
                 i=0
                 Record = False
                 data = []
