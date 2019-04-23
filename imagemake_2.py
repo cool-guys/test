@@ -32,7 +32,7 @@ for i in range(10):
     img_dict['{}'.format(i)]  = np.array(img_data)
   img_data = []
   df = []
-
+print(img_dict['0'][0].shape)
 #cv2.imshow("draw", img_dict['0'][0])
 #cv2.waitKey(0)
 
@@ -76,7 +76,7 @@ for i in range(10):
 
   subplot.set_title('{}'.format(i))
   cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick)
-  subplot.imshow(img_dict['{}'.format(i)][1],cmap=plt.cm.gray_r)
+  subplot.imshow(img_dict['{}'.format(i)][7],cmap=plt.cm.gray_r)
 
 plt.show()
 #print(img_dict['1'][3].shape)
