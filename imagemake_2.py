@@ -49,10 +49,12 @@ def onclick(event):
       n -= 1
       print("left")
       plt.close()
+    elif(event.key == 'enter'):
+      exit()
      
 fig = plt.figure(n)
 
-while(n<8):
+while(1):
 
   fig = plt.figure(n)
   for i in range(10):
