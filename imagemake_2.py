@@ -37,7 +37,7 @@ print(img_dict['0'][0].shape)
 #cv2.waitKey(0)
 
 
-
+max_val = 7
 def onclick(event):
     global n
     if(event.key == 'right'):
@@ -51,6 +51,118 @@ def onclick(event):
       plt.close()
     elif(event.key == 'enter'):
       exit()
+
+
+    elif(event.key =='1'):
+      dir = './DATA/1/'
+      files = os.listdir(dir)
+      k=1
+      idx=n
+      print('figure {} , number {} is deleted'.format(n,k))
+      for filename in files:
+        while(idx < max_val):
+                os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                idx=idx+1
+
+
+    elif(event.key =='2'):
+      dir = './DATA/2/'
+      files = os.listdir(dir)
+      idx=n
+      k=2
+      print('figure {} , number {} is deleted'.format(n,k))
+      for filename in files:
+        while(idx < max_val):
+                os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                idx=idx+1
+     
+    elif(event.key =='3'):
+      dir = './DATA/3/'
+      files = os.listdir(dir)
+      idx=n
+      k=3
+      print('figure {} , number {} is deleted'.format(n,k))
+      for filename in files:
+        while(idx < max_val):
+                os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                idx=idx+1
+
+    elif(event.key =='4'):
+      dir = './DATA/4/'
+      files = os.listdir(dir)
+      idx=n
+      k=4
+      print('figure {} , number {} is deleted'.format(n,k))
+      for filename in files:
+        while(idx < max_val):
+                os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                idx=idx+1
+
+    elif(event.key =='5'):
+      dir = './DATA/5/'
+      files = os.listdir(dir)
+      idx=n
+      k=5
+      print('figure {} , number {} is deleted'.format(n,k))
+      for filename in files:
+        while(idx < max_val):
+                os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                idx=idx+1
+
+    elif(event.key =='6'):
+      dir = './DATA/6/'
+      files = os.listdir(dir)
+      idx=n
+      k=6
+      print('figure {} , number {} is deleted'.format(n,k))
+      for filename in files:
+        while(idx < max_val):
+                os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                idx=idx+1
+
+    elif(event.key =='7'):
+      dir = './DATA/7/'
+      files = os.listdir(dir)
+      idx=n
+      k=7
+      print('figure {} , number {} is deleted'.format(n,k))
+      for filename in files:
+        while(idx < max_val):
+                os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                idx=idx+1
+
+    elif(event.key =='8'):
+      dir = './DATA/8/'
+      files = os.listdir(dir)
+      idx=n
+      k=8
+      print('figure {} , number {} is deleted'.format(n,k))
+      for filename in files:
+        while(idx < max_val):
+                os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                idx=idx+1
+
+    elif(event.key =='9'):
+      dir = './DATA/9/'
+      files = os.listdir(dir)
+      idx=n
+      k=9
+      print('figure {} , number {} is deleted'.format(n,k))
+      for filename in files:
+        while(idx < max_val):
+                os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                idx=idx+1  
+
+    elif(event.key =='0'):
+      dir = './DATA/0/'
+      files = os.listdir(dir)
+      idx=n
+      print('figure {} , number {} is deleted'.format(n,k))
+      k=0
+      for filename in files:
+        while(idx < max_val):
+                os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                idx=idx+1
      
 fig = plt.figure(n)
 
