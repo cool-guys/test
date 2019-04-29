@@ -27,7 +27,7 @@ for i in range(10):
     #df = df.astype(int)
     #df =df.values
     df.reshape((-1,2))
-    data.append(df)
+    data = np.array(list(data.append(df)))
     img_dict['{}'.format(i)]  = np.array(data)
   data = []
   df = []
@@ -39,15 +39,13 @@ DT =DT.reshape(10*j,-1)
 for i in range(10*j):
   data_.append(DT[i][0])
 DT = np.array(data_)
-print(DT[0].shape)
-X = []
+Y = []
 for i in range(10):
-    for j in range(j):
+    for _ in range(j):
         X.append(i)
-X = np.array(X)
+Y = np.array(X)
 
-X = keras.utils.to_categorical(X,num_classes=10, dtype='float32')
-print(X[60])
+Y = keras.utils.to_categorical(X,num_classes=10, dtype='float32')
 
 def train_generator():
   n = 0
@@ -59,7 +57,7 @@ def train_generator():
     y_train = np.reshape(y_train,(1,np.size(DT[n],0),10))
     y_train = X[n].reshape(1,10)
     #print(y_train)
-    if(n < 99):
+    if(n < 109):
       n += 1
     else:
       n = 0
