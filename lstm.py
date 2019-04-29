@@ -7,6 +7,7 @@ from keras.utils import to_categorical
 from keras.callbacks import ModelCheckpoint
 import keras
 from sklearn.preprocessing import MinMaxScaler
+from keras.preprocessing.sequence import TimeseriesGenerator
 
 cb_checkpoint = ModelCheckpoint(filepath='model.hdf5',
                                 verbose=1)
@@ -22,7 +23,7 @@ for i in range(10):
     j += 1
   for k in range(j):
     df = pd.read_csv("./DATA/{}/{}train_{}".format(i,i,k))
-    scaler = MinMaxScaler(feature_range=(0, 100))
+    scaler = MinMaxScaler(feature_range=(0, 1))
     df = scaler.fit_transform(df)
     #df = df.astype(int)
     #df =df.values
@@ -42,16 +43,16 @@ DT = np.array(data_)
 print(DT[0].shape)
 X = []
 for i in range(10):
-    for j in range(j):
+    for _ in range(j):
         X.append(i)
 X = np.array(X)
 
 X = keras.utils.to_categorical(X,num_classes=10, dtype='float32')
-print(X[60])
+print(X.shape)
 
 def train_generator():
   n = 0
-  while True:
+  while n == 110:
     x_train = np.reshape(DT[n],(1,np.size(DT[n],0),2))
     y_train = []
     for i in range(np.size(DT[n],0)):
@@ -59,11 +60,11 @@ def train_generator():
     y_train = np.reshape(y_train,(1,np.size(DT[n],0),10))
     y_train = X[n].reshape(1,10)
     #print(y_train)
-    if(n < 99):
+    if(n < 109):
       n += 1
     else:
       n = 0
-    yield x_train, y_train
+    #yield x_train, y_train
 
 '''
 model = Sequential()
