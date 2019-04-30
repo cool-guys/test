@@ -232,7 +232,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/0/0train_{}".format(i))):
                     i += 1 
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]
                 dataframe.to_csv("./DATA/0/0train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -248,7 +248,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/1/1train_{}".format(i))):
                     i += 1 
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]    
                 dataframe.to_csv("./DATA/1/1train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -264,7 +264,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/2/2train_{}".format(i))):
                     i += 1
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]              
                 dataframe.to_csv("./DATA/2/2train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -280,7 +280,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/3/3train_{}".format(i))):
                     i += 1
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]
                 dataframe.to_csv("./DATA/3/3train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -296,7 +296,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/4/4train_{}".format(i))):
                     i += 1
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]                    
                 dataframe.to_csv("./DATA/4/4train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -312,7 +312,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/5/5train_{}".format(i))):
                     i += 1
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                     
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]                     
                 dataframe.to_csv("./DATA/5/5train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -328,7 +328,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/6/6train_{}".format(i))):
                     i += 1 
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]                    
                 dataframe.to_csv("./DATA/6/6train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -344,7 +344,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/7/7train_{}".format(i))):
                     i += 1 
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]                    
                 dataframe.to_csv("./DATA/7/7train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -360,7 +360,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/8/8train_{}".format(i))):
                     i += 1 
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]                    
                 dataframe.to_csv("./DATA/8/8train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -376,7 +376,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/9/9train_{}".format(i))):
                     i += 1 
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]                    
                 dataframe.to_csv("./DATA/9/9train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
