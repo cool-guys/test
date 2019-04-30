@@ -36,7 +36,7 @@ for i in range(np.size(Y_DATA,0)):
 Y_DATA = Y_DATA.reshape((np.size(Y_DATA,0),1))
 
 
-X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.1, random_state=42)
+X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.3, random_state=42)
 
 Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 

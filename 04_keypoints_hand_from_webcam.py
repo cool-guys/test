@@ -20,7 +20,7 @@ try:
         import pyopenpose as op
     else:
         # Change these variables to point to the correct folder (Release/x64 etc.)
-        sys.path.append('../../python');
+        sys.path.append('../../../python');
         # If you run `make install` (default path is `/usr/local/python` for Ubuntu), you can also access the OpenPose/python module from there. This will install OpenPose and the python library at your desired installation path. Ensure that this is in your python path in order to use it.
         # sys.path.append('/usr/local/python')
         from openpose import pyopenpose as op
@@ -36,7 +36,7 @@ args = parser.parse_known_args()
 
 # Custom Params (refer to include/openpose/flags.hpp for more parameters)
 params = dict()
-params["model_folder"] = "../../../models/"
+params["model_folder"] = "../../../../models/"
 params["hand"] = True
 #params["render_pose"] = 0
 params["hand_render"] = 2
@@ -83,7 +83,7 @@ while(True):
 
     opWrapper.emplaceAndPop([datum])
     handkeypoints = np.array(datum.handKeypoints)
-    print(handkeypoints.shape)
+    #print(handkeypoints.shape)
     if(handkeypoints.shape !=(2,)):
         handkeypoints = np.array([handkeypoints[1][0][0][0],handkeypoints[1][0][0][1]])
     #else:
@@ -113,6 +113,7 @@ while(True):
             img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
+            dataframe['label'] = 0
             while(os.path.exists("./DATA/0/0train_{}".format(i))):
                 i += 1
             if(not Record): 
@@ -123,6 +124,7 @@ while(True):
             img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
+            dataframe['label'] = 1
             while(os.path.exists("./DATA/1/1train_{}".format(i))):
                 i += 1
             if(not Record): 
@@ -134,6 +136,7 @@ while(True):
             img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
+            dataframe['label'] = 2
             while(os.path.exists("./DATA/2/2train_{}".format(i))):
                 i += 1
             if(not Record): 
@@ -145,6 +148,7 @@ while(True):
             img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
+            dataframe['label'] = 3
             while(os.path.exists("./DATA/3/3train_{}".format(i))):
                 i += 1
             if(not Record): 
@@ -156,6 +160,7 @@ while(True):
             img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
+            dataframe['label'] = 4
             while(os.path.exists("./DATA/4/4train_{}".format(i))):
                 i += 1
             if(not Record): 
@@ -167,6 +172,7 @@ while(True):
             img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
+            dataframe['label'] = 5
             while(os.path.exists("./DATA/5/5train_{}".format(i))):
                 i += 1
             if(not Record): 
@@ -178,6 +184,7 @@ while(True):
             img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
+            dataframe['label'] = 6
             while(os.path.exists("./DATA/6/6train_{}".format(i))):
                 i += 1
             if(not Record): 
@@ -189,6 +196,7 @@ while(True):
             img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
+            dataframe['label'] = 7
             while(os.path.exists("./DATA/7/7train_{}".format(i))):
                 i += 1
             if(not Record): 
@@ -200,6 +208,7 @@ while(True):
             img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
+            dataframe['label'] = 8
             while(os.path.exists("./DATA/8/8train_{}".format(i))):
                 i += 1
             if(not Record): 
@@ -211,6 +220,7 @@ while(True):
             img = np.zeros((500, 500, 1), np.uint8)
             data.append(handkeypoints.astype(int))
             dataframe = pd.DataFrame(data, columns= ['x','y'])
+            dataframe['label'] = 9
             while(os.path.exists("./DATA/9/9train_{}".format(i))):
                 i += 1
             if(not Record): 
@@ -222,7 +232,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/0/0train_{}".format(i))):
                     i += 1 
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]
                 dataframe.to_csv("./DATA/0/0train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -238,7 +248,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/1/1train_{}".format(i))):
                     i += 1 
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]    
                 dataframe.to_csv("./DATA/1/1train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -254,7 +264,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/2/2train_{}".format(i))):
                     i += 1
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]              
                 dataframe.to_csv("./DATA/2/2train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -270,7 +280,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/3/3train_{}".format(i))):
                     i += 1
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]
                 dataframe.to_csv("./DATA/3/3train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -286,7 +296,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/4/4train_{}".format(i))):
                     i += 1
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]                    
                 dataframe.to_csv("./DATA/4/4train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -302,7 +312,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/5/5train_{}".format(i))):
                     i += 1
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                     
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]                     
                 dataframe.to_csv("./DATA/5/5train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -318,7 +328,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/6/6train_{}".format(i))):
                     i += 1 
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]                    
                 dataframe.to_csv("./DATA/6/6train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -334,7 +344,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/7/7train_{}".format(i))):
                     i += 1 
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]                    
                 dataframe.to_csv("./DATA/7/7train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -350,7 +360,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/8/8train_{}".format(i))):
                     i += 1 
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]                    
                 dataframe.to_csv("./DATA/8/8train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
@@ -366,7 +376,7 @@ while(True):
                 video.release()
                 while(os.path.exists("./DATA/9/9train_{}".format(i))):
                     i += 1 
-                dataframe = dataframe.loc[(dataframe!=0).any(axis=1)]                    
+                dataframe = dataframe.loc[(dataframe.x!=0) & (dataframe.y !=0)]                    
                 dataframe.to_csv("./DATA/9/9train_{}".format(i), index=False)
                 for k in range(len(dataframe.values)):
                     if(k != len(dataframe.values)-1):
