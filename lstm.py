@@ -7,63 +7,68 @@ from keras.utils import to_categorical
 from keras.callbacks import ModelCheckpoint
 import keras
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
 
 cb_checkpoint = ModelCheckpoint(filepath='model.hdf5',
                                 verbose=1)
 
 j = 0
-img_dict = {}
-img_dict_T = {}
-data = []
-x_test = []
-data_ = []
+x_data = []
+y_data = []
+
+scaler = MinMaxScaler((0,100))
+
 for i in range(10):
   while(os.path.exists("./DATA/{}/{}train_{}".format(i,i,j))):
     j += 1
   for k in range(j):
     df = pd.read_csv("./DATA/{}/{}train_{}".format(i,i,k))
-    scaler = MinMaxScaler(feature_range=(0, 100))
-    df = scaler.fit_transform(df)
-    #df = df.astype(int)
-    #df =df.values
-    df.reshape((-1,2))
-    data = np.array(list(data.append(df)))
-    img_dict['{}'.format(i)]  = np.array(data)
-  data = []
-  df = []
+
+    x_data.append(scaler.fit_transform(df[['x','y']].to_numpy()))
+    y_data.append(df[['label']].to_numpy())
+
+    
+X_DATA = np.array(x_data)
+Y_DATA = np.array(y_data)
+
+for i in range(np.size(Y_DATA,0)):
+    Y_DATA[i] = np.unique(Y_DATA[i],axis=0)
+Y_DATA = Y_DATA.reshape((np.size(Y_DATA,0),1))
 
 
-DT = np.array(list(img_dict.values()))
+X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.1, random_state=42)
 
-DT =DT.reshape(10*j,-1)
-for i in range(10*j):
-  data_.append(DT[i][0])
-DT = np.array(data_)
-Y = []
-for i in range(10):
-    for _ in range(j):
-        X.append(i)
-Y = np.array(X)
+Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 
-Y = keras.utils.to_categorical(X,num_classes=10, dtype='float32')
+Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
 def train_generator():
   n = 0
   while True:
-    x_train = np.reshape(DT[n],(1,np.size(DT[n],0),2))
-    y_train = []
-    for i in range(np.size(DT[n],0)):
-      y_train.append(X[i])
-    y_train = np.reshape(y_train,(1,np.size(DT[n],0),10))
-    y_train = X[n].reshape(1,10)
+    x_train = np.reshape(X_train[n],(1,np.size(X_train[n],0),2))
+
+
+    y_train = Y_train[n].reshape(1,10)
     #print(y_train)
-    if(n < 109):
+    if(n < np.size(X_train,0)-1):
       n += 1
     else:
       n = 0
     yield x_train, y_train
 
-'''
+def test_generator():
+  n = 0
+  while True:
+    x_test = np.reshape(X_test[n],(1,np.size(X_test[n],0),2))
+
+    y_test = Y_test[n].reshape(1,10)
+    #print(y_train)
+    if(n < np.size(X_test,0)-1):
+      n += 1
+    else:
+      n = 0
+    yield x_test, y_test  
+
 model = Sequential()
 
 model.add(LSTM(128, return_sequences=True, input_shape=(None, 2)))
@@ -75,9 +80,10 @@ model.summary()
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 
 
-model.fit_generator(train_generator() ,steps_per_epoch=100, epochs=30, verbose=1,callbacks=[cb_checkpoint])
-'''
+model.fit_generator(train_generator() ,steps_per_epoch=100, epochs=30, verbose=1)
 
+scores = model.evaluate_generator(test_generator(),steps=5)
+print(scores[1]*100)
 #TODO
 '''
 어떤 숫자가 들어와도 test랑 train 자르기
