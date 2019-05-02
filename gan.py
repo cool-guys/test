@@ -21,7 +21,7 @@ class GAN():
     def __init__(self, rows):
         self.seq_length = rows
         self.seq_shape = (self.seq_length, 2)
-        self.latent_dim = 40
+        self.latent_dim = 50
         self.disc_loss = []
         self.gen_loss =[]
         
@@ -35,7 +35,7 @@ class GAN():
         self.generator = self.build_generator()
 
         # The generator takes noise as input and generates note sequences
-        z = Input(shape=(self.latent_dim,))
+        z = Input(shape=(50,2))
         generated_seq = self.generator(z)
 
         # For the combined model we will only train the generator
@@ -52,16 +52,12 @@ class GAN():
     def build_discriminator(self):
 
         model = Sequential()
-        model.add(LSTM(512, input_shape=(None,2), return_sequences=True))
-        model.add(Bidirectional(LSTM(512)))
-        model.add(Dense(512))
-        model.add(LeakyReLU(alpha=0.2))
-        model.add(Dense(256))
-        model.add(LeakyReLU(alpha=0.2))
+        model.add(LSTM(64, input_shape=(50,2), return_sequences=True))
+        model.add(Bidirectional(LSTM(64)))
         model.add(Dense(1, activation='sigmoid'))
         model.summary()
 
-        seq = Input(shape=(None,2))
+        seq = Input(shape=(50,2))
         validity = model(seq)
 
         return Model(seq, validity)
@@ -69,20 +65,13 @@ class GAN():
     def build_generator(self):
 
         model = Sequential()
-        model.add(Dense(256, input_dim=self.latent_dim))
-        model.add(LeakyReLU(alpha=0.2))
+        model.add(LSTM(128, input_shape=(50,2), return_sequences=True))
+        model.add(LSTM(128,return_sequences=True))
         model.add(BatchNormalization(momentum=0.8))
-        model.add(Dense(512))
-        model.add(LeakyReLU(alpha=0.2))
-        model.add(BatchNormalization(momentum=0.8))
-        model.add(Dense(1024))
-        model.add(LeakyReLU(alpha=0.2))
-        model.add(BatchNormalization(momentum=0.8))
-        model.add(Dense(np.prod(self.seq_shape), activation='tanh'))
-        model.add(Reshape(self.seq_shape))
+        model.add(Dense(2, activation='tanh'))
         model.summary()
         
-        noise = Input(shape=(self.latent_dim,))
+        noise = Input(shape=(50,2))
         seq = model(noise)
 
         return Model(noise, seq)
@@ -98,7 +87,7 @@ class GAN():
         # Training the model
         for epoch in range(epochs):
 
-            X_train = np.reshape(X_train[n],(1,np.size(X_train[n],0),2))
+            
             y_train = Y_train[n].reshape(1,10)
             if(n < np.size(X_train,0)-1):
                 n += 1
@@ -112,7 +101,7 @@ class GAN():
 
             #noise = np.random.choice(range(484), (batch_size, self.latent_dim))
             #noise = (noise-242)/242
-            noise = np.random.normal(0, 1, (batch_size, self.latent_dim)) * 100
+            noise = np.random.uniform(0,1,[10,50,2])
 
             # Generate a batch of new note sequences
             gen_seqs = self.generator.predict(noise)
@@ -124,7 +113,7 @@ class GAN():
 
 
             #  Training the Generator
-            noise = np.random.normal(0, 1, (batch_size, self.latent_dim))
+            noise = np.random.uniform(0,1,[10,50,2])
 
             # Train the generator (to have the discriminator label samples as real)
             g_loss = self.combined.train_on_batch(noise, real)
@@ -154,13 +143,14 @@ class GAN():
         create_midi(pred_notes, 'gan_final')
 
     def generate_notes(self):
-        for i in range(100):
-            noise = np.random.normal(0, 1, (1, self.latent_dim))
+        for i in range(10):
+            noise = np.random.uniform(0,1,[10,50,2])
             predictions = self.generator.predict(noise)
-            predictions = np.reshape(predictions,(40,2))
-            predict = scaler.inverse_transform(predictions)
-            dataframe = pd.DataFrame(predict, columns= ['x','y'])
-            dataframe.to_csv("./model/test_{}".format(i), index=False)
+            #predictions = np.reshape(predictions,(10,50,2))
+            for j in range(10):
+                predict = scaler.inverse_transform(predictions[j])
+                dataframe = pd.DataFrame(predict, columns= ['x','y'])
+                dataframe.to_csv("./model/test_{}".format(i*10+j), index=False)
 
         
     def plot_loss(self):
@@ -180,7 +170,7 @@ if __name__ == '__main__':
     x_data = []
     y_data = []
 
-    scaler = MinMaxScaler((0,100))
+    scaler = MinMaxScaler((0,1))
 
     for i in range(10):
         while(os.path.exists("./DATA/{}/{}train_{}".format(i,i,j))):
@@ -209,4 +199,4 @@ if __name__ == '__main__':
 
 
     gan = GAN(rows=50)    
-    gan.train(X_train=X_train,Y_train=Y_train,epochs=5000, batch_size=1, sample_interval=1)
+    gan.train(X_train=X_train,Y_train=Y_train,epochs=1, batch_size=10, sample_interval=1)
