@@ -170,7 +170,7 @@ if __name__ == '__main__':
     x_data = []
     y_data = []
 
-    scaler = MinMaxScaler((0,1))
+    scaler = MinMaxScaler((0,50))
 
     for i in range(10):
         while(os.path.exists("./DATA/{}/{}train_{}".format(i,i,j))):
@@ -199,4 +199,4 @@ if __name__ == '__main__':
 
 
     gan = GAN(rows=50)    
-    gan.train(X_train=X_train,Y_train=Y_train,epochs=1, batch_size=10, sample_interval=1)
+    gan.train(X_train=X_train,Y_train=Y_train,epochs=1000, batch_size=10, sample_interval=1)
