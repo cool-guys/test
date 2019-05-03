@@ -50,17 +50,20 @@ Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
 model = Sequential()
-model.add(Conv2D(32, kernel_size=(5, 5), strides=(1, 1), padding='same',
-                 activation='relu',
-                 input_shape=(28,28,1)))
+model.add(Conv2D(40, kernel_size=5, padding="same",input_shape=(28, 28, 1), activation = 'relu'))
 model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-model.add(Conv2D(64, (2, 2), activation='relu', padding='same'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.25))
+model.add(Conv2D(70, kernel_size=3, padding="same", activation = 'relu'))
+model.add(Conv2D(200, kernel_size=3, padding="same", activation = 'relu'))
+model.add(MaxPooling2D(pool_size=(3, 3), strides=(1, 1)))
+
+model.add(Conv2D(512, kernel_size=3, padding="valid", activation = 'relu'))
+model.add(MaxPooling2D(pool_size=(3, 3), strides=(1, 1)))
 model.add(Flatten())
-model.add(Dense(1000, activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(10, activation='softmax'))
+model.add(Dense(units=100, activation='relu'  ))
+model.add(Dropout(0.3))
+
+model.add(Dense(10,activation='softmax'))
+
 model.summary()
 
 config = tf.ConfigProto()
@@ -69,7 +72,7 @@ sess = tf.Session(config=config)
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 hist = model.fit(X_train, Y_train,
-                 batch_size=1,
+                 batch_size=16,
                  epochs=30,
                  verbose=1)
 
