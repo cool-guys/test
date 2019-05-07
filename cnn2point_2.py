@@ -22,7 +22,7 @@ columns = ['x','y', 'label']
 j = 0
 x_data = []
 y_data = []
-scaler = MinMaxScaler((0,100))
+scaler = MinMaxScaler((0,1))
 
 for i in range(10):
   while(os.path.exists("./DATA/{}/{}train_{}".format(i,i,j))):
@@ -49,18 +49,37 @@ Y_DATA = np.array(y_data)
 
 
 
-X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.1, random_state=32)
+X_train, X_test, Y_train_, Y_test_ = train_test_split(X_DATA, Y_DATA, test_size=0.1, random_state=32)
 
 
 X_val = X_train[0:18]
-X_train = X_train[18:-1]
+X_train = X_train[18:]
 XD_train = np.reshape(X_train,(-1,64*64))
 XD_val = np.reshape(X_val,(-1,64*64))
 XD_test = np.reshape(X_test,(-1,64*64))
 
-Y_val = keras.preprocessing.sequence.pad_sequences(Y_train[0:18], maxlen=20, padding='post', dtype='int32')
-Y_train = keras.preprocessing.sequence.pad_sequences(Y_train[18:-1], maxlen=20, padding='post', dtype='int32')
-Y_test = keras.preprocessing.sequence.pad_sequences(Y_test, maxlen=20, padding='post', dtype='int32')
+Y_val = keras.preprocessing.sequence.pad_sequences(Y_train_[0:18], maxlen=45, padding='post', dtype='float32')
+Y_train = keras.preprocessing.sequence.pad_sequences(Y_train_[18:], maxlen=45, padding='post', dtype='float32')
+Y_test = keras.preprocessing.sequence.pad_sequences(Y_test_, maxlen=45, padding='post', dtype='float32')
+
+for i in range(18):
+  lens = np.size(Y_train_[i],0)
+  if(45 - lens) > 0:
+    for j in range(45 - lens):
+      Y_val[i][j+lens-1] = Y_train_[i][lens-1]
+
+
+for i in range(162):
+  lens = np.size(Y_train_[i+18],0)
+  if(45 - lens) > 0:
+    for j in range(45 - lens):
+      Y_train[i][j+lens-1] = Y_train_[i+18][lens-1]
+
+for i in range(20):
+  lens = np.size(Y_test_[i],0)
+  if(45 - lens) > 0:
+    for j in range(45 - lens):
+      Y_test[i][j+lens-1] = Y_test_[i][lens-1]
 
 
 #print(Y_train)
@@ -102,10 +121,10 @@ x_2 = LeakyReLU(alpha=0.2)(x_2)
 x_2 = Dense(512)(x_2)
 x_2 = BatchNormalization(momentum=0.8)(x_2)
 x_2 = LeakyReLU(alpha=0.2)(x_2)
-x_2 = Dense(472, activation='relu')(x_2)
+x_2 = Dense(322, activation='relu')(x_2)
 
 merged = concatenate([x_1,x_2])
-m = Reshape((20,-1))(merged)
+m = Reshape((45,-1))(merged)
 m = Dense(128, activation='relu')(m)
 m = Dense(2, activation='sigmoid')(m)
 
@@ -174,7 +193,7 @@ model.summary()
 
 early_stopping = EarlyStopping(patience = 200)
 
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])
 hist = model.fit([X_train,XD_train], Y_train,
                  batch_size=16,
                  epochs=1000,

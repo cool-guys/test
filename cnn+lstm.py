@@ -142,7 +142,7 @@ x_2 = CuDNNLSTM(32)(x_2)
 x_2 = Dense(128)(x_2)
 
 merged = concatenate([x_1,x_2])
-m = Dense(128, activation='relu')(merged)
+m = Dense(256, activation='relu')(merged)
 m = Dense(10, activation='softmax')(m)
 
 model = Model(inputs=[input_1, input_2], outputs = m)
