@@ -43,6 +43,7 @@ for i in range(10):
     
 X_DATA = np.array(x_data)
 X_DATA = np.reshape(X_DATA,(-1,64,64,1))
+
 X_DATA = X_DATA/255
 Y_DATA = np.array(y_data)
 
