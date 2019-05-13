@@ -29,7 +29,7 @@ magnitude = abs(8)
 
 dx = random.randint(-magnitude, magnitude)
 dy = random.randint(-magnitude, magnitude)
-def perform_operation(images, i_, k_ ):
+def perform_operation(images):
     """
     Distorts the passed image(s) according to the parameters supplied during
     instantiation, returning the newly distorted image.
@@ -39,12 +39,13 @@ def perform_operation(images, i_, k_ ):
     :return: The transformed image(s) as a list of object(s) of type
         PIL.Image.
     """
-    image = np.array(images)
+    print(images.shape)
+    image_ = np.array(images)
 
     images = []
-    for i in range(len(image)):
-        img = image[i].reshape((550,550))
-        images.append(Image.fromarray(img.astype('uint8'),'L'))
+
+    img = image_.reshape((550,550))
+    images.append(Image.fromarray(img.astype('uint8'),'L'))
     w, h = images[0].size
 
     horizontal_tiles = grid_width
@@ -99,73 +100,48 @@ def perform_operation(images, i_, k_ ):
     for i in range((vertical_tiles * horizontal_tiles) - 1):
         if i not in last_row and i not in last_column:
             polygon_indices.append([i, i + 1, i + horizontal_tiles, i + 1 + horizontal_tiles])
+    return polygon_indices,polygons,dimensions
 
-    def do(image):
+def do(image,polygons,polygon_indices,dimensions):
+    image = image.reshape((550,550))
+    image = Image.fromarray(image.astype('uint8'),'L')
+    for a, b, c, d in polygon_indices:
 
-        for a, b, c, d in polygon_indices:
 
+        x1, y1, x2, y2, x3, y3, x4, y4 = polygons[a]
+        polygons[a] = [x1, y1,
+                        x2, y2,
+                        x3 + dx, y3 + dy,
+                        x4, y4]
 
-            x1, y1, x2, y2, x3, y3, x4, y4 = polygons[a]
-            polygons[a] = [x1, y1,
-                            x2, y2,
-                            x3 + dx, y3 + dy,
-                            x4, y4]
+        x1, y1, x2, y2, x3, y3, x4, y4 = polygons[b]
+        polygons[b] = [x1, y1,
+                        x2 + dx, y2 + dy,
+                        x3, y3,
+                        x4, y4]
 
-            x1, y1, x2, y2, x3, y3, x4, y4 = polygons[b]
-            polygons[b] = [x1, y1,
-                            x2 + dx, y2 + dy,
-                            x3, y3,
-                            x4, y4]
+        x1, y1, x2, y2, x3, y3, x4, y4 = polygons[c]
+        polygons[c] = [x1, y1,
+                        x2, y2,
+                        x3, y3,
+                        x4 + dx, y4 + dy]
 
-            x1, y1, x2, y2, x3, y3, x4, y4 = polygons[c]
-            polygons[c] = [x1, y1,
-                            x2, y2,
-                            x3, y3,
-                            x4 + dx, y4 + dy]
+        x1, y1, x2, y2, x3, y3, x4, y4 = polygons[d]
+        polygons[d] = [x1 + dx, y1 + dy,
+                        x2, y2,
+                        x3, y3,
+                        x4, y4]
 
-            x1, y1, x2, y2, x3, y3, x4, y4 = polygons[d]
-            polygons[d] = [x1 + dx, y1 + dy,
-                            x2, y2,
-                            x3, y3,
-                            x4, y4]
+    generated_mesh = []
+    for i in range(len(dimensions)):
+        generated_mesh.append([dimensions[i], polygons[i]])
 
-        generated_mesh = []
-        for i in range(len(dimensions)):
-            generated_mesh.append([dimensions[i], polygons[i]])
+    return image.transform(image.size, Image.MESH, generated_mesh, resample=Image.BICUBIC)
 
-        return image.transform(image.size, Image.MESH, generated_mesh, resample=Image.BICUBIC)
-
-    augmented_images = []
-    augmented_image = []
-    augmented_point = []
-    augmented_points = []
-
-    for image in images:
-        augmented_images.append(do(image))
-    
-    for l in range(len(df_img)):
-        img_ = np.array(augmented_images[l])
-        img_ = img_.reshape(-1)
-        augmented_point.append(np.argmax(img_))
-    for  l in range(len(augmented_point)):
-        x = augmented_point[l]%550
-        y = int(augmented_point[l]/550)
-        augmented_points.append([x,y])
-    dataframe = pd.DataFrame(augmented_points, columns= ['x','y'])
-    
-    dataframe['label'] = i_
-    dataframe.to_csv("./DATA/aug/{}augs_{}".format(i_,k_), index=False)
-    augmented_images = []
-    augmented_image = []
-    augmented_point = []
-    augmented_points = []
-    img_set = []        
-
-    return augmented_images
-
+polygon_indices,polygons,dimensions =perform_operation(np.zeros((550, 550, 1), np.uint8))
 for i in range(10):
   
-  while(os.path.exists("./DATA/{}/{}train_{}".format(i,i,j))):
+  while(os.path.exists("./DATA/Video/{}/{}train_{}".format(i,i,j))):
     j += 1
     
   rotation = random.randint(-20,20)
@@ -173,18 +149,46 @@ for i in range(10):
   while(rotation == 0):
     rotation = random.randint(-20,20)
 
-  for k in range(10):
-    df = pd.read_csv("./DATA/{}/{}train_{}".format(i,i,k))
+  for k in range(j):
+    df = pd.read_csv("./DATA/Video/{}/{}train_{}".format(i,i,k))
+    df = df.loc[(df.x!=0) & (df.y !=0)]
     df_img = df[['x','y']].to_numpy()
     img = np.zeros((550, 550, 1), np.uint8)
     img_ = np.zeros((550, 550, 1), np.uint8)
 
     for l in range(len(df_img)):
-      img_[df_img[l][1]][df_img[l][0]] = 255
+      img_[df_img[l][1]][df_img[l][0]] = 5000
+      img_[df_img[l][1]+1][df_img[l][0]] = 5000
+      img_[df_img[l][1]-1][df_img[l][0]] = 5000
+      img_[df_img[l][1]][df_img[l][0]+1] = 5000
+      img_[df_img[l][1]][df_img[l][0]-1] = 5000
+      img_[df_img[l][1]+1][df_img[l][0]-1] = 5000
+      img_[df_img[l][1]-1][df_img[l][0]-1] = 5000
+      img_[df_img[l][1]+1][df_img[l][0]+1] = 5000
+      img_[df_img[l][1]-1][df_img[l][0]+1] = 5000      
       img_set.append(img_)
       img_ = np.zeros((550, 550, 1), np.uint8)
-
-    perform_operation(img_set,i,k)
+    for image in img_set:
+      augmented_images.append(do(image,polygons,polygon_indices,dimensions))
+    #print(np.size(img_set,axis=0))
+    for l in range(np.size(img_set,axis=0)):
+      img_ = np.array(augmented_images[l])
+      img_ = img_.reshape(-1)
+      print(np.max(img_))
+      augmented_point.append(np.argmax(img_))
+    for  l in range(len(augmented_point)):
+      x = augmented_point[l]%550
+      y = int(augmented_point[l]/550)
+      augmented_points.append([x,y])
+    dataframe = pd.DataFrame(augmented_points, columns= ['x','y'])
+    
+    dataframe['label'] = i
+    dataframe.to_csv("./DATA/aug/{}augs_{}".format(i,k), index=False)
+    augmented_images = []
+    augmented_image = []
+    augmented_point = []
+    augmented_points = []
+    img_set = []
 
 
 

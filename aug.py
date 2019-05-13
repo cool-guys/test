@@ -59,28 +59,37 @@ def do(image):
 
     # Crop this area from the rotated image
     # image = image.crop((E, A, X - E, Y - A))
-    image = image.crop((int(round(E)), int(round(A)), int(round(X - E)), int(round(Y - A))))
+    #image = image.crop((int(round(E)), int(round(A)), int(round(X - E)), int(round(Y - A))))
 
     # Return the image, re-sized to the size of the image passed originally
     return image.resize((x, y), resample=Image.BICUBIC)
 
 for i in range(10):
-  while(os.path.exists("./DATA/{}/{}train_{}".format(i,i,j))):
+  while(os.path.exists("./DATA/Video/{}/{}train_{}".format(i,i,j))):
     j += 1
     
-  rotation = random.randint(-20,20)
+  rotation = random.randint(-25,25)
 
   while(rotation == 0):
-    rotation = random.randint(-20,20)
+    rotation = random.randint(-25,25)
 
   for k in range(j):
-    df = pd.read_csv("./DATA/{}/{}train_{}".format(i,i,k))
+    df = pd.read_csv("./DATA/Video/{}/{}train_{}".format(i,i,k))
+    df = df.loc[(df.x!=0) & (df.y !=0)]
     df_img = df[['x','y']].to_numpy()
     img = np.zeros((550, 550, 1), np.uint8)
     img_ = np.zeros((550, 550, 1), np.uint8)
 
     for l in range(len(df_img)):
       img_[df_img[l][1]][df_img[l][0]] = 255
+      img_[df_img[l][1]+1][df_img[l][0]] = 255
+      img_[df_img[l][1]-1][df_img[l][0]] = 255
+      img_[df_img[l][1]][df_img[l][0]+1] = 255
+      img_[df_img[l][1]][df_img[l][0]-1] = 255
+      img_[df_img[l][1]+1][df_img[l][0]-1] = 255
+      img_[df_img[l][1]-1][df_img[l][0]-1] = 255
+      img_[df_img[l][1]+1][df_img[l][0]+1] = 255
+      img_[df_img[l][1]-1][df_img[l][0]+1] = 255
       img_set.append(img_)
       img_ = np.zeros((550, 550, 1), np.uint8)
     for image in img_set:
@@ -89,6 +98,7 @@ for i in range(10):
     for l in range(np.size(img_set,axis=0)):
       img_ = np.array(augmented_images[l])
       img_ = img_.reshape(-1)
+      print(np.max(img_))
       augmented_point.append(np.argmax(img_))
     for  l in range(len(augmented_point)):
       x = augmented_point[l]%550
@@ -97,7 +107,7 @@ for i in range(10):
     dataframe = pd.DataFrame(augmented_points, columns= ['x','y'])
     
     dataframe['label'] = i
-    dataframe.to_csv("./DATA/aug/{}aug_{}".format(i,k), index=False)
+    dataframe.to_csv("./DATA/aug/{}aug_r{}".format(i,k), index=False)
     augmented_images = []
     augmented_image = []
     augmented_point = []

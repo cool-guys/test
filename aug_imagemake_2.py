@@ -13,12 +13,11 @@ img = np.zeros((100, 100, 1), np.uint8)
 
 #368x496
 for i in range(10):
-  while(os.path.exists("./DATA/Video/{}/{}train_{}".format(i,i,j))):
+  while(os.path.exists("./DATA/aug/{}aug_s{}".format(i,j))):
     j += 1
   for j in range(j):
-    df = pd.read_csv("./DATA/Video/{}/{}train_{}".format(i,i,j))
+    df = pd.read_csv("./DATA/aug/{}aug_s{}".format(i,j))
     df = df.loc[(df.x!=0) & (df.y !=0)]
-
     #scaler = MinMaxScaler(feature_range=(0, 100))
     #df = scaler.fit_transform(df)
     #df = df.astype(int)
