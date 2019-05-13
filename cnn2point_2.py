@@ -22,7 +22,7 @@ columns = ['x','y', 'label']
 j = 0
 x_data = []
 y_data = []
-scaler = MinMaxScaler((0,1))
+scaler = MinMaxScaler((0,100))
 
 for i in range(10):
   while(os.path.exists("./DATA/{}/{}train_{}".format(i,i,j))):
@@ -58,27 +58,27 @@ XD_train = np.reshape(X_train,(-1,64*64))
 XD_val = np.reshape(X_val,(-1,64*64))
 XD_test = np.reshape(X_test,(-1,64*64))
 
-Y_val = keras.preprocessing.sequence.pad_sequences(Y_train_[0:18], maxlen=45, padding='post', dtype='float32')
-Y_train = keras.preprocessing.sequence.pad_sequences(Y_train_[18:], maxlen=45, padding='post', dtype='float32')
-Y_test = keras.preprocessing.sequence.pad_sequences(Y_test_, maxlen=45, padding='post', dtype='float32')
+Y_val = keras.preprocessing.sequence.pad_sequences(Y_train_[0:18], maxlen=35, padding='post', dtype='float32')
+Y_train = keras.preprocessing.sequence.pad_sequences(Y_train_[18:], maxlen=35, padding='post', dtype='float32')
+Y_test = keras.preprocessing.sequence.pad_sequences(Y_test_, maxlen=35, padding='post', dtype='float32')
 
 for i in range(18):
   lens = np.size(Y_train_[i],0)
-  if(45 - lens) > 0:
-    for j in range(45 - lens):
+  if(35 - lens) > 0:
+    for j in range(35 - lens):
       Y_val[i][j+lens-1] = Y_train_[i][lens-1]
 
 
 for i in range(162):
   lens = np.size(Y_train_[i+18],0)
-  if(45 - lens) > 0:
-    for j in range(45 - lens):
+  if(35 - lens) > 0:
+    for j in range(35 - lens):
       Y_train[i][j+lens-1] = Y_train_[i+18][lens-1]
 
 for i in range(20):
   lens = np.size(Y_test_[i],0)
-  if(45 - lens) > 0:
-    for j in range(45 - lens):
+  if(35 - lens) > 0:
+    for j in range(35 - lens):
       Y_test[i][j+lens-1] = Y_test_[i][lens-1]
 
 
@@ -121,12 +121,12 @@ x_2 = LeakyReLU(alpha=0.2)(x_2)
 x_2 = Dense(512)(x_2)
 x_2 = BatchNormalization(momentum=0.8)(x_2)
 x_2 = LeakyReLU(alpha=0.2)(x_2)
-x_2 = Dense(322, activation='relu')(x_2)
+x_2 = Dense(572, activation='relu')(x_2)
 
 merged = concatenate([x_1,x_2])
-m = Reshape((45,-1))(merged)
-m = Dense(128, activation='relu')(m)
-m = Dense(2, activation='sigmoid')(m)
+m = Reshape((35,-1))(merged)
+m = Dense(512, activation='relu')(m)
+m = Dense(2, activation=custom_activation)(m)
 
 model = Model(inputs=[input_1, input_2], outputs = m)
 
@@ -189,11 +189,12 @@ model.add(CuDNNLSTM(128, return_sequences=True))
 model.add(Dense(128))
 model.add(Dense(2, activation='sigmoid'))
 '''
+
 model.summary()
 
 early_stopping = EarlyStopping(patience = 200)
 
-model.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 hist = model.fit([X_train,XD_train], Y_train,
                  batch_size=16,
                  epochs=1000,
@@ -208,8 +209,9 @@ print('Test accuracy:', score[1])
 
 
 for j in range(40):
-    predict = model.predict(X_train)
+    predict = model.predict([X_train,XD_train])
     #predictions = Y_train
+    predict = scaler.inverse_transform(predict[j])
     predict = predict.astype(int)
-    dataframe = pd.DataFrame(predict[j], columns= ['x','y'])
+    dataframe = pd.DataFrame(predict, columns= ['x','y'])
     dataframe.to_csv("./model/test_{}".format(j), index=False)

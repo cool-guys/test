@@ -16,6 +16,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
 import cv2
+import matplotlib.pyplot as plt
 
 cb_checkpoint = ModelCheckpoint(filepath='model.hdf5',
                                 verbose=1)
@@ -45,7 +46,7 @@ for i in range(np.size(Y_DATA,0)):
 Y_DATA = Y_DATA.reshape((np.size(Y_DATA,0),1))
 
 
-X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.1, random_state=42)
+X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.3, random_state=52)
 
 Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 
@@ -133,28 +134,43 @@ x_1 = Conv2D(512, kernel_size=3, padding="valid", activation = 'relu')(x_1)
 x_1 = Dropout(0.5)(x_1)
 x_1 = MaxPooling2D(pool_size=(3, 3), strides=(1, 1))(x_1)
 x_1 = Flatten()(x_1)
-x_1 = Dense(units=128, activation='relu')(x_1)
+x_1 = Dense(units=1000, activation='relu')(x_1)
 x_1 = Dropout(0.5)(x_1)
 
 input_2 = Input(shape=(None, 2))
-x_2 = CuDNNLSTM(128, return_sequences=True)(input_2)
-x_2 = CuDNNLSTM(32)(x_2)
-x_2 = Dense(128)(x_2)
+x_2 = CuDNNLSTM(256, return_sequences=True)(input_2)
+x_2 = CuDNNLSTM(128)(x_2)
+
 
 merged = concatenate([x_1,x_2])
-m = Dense(128, activation='relu')(merged)
+m = Dense(256, activation='relu')(merged)
 m = Dense(10, activation='softmax')(m)
 
 model = Model(inputs=[input_1, input_2], outputs = m)
 
 model.compile(loss='categorical_crossentropy',
-                optimizer='RMSprop',
+                optimizer='adam',
                 metrics=['accuracy'])
 
-model.fit_generator(train_generator(),steps_per_epoch=200, epochs=50)
+model.fit_generator(train_generator(),steps_per_epoch=200, epochs=100,validation_data=test_generator(),validation_steps=60)
 
-score = model.evaluate_generator(test_generator(),steps=20)
-scores = model.predict_generator(test_generator(),steps=20)
+score = model.evaluate_generator(test_generator(),steps=60)
+scores = model.predict_generator(test_generator(),steps=60)
 print(np.argmax(Y_test,1))
 print(np.argmax(scores,1))
 print(score[1]*100)
+
+ROW = 5
+COLUMN = 6
+for i in range(ROW * COLUMN):
+    # train[i][0] is i-th image data with size 28x28
+    image = X_test_img[i].reshape(28, 28)   # not necessary to reshape if ndim is set to 2
+    plt.subplot(ROW, COLUMN, i+1)          # subplot with size (width 3, height 5)
+    plt.imshow(image, cmap='gray')  # cmap='gray' is for black and white picture.
+    # train[i][1] is i-th digit label
+    plt.title('predict = {}'.format(np.argmax(scores[i],0)))
+    plt.axis('off')  # do not show axis value
+plt.tight_layout()   # automatic padding between subplots
+plt.savefig('mnist_plot.png')
+plt.show()
+
