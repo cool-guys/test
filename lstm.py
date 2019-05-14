@@ -23,13 +23,13 @@ y_data = []
 z_data = []
 x_img = []
 xt_img = []
-scaler = StandardScaler()
+scaler = MinMaxScaler((0,100))
 
 for i in range(10):
-  while(os.path.exists("./DATA/{}/{}train_{}".format(i,i,j))):
+  while(os.path.exists("./DATA/test/{}augs_{}".format(i,j))):
     j += 1
   for k in range(j):
-    df = pd.read_csv("./DATA/{}/{}train_{}".format(i,i,k))
+    df = pd.read_csv("./DATA/test/{}augs_{}".format(i,k))
 
     df_img_x = df[['x']].to_numpy()
     df_img_x_mean = np.mean(df_img_x)
@@ -57,7 +57,7 @@ for i in range(np.size(Y_DATA,0)):
 Y_DATA = Y_DATA.reshape((np.size(Y_DATA,0),1))
 
 
-X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.3, random_state=42)
+X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.3, random_state=52)
 
 Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 
@@ -125,6 +125,7 @@ def test_generator():
       n += 1
     else:
       n = 0
+    print(n)
     yield x_test, y_test 
 
 config = tf.ConfigProto()
@@ -145,17 +146,36 @@ model.summary()
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 
 
-results = model.fit_generator(train_generator() ,steps_per_epoch=200, epochs=100,validation_data=test_generator(),validation_steps=60, verbose=1,callbacks=[cb_checkpoint])
+results = model.fit_generator(train_generator() ,steps_per_epoch=7000, epochs=35,validation_data=test_generator(),validation_steps=3000, verbose=1)
 
-score = model.evaluate_generator(test_generator(),steps=60)
-scores = model.predict_generator(test_generator(),steps=60)
-true = np.argmax(Y_test,1)
-pred = np.argmax(scores,1)
+score = model.evaluate_generator(test_generator(),steps=3000)
+scores = model.predict_generator(test_generator(),steps=3000)
+true_value = np.argmax(Y_test,1)
+predict_value = np.argmax(scores,1)
+list_ = []
+for i in range(np.size(true_value,0)):
+  if(true_value[i] != predict_value[i]):
+    print('t:{},p:{}'.format(true_value[i],predict_value[i]))
+    list_.append(i)
+
 print(score[1]*100)
-for i in range(60):
-  if(true[i] != pred[i]):
-    print('t',true[i])
-    print('p',pred[i])
+
+ROW = 4
+COLUMN = 5
+j = 1
+for i in list_:
+    # train[i][0] is i-th image data with size 28x28
+    image = X_test_img[i].reshape(28, 28)   # not necessary to reshape if ndim is set to 2
+    plt.subplot(ROW, COLUMN, j)         # subplot with size (width 3, height 5)
+    j +=1
+    plt.imshow(image, cmap='gray')  # cmap='gray' is for black and white picture.
+    # train[i][1] is i-th digit label
+    plt.title('predict = {}'.format(np.argmax(scores[i],0)))
+    plt.axis('off')  # do not show axis value
+plt.tight_layout()   # automatic padding between subplots
+plt.savefig('mnist_plot.png')
+plt.show()
+'''
 
 fig = plt.figure(figsize=(10,10))
 
@@ -200,7 +220,7 @@ plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.savefig('lstm_loss_plot.png')
 plt.show()
-
+'''
 '''
 new_model = keras.models.load_model('model.hdf5')
 new_model.summary()

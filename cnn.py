@@ -1,82 +1,163 @@
+
 import pandas as pd
 import numpy as np
 import os
-import cv2
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
-import keras
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Flatten
+from keras.models import Sequential,Model
+from keras.layers import LSTM, Dense, TimeDistributed,CuDNNLSTM,BatchNormalization,Flatten,Dropout
+from keras.layers import Input,concatenate,Activation
+
 from keras.layers.convolutional import Conv2D, MaxPooling2D
+from keras.utils import to_categorical
+from keras.callbacks import ModelCheckpoint,EarlyStopping
+import keras
+from keras.layers.advanced_activations import LeakyReLU
+
+from sklearn.preprocessing import MinMaxScaler,StandardScaler
+from sklearn.model_selection import train_test_split
 import tensorflow as tf
-import keras.backend.tensorflow_backend as K
+import cv2
+import matplotlib.pyplot as plt
+from hyperas.distributions import uniform,choice
+from keras.models import Sequential
+from hyperopt import Trials, STATUS_OK, tpe
+from hyperas import optim
+def data():
+    j = 0
+    x_data = []
+    y_data = []
 
-columns = ['x','y', 'label']
-j = 0
-x_data = []
-y_data = []
-scaler = MinMaxScaler()
+    for i in range(10):
+      while(os.path.exists("./DATA/test/{}augs_{}".format(i,j))):
+        j += 1
+      for k in range(j):
+        df = pd.read_csv("./DATA/test/{}augs_{}".format(i,k))
 
-for i in range(10):
-  while(os.path.exists("./DATA/{}/{}train_{}".format(i,i,j))):
-    j += 1
-  for k in range(j):
-    df = pd.read_csv("./DATA/{}/{}train_{}".format(i,i,k))
-    df_img = df[['x','y']].to_numpy()
-    img = np.zeros((500, 500, 1), np.uint8)
-    for k in range(len(df_img)):
-      if(k != len(df_img)-1):
-        cv2.line(img, (df_img[k][0],df_img[k][1]), (df_img[k+1][0],df_img[k+1][1]), (255,255,255), 25)
-    img = cv2.flip(img, 1)
-    img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
+        df = df.loc[(df.x!=0) & (df.y !=0)]
+        df_img_x = df[['x']].to_numpy()
+        df_img_x_mean = np.mean(df_img_x)
+        x_dif = int(250-df_img_x_mean)
+        #print('x',df_img_x)
+        df_img_y = df[['y']].to_numpy()
+        df_img_y_mean = np.mean(df_img_y)
+        y_dif = int(250-df_img_y_mean)
+        #print('y',df_img_y)
+        df_img = np.concatenate((df_img_x,df_img_y), axis=1)
+        df_img = np.rint(df_img)
+        df_img = df_img.astype(int)
+        img = np.zeros((500, 500, 1), np.uint8)
+        for k in range(len(df_img)):
+          if(k != len(df_img)-1):
+            cv2.line(img, (df_img[k][0],df_img[k][1]), (df_img[k+1][0],df_img[k+1][1]), (255,255,255), 25)
+        img = cv2.flip(img, 1)
+        img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
 
-    x_data.append(img)
-    y_data.append(df[['label']].to_numpy())
+        x_data.append(img)
+        y_data.append(df[['label']].to_numpy())
 
-    
-X_DATA = np.array(x_data)
-X_DATA = np.reshape(X_DATA,(-1,28,28,1))
-X_DATA = X_DATA/255
-Y_DATA = np.array(y_data)
+        
+    X_DATA = np.array(x_data)
+    X_DATA = np.reshape(X_DATA,(-1,28,28,1))
+    X_DATA = X_DATA/255
+    Y_DATA = np.array(y_data)
 
-for i in range(np.size(Y_DATA,0)):
-    Y_DATA[i] = np.unique(Y_DATA[i],axis=0)
-Y_DATA = Y_DATA.reshape((np.size(Y_DATA,0),1))
+    for i in range(np.size(Y_DATA,0)):
+        Y_DATA[i] = np.unique(Y_DATA[i],axis=0)
+    Y_DATA = Y_DATA.reshape((np.size(Y_DATA,0),1))
 
 
-X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.1, random_state=42)
+    X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.1, random_state=42)
 
-Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
+    Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 
-Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
-with K.tf.device('/gpu:0'):
-  model = Sequential()
-  model.add(Conv2D(40, kernel_size=5, padding="same",input_shape=(28, 28, 1), activation = 'relu'))
-  model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-  model.add(Conv2D(70, kernel_size=3, padding="same", activation = 'relu'))
-  model.add(Conv2D(200, kernel_size=3, padding="same", activation = 'relu'))
-  model.add(MaxPooling2D(pool_size=(3, 3), strides=(1, 1)))
+    Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
-  model.add(Conv2D(512, kernel_size=3, padding="valid", activation = 'relu'))
-  model.add(MaxPooling2D(pool_size=(3, 3), strides=(1, 1)))
-  model.add(Flatten())
-  model.add(Dense(units=100, activation='relu'  ))
-  model.add(Dropout(0.3))
+    return X_train,Y_train,X_test,Y_test
 
-  model.add(Dense(10,activation='softmax'))
+def model(X_train,Y_train,X_test,Y_test):
+    batch_size = 32
+    nb_epoch = 200
 
-  model.summary()
+    model = Sequential()
 
-  config = tf.ConfigProto()
-  config.gpu_options.allow_growth = True
-  sess = tf.Session(config=config)
+    model.add(Conv2D({{choice([32, 64, 128,256])}}, kernel_size=3, padding="same",input_shape=(28,28,1)))
+    model.add(Activation('relu'))
+    model.add(Conv2D({{choice([32, 64, 128,256])}}, kernel_size=3, padding="same"))
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout({{uniform(0, 1)}}))
 
-  model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-  hist = model.fit(X_train, Y_train,
-                  batch_size=16,
-                  epochs=30,
-                  verbose=1)
+    model.add(Conv2D({{choice([32, 64, 128,256])}}, kernel_size=3, padding="same"))
+    model.add(Activation('relu'))
+    model.add(Conv2D({{choice([32, 64, 128,256])}}, kernel_size=3, padding="same"))
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout({{uniform(0, 1)}}))
 
-  score = model.evaluate(X_test, Y_test, verbose=0)
-  print('Test loss:', score[0])
-  print('Test accuracy:', score[1])
+    model.add(Flatten())
+    model.add(Dense({{choice([256, 512, 1024])}}))
+    model.add(Activation('relu'))
+    model.add(Dropout(0.5))
+    model.add(Dense(10))
+    model.add(Activation('softmax'))
+    model.summary()
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    sess = tf.Session(config=config)
+    # let's train the model using SGD + momentum (how original).
+    model.compile(loss='categorical_crossentropy',
+                  optimizer=keras.optimizers.Adam(lr={{uniform(0.0001, 0.001)}}),
+                  metrics=['accuracy'])
+
+    # fit the model on the batches generated by datagen.flow()
+    model.fit(X_train,Y_train,batch_size={{choice([32, 64, 128])}},epochs=nb_epoch, verbose=1,validation_data=(X_test,Y_test))
+    score, acc = model.evaluate(X_test, Y_test, verbose=0)
+
+    return {'loss': -acc, 'status': STATUS_OK, 'model': model}
+
+if __name__ == '__main__':
+
+
+
+  X_train, Y_train, X_test, Y_test = data()
+
+  best_run, best_model = optim.minimize(model=model,
+                                        data=data,
+                                        algo=tpe.suggest,
+                                        max_evals=20,
+                                        trials=Trials())
+
+  print("Evalutation of best performing model:")
+  print(best_model.evaluate(X_test, Y_test))
+'''
+model = Sequential()
+model.add(Conv2D(40, kernel_size=5, padding="same",input_shape=(28, 28, 1), activation = 'relu'))
+model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+model.add(Conv2D(70, kernel_size=3, padding="same", activation = 'relu'))
+model.add(Conv2D(200, kernel_size=3, padding="same", activation = 'relu'))
+model.add(MaxPooling2D(pool_size=(3, 3), strides=(1, 1)))
+
+model.add(Conv2D(512, kernel_size=3, padding="valid", activation = 'relu'))
+model.add(MaxPooling2D(pool_size=(3, 3), strides=(1, 1)))
+model.add(Flatten())
+model.add(Dense(units=100, activation='relu'  ))
+model.add(Dropout(0.5))
+
+model.add(Dense(10,activation='softmax'))
+
+model.summary()
+
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+sess = tf.Session(config=config)
+
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+hist = model.fit(X_train, Y_train,
+                batch_size=16,
+                validation_split=0.1,
+                epochs=500,
+                verbose=1)
+
+score = model.evaluate(X_test, Y_test, verbose=0)
+print('Test loss:', score[0])
+print('Test accuracy:', score[1])
+'''

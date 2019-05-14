@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 from PIL import Image, ImageOps, ImageEnhance
 import math
 from math import floor, ceil
+from scipy.ndimage.interpolation import map_coordinates
+from scipy.ndimage.filters import gaussian_filter
 
 columns = ['x','y']
 j = 0
@@ -21,124 +23,36 @@ augmented_images = []
 augmented_image = []
 augmented_point = []
 augmented_points = []
-rotation = 0
 
-grid_width = 4
-grid_height = 4
-magnitude = abs(8)
+#taken from: https://www.kaggle.com/bguberfain/elastic-transform-for-data-augmentation
+# Function to distort image
+def elastic_transform(image, alpha, sigma, alpha_affine, random_state=None):
+    """Elastic deformation of images as described in [Simard2003]_ (with modifications).
+    .. [Simard2003] Simard, Steinkraus and Platt, "Best Practices for
+         Convolutional Neural Networks applied to Visual Document Analysis", in
+         Proc. of the International Conference on Document Analysis and
+         Recognition, 2003.
 
-dx = random.randint(-magnitude, magnitude)
-dy = random.randint(-magnitude, magnitude)
-def perform_operation(images):
+     Based on https://gist.github.com/erniejunior/601cdf56d2b424757de5
     """
-    Distorts the passed image(s) according to the parameters supplied during
-    instantiation, returning the newly distorted image.
+    if random_state is None:
+        random_state = np.random.RandomState(None)
+    shape = image.shape
+    dx = gaussian_filter((random_state.rand(*shape) * 2 - 1), sigma) * alpha
+    dy = gaussian_filter((random_state.rand(*shape) * 2 - 1), sigma) * alpha
+    dz = np.zeros_like(dx)
 
-    :param images: The image(s) to be distorted.
-    :type images: List containing PIL.Image object(s).
-    :return: The transformed image(s) as a list of object(s) of type
-        PIL.Image.
-    """
-    print(images.shape)
-    image_ = np.array(images)
+    x, y, z = np.meshgrid(np.arange(shape[1]), np.arange(shape[0]), np.arange(shape[2]))
+    indices = np.reshape(y+dy, (-1, 1)), np.reshape(x+dx, (-1, 1)), np.reshape(z, (-1, 1))
 
-    images = []
+    return map_coordinates(image, indices, order=1, mode='reflect').reshape(((-1,2)))
+im_merge = np.array([242,522])
+im_merge = im_merge.reshape((2,1,1))
+im_merge_t = elastic_transform(im_merge, im_merge.shape[1] * 2, im_merge.shape[1] * 0.08, im_merge.shape[1] * 0.08)
 
-    img = image_.reshape((550,550))
-    images.append(Image.fromarray(img.astype('uint8'),'L'))
-    w, h = images[0].size
-
-    horizontal_tiles = grid_width
-    vertical_tiles = grid_height
-
-    width_of_square = int(floor(w / float(horizontal_tiles)))
-    height_of_square = int(floor(h / float(vertical_tiles)))
-
-    width_of_last_square = w - (width_of_square * (horizontal_tiles - 1))
-    height_of_last_square = h - (height_of_square * (vertical_tiles - 1))
-
-    dimensions = []
-
-    for vertical_tile in range(vertical_tiles):
-        for horizontal_tile in range(horizontal_tiles):
-            if vertical_tile == (vertical_tiles - 1) and horizontal_tile == (horizontal_tiles - 1):
-                dimensions.append([horizontal_tile * width_of_square,
-                                    vertical_tile * height_of_square,
-                                    width_of_last_square + (horizontal_tile * width_of_square),
-                                    height_of_last_square + (height_of_square * vertical_tile)])
-            elif vertical_tile == (vertical_tiles - 1):
-                dimensions.append([horizontal_tile * width_of_square,
-                                    vertical_tile * height_of_square,
-                                    width_of_square + (horizontal_tile * width_of_square),
-                                    height_of_last_square + (height_of_square * vertical_tile)])
-            elif horizontal_tile == (horizontal_tiles - 1):
-                dimensions.append([horizontal_tile * width_of_square,
-                                    vertical_tile * height_of_square,
-                                    width_of_last_square + (horizontal_tile * width_of_square),
-                                    height_of_square + (height_of_square * vertical_tile)])
-            else:
-                dimensions.append([horizontal_tile * width_of_square,
-                                    vertical_tile * height_of_square,
-                                    width_of_square + (horizontal_tile * width_of_square),
-                                    height_of_square + (height_of_square * vertical_tile)])
-
-    # For loop that generates polygons could be rewritten, but maybe harder to read?
-    # polygons = [x1,y1, x1,y2, x2,y2, x2,y1 for x1,y1, x2,y2 in dimensions]
-
-    # last_column = [(horizontal_tiles - 1) + horizontal_tiles * i for i in range(vertical_tiles)]
-    last_column = []
-    for i in range(vertical_tiles):
-        last_column.append((horizontal_tiles-1)+horizontal_tiles*i)
-
-    last_row = range((horizontal_tiles * vertical_tiles) - horizontal_tiles, horizontal_tiles * vertical_tiles)
-
-    polygons = []
-    for x1, y1, x2, y2 in dimensions:
-        polygons.append([x1, y1, x1, y2, x2, y2, x2, y1])
-
-    polygon_indices = []
-    for i in range((vertical_tiles * horizontal_tiles) - 1):
-        if i not in last_row and i not in last_column:
-            polygon_indices.append([i, i + 1, i + horizontal_tiles, i + 1 + horizontal_tiles])
-    return polygon_indices,polygons,dimensions
-
-def do(image,polygons,polygon_indices,dimensions):
-    image = image.reshape((550,550))
-    image = Image.fromarray(image.astype('uint8'),'L')
-    for a, b, c, d in polygon_indices:
+print(im_merge_t.reshape((2)))
 
 
-        x1, y1, x2, y2, x3, y3, x4, y4 = polygons[a]
-        polygons[a] = [x1, y1,
-                        x2, y2,
-                        x3 + dx, y3 + dy,
-                        x4, y4]
-
-        x1, y1, x2, y2, x3, y3, x4, y4 = polygons[b]
-        polygons[b] = [x1, y1,
-                        x2 + dx, y2 + dy,
-                        x3, y3,
-                        x4, y4]
-
-        x1, y1, x2, y2, x3, y3, x4, y4 = polygons[c]
-        polygons[c] = [x1, y1,
-                        x2, y2,
-                        x3, y3,
-                        x4 + dx, y4 + dy]
-
-        x1, y1, x2, y2, x3, y3, x4, y4 = polygons[d]
-        polygons[d] = [x1 + dx, y1 + dy,
-                        x2, y2,
-                        x3, y3,
-                        x4, y4]
-
-    generated_mesh = []
-    for i in range(len(dimensions)):
-        generated_mesh.append([dimensions[i], polygons[i]])
-
-    return image.transform(image.size, Image.MESH, generated_mesh, resample=Image.BICUBIC)
-
-polygon_indices,polygons,dimensions =perform_operation(np.zeros((550, 550, 1), np.uint8))
 for i in range(10):
   
   while(os.path.exists("./DATA/Video/{}/{}train_{}".format(i,i,j))):
@@ -156,30 +70,9 @@ for i in range(10):
     img = np.zeros((550, 550, 1), np.uint8)
     img_ = np.zeros((550, 550, 1), np.uint8)
 
-    for l in range(len(df_img)):
-      img_[df_img[l][1]][df_img[l][0]] = 5000
-      img_[df_img[l][1]+1][df_img[l][0]] = 5000
-      img_[df_img[l][1]-1][df_img[l][0]] = 5000
-      img_[df_img[l][1]][df_img[l][0]+1] = 5000
-      img_[df_img[l][1]][df_img[l][0]-1] = 5000
-      img_[df_img[l][1]+1][df_img[l][0]-1] = 5000
-      img_[df_img[l][1]-1][df_img[l][0]-1] = 5000
-      img_[df_img[l][1]+1][df_img[l][0]+1] = 5000
-      img_[df_img[l][1]-1][df_img[l][0]+1] = 5000      
-      img_set.append(img_)
-      img_ = np.zeros((550, 550, 1), np.uint8)
-    for image in img_set:
-      augmented_images.append(do(image,polygons,polygon_indices,dimensions))
-    #print(np.size(img_set,axis=0))
-    for l in range(np.size(img_set,axis=0)):
-      img_ = np.array(augmented_images[l])
-      img_ = img_.reshape(-1)
-      print(np.max(img_))
-      augmented_point.append(np.argmax(img_))
-    for  l in range(len(augmented_point)):
-      x = augmented_point[l]%550
-      y = int(augmented_point[l]/550)
-      augmented_points.append([x,y])
+    df_img = df_img.reshape((-1,2,1))
+    augmented_points = elastic_transform(df_img, df_img.shape[1] * 2, df_img.shape[1] * 0.08, df_img.shape[1] * 0.08)
+
     dataframe = pd.DataFrame(augmented_points, columns= ['x','y'])
     
     dataframe['label'] = i
@@ -189,6 +82,7 @@ for i in range(10):
     augmented_point = []
     augmented_points = []
     img_set = []
+
 
 
 

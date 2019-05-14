@@ -13,20 +13,30 @@ img = np.zeros((100, 100, 1), np.uint8)
 
 #368x496
 for i in range(10):
-  while(os.path.exists("./DATA/aug/{}aug_s{}".format(i,j))):
+  while(os.path.exists("./DATA/test/{}augs_{}".format(i,j))):
     j += 1
-  for j in range(j):
-    df = pd.read_csv("./DATA/aug/{}aug_s{}".format(i,j))
+  for l in range(j):
+    df = pd.read_csv("./DATA/test/{}augs_{}".format(i,l))
     df = df.loc[(df.x!=0) & (df.y !=0)]
-    #scaler = MinMaxScaler(feature_range=(0, 100))
-    #df = scaler.fit_transform(df)
-    #df = df.astype(int)
-    df =df.values
+    df_img_x = df[['x']].to_numpy()
+    df_img_x_mean = np.mean(df_img_x)
+    x_dif = int(400-df_img_x_mean)
+    df_img_x += x_dif
+    #print('x',df_img_x)
+    df_img_y = df[['y']].to_numpy()
+    df_img_y_mean = np.mean(df_img_y)
+    y_dif = int(400-df_img_y_mean)
+    df_img_y +=y_dif
+    #print('y',df_img_y)
+    df_img = np.concatenate((df_img_x,df_img_y), axis=1)
+    df_img = np.rint(df_img)
+    df_img = df_img.astype(int)
+    #print(df_img)
     
-    img = np.zeros((500, 500, 1), np.uint8)
-    for k in range(len(df)):
-      if(k != len(df)-1):
-        cv2.line(img, (df[k][0],df[k][1]), (df[k+1][0],df[k+1][1]), (255,255,255), 25)
+    img = np.zeros((800, 800, 1), np.uint8)
+    for k in range(len(df_img)):
+      if(k != len(df_img)-1):
+        cv2.line(img, (df_img[k][0],df_img[k][1]), (df_img[k+1][0],df_img[k+1][1]), (255,255,255), 25)
     img = cv2.flip(img, 1)
     img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
     img_data.append(img)

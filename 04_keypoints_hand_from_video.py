@@ -36,7 +36,7 @@ args = parser.parse_known_args()
 
 # Custom Params (refer to include/openpose/flags.hpp for more parameters)
 params = dict()
-params["model_folder"] = "../../../../models/"
+params["model_folder"] = "../../../../../models/"
 params["hand"] = True
 #params["render_pose"] = 0
 params["hand_render"] = 2
