@@ -21,7 +21,7 @@ for i in range(10):
     #df = scaler.fit_transform(df)
     #df = df.astype(int)
     df =df.values
-    
+    print(len(df))
     img = np.zeros((500, 500, 1), np.uint8)
     for k in range(len(df)):
       if(k != len(df)-1):

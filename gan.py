@@ -6,7 +6,7 @@ import glob
 import os
 import pandas as pd
 #from __future__ import print_function, division
-from music21 import converter, instrument, note, chord, stream
+#from music21 import converter, instrument, note, chord, stream
 import keras
 from keras.layers import Input, Dense, Reshape, Dropout, CuDNNLSTM, Bidirectional, LSTM
 from keras.layers import BatchNormalization, Activation, ZeroPadding2D
@@ -14,14 +14,14 @@ from keras.layers.advanced_activations import LeakyReLU
 from keras.models import Sequential, Model
 from keras.optimizers import Adam
 from keras.utils import np_utils
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler,StandardScaler
 from sklearn.model_selection import train_test_split
 
 class GAN():
     def __init__(self, rows):
         self.seq_length = rows
         self.seq_shape = (self.seq_length, 2)
-        self.latent_dim = 50
+        self.latent_dim = 32
         self.disc_loss = []
         self.gen_loss =[]
         
@@ -35,7 +35,7 @@ class GAN():
         self.generator = self.build_generator()
 
         # The generator takes noise as input and generates note sequences
-        z = Input(shape=(50,2))
+        z = Input(shape=(32,))
         generated_seq = self.generator(z)
 
         # For the combined model we will only train the generator
@@ -52,12 +52,12 @@ class GAN():
     def build_discriminator(self):
 
         model = Sequential()
-        model.add(LSTM(64, input_shape=(50,2), return_sequences=True))
+        model.add(LSTM(64, input_shape=(32,2), return_sequences=True))
         model.add(Bidirectional(LSTM(64)))
         model.add(Dense(1, activation='sigmoid'))
         model.summary()
 
-        seq = Input(shape=(50,2))
+        seq = Input(shape=(32,2))
         validity = model(seq)
 
         return Model(seq, validity)
@@ -65,18 +65,27 @@ class GAN():
     def build_generator(self):
 
         model = Sequential()
-        model.add(LSTM(128, input_shape=(50,2), return_sequences=True))
-        model.add(LSTM(128,return_sequences=True))
+        model.add(Dense(256, input_dim=32))
+        model.add(LeakyReLU(alpha=0.2))
         model.add(BatchNormalization(momentum=0.8))
-        model.add(Dense(2, activation='tanh'))
+        model.add(Dense(512))
+        model.add(LeakyReLU(alpha=0.2))
+        model.add(BatchNormalization(momentum=0.8))
+        model.add(Dense(1024))
+        model.add(LeakyReLU(alpha=0.2))
+        model.add(BatchNormalization(momentum=0.8))
+        model.add(Dense(np.prod((32,2)), activation='sigmoid'))
+        model.add(Reshape((32,2)))
+        
         model.summary()
         
-        noise = Input(shape=(50,2))
+        noise = Input(shape=(32,))
+
         seq = model(noise)
 
         return Model(noise, seq)
 
-    def train(self,X_train,Y_train, epochs, batch_size=128, sample_interval=50):
+    def train(self,X_train,Y_train, epochs, batch_size=128, sample_interval=32):
 
         # Load and convert the data
 
@@ -101,7 +110,8 @@ class GAN():
 
             #noise = np.random.choice(range(484), (batch_size, self.latent_dim))
             #noise = (noise-242)/242
-            noise = np.random.uniform(0,1,[10,50,2])
+            noise = np.random.normal(0, 1, (batch_size, 32))
+
 
             # Generate a batch of new note sequences
             gen_seqs = self.generator.predict(noise)
@@ -113,7 +123,7 @@ class GAN():
 
 
             #  Training the Generator
-            noise = np.random.uniform(0,1,[10,50,2])
+            noise = np.random.normal(0, 1, (batch_size, 32))
 
             # Train the generator (to have the discriminator label samples as real)
             g_loss = self.combined.train_on_batch(noise, real)
@@ -144,7 +154,7 @@ class GAN():
 
     def generate_notes(self):
         for i in range(10):
-            noise = np.random.uniform(0,1,[10,50,2])
+            noise = np.random.normal(0, 1, (10, 1000))
             predictions = self.generator.predict(noise)
             #predictions = np.reshape(predictions,(10,50,2))
             for j in range(10):
@@ -170,7 +180,7 @@ if __name__ == '__main__':
     x_data = []
     y_data = []
 
-    scaler = MinMaxScaler((0,50))
+    scaler = StandardScaler()
 
     for i in range(10):
         while(os.path.exists("./DATA/{}/{}train_{}".format(i,i,j))):
@@ -191,12 +201,12 @@ if __name__ == '__main__':
 
 
     X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.1, random_state=42)
-    X_train = keras.preprocessing.sequence.pad_sequences(X_train, maxlen=50, padding='post', dtype='float32')
+    X_train = keras.preprocessing.sequence.pad_sequences(X_train, maxlen=32, padding='post', dtype='float32')
     print(X_train[0].shape)
     Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 
     Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
 
-    gan = GAN(rows=50)    
+    gan = GAN(rows=32)    
     gan.train(X_train=X_train,Y_train=Y_train,epochs=1000, batch_size=10, sample_interval=1)
