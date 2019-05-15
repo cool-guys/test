@@ -25,7 +25,7 @@ class GAN():
         self.disc_loss = []
         self.gen_loss =[]
         
-        optimizer = Adam(0.0002, 0.5)
+        optimizer = Adam(0.00002, 0.5)
 
         # Build and compile the discriminator
         self.discriminator = self.build_discriminator()
@@ -53,7 +53,7 @@ class GAN():
 
         model = Sequential()
         model.add(LSTM(64, input_shape=(32,2), return_sequences=True))
-        model.add(Bidirectional(LSTM(64)))
+        model.add(LSTM(64))
         model.add(Dense(1, activation='sigmoid'))
         model.summary()
 
@@ -67,13 +67,10 @@ class GAN():
         model = Sequential()
         model.add(Dense(256, input_dim=32))
         model.add(LeakyReLU(alpha=0.2))
-        model.add(BatchNormalization(momentum=0.8))
         model.add(Dense(512))
         model.add(LeakyReLU(alpha=0.2))
-        model.add(BatchNormalization(momentum=0.8))
         model.add(Dense(1024))
         model.add(LeakyReLU(alpha=0.2))
-        model.add(BatchNormalization(momentum=0.8))
         model.add(Dense(np.prod((32,2)), activation='sigmoid'))
         model.add(Reshape((32,2)))
         
@@ -154,7 +151,7 @@ class GAN():
 
     def generate_notes(self):
         for i in range(10):
-            noise = np.random.normal(0, 1, (10, 1000))
+            noise = np.random.normal(0, 1, (10, 32))
             predictions = self.generator.predict(noise)
             #predictions = np.reshape(predictions,(10,50,2))
             for j in range(10):
@@ -180,7 +177,7 @@ if __name__ == '__main__':
     x_data = []
     y_data = []
 
-    scaler = StandardScaler()
+    scaler = MinMaxScaler((0,100))
 
     for i in range(10):
         while(os.path.exists("./DATA/{}/{}train_{}".format(i,i,j))):
@@ -209,4 +206,4 @@ if __name__ == '__main__':
 
 
     gan = GAN(rows=32)    
-    gan.train(X_train=X_train,Y_train=Y_train,epochs=1000, batch_size=10, sample_interval=1)
+    gan.train(X_train=X_train,Y_train=Y_train,epochs=700, batch_size=10, sample_interval=1)
