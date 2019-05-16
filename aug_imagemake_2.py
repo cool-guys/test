@@ -4,34 +4,23 @@ import numpy as np
 import cv2
 from sklearn.preprocessing import MinMaxScaler,StandardScaler,QuantileTransformer
 import os
-
+import time
 j = 0
 n = 0
 img_data = []
 img_dict = {}
-img = np.zeros((100, 100, 1), np.uint8)
+
 
 #368x496
 for i in range(10):
+  start_time = time.time() 
   while(os.path.exists("./DATA/test/{}augs_{}".format(i,j))):
     j += 1
   for l in range(j):
-    df = pd.read_csv("./DATA/test/{}augs_{}".format(i,l))
-    df = df.loc[(df.x!=0) & (df.y !=0)]
-    df_img_x = df[['x']].to_numpy()
-    df_img_x_mean = np.mean(df_img_x)
-    x_dif = int(400-df_img_x_mean)
-    df_img_x += x_dif
-    #print('x',df_img_x)
-    df_img_y = df[['y']].to_numpy()
-    df_img_y_mean = np.mean(df_img_y)
-    y_dif = int(400-df_img_y_mean)
-    df_img_y +=y_dif
-    #print('y',df_img_y)
-    df_img = np.concatenate((df_img_x,df_img_y), axis=1)
-    df_img = np.rint(df_img)
-    df_img = df_img.astype(int)
-    #print(df_img)
+
+    df = pd.read_pickle("./DATA/test/{}augs_{}".format(i,l))
+    #df = df.loc[(df.x!=400) & (df.y !=400)]
+    df_img = df[['x','y']].to_numpy()
     
     img = np.zeros((800, 800, 1), np.uint8)
     for k in range(len(df_img)):
@@ -43,7 +32,9 @@ for i in range(10):
     img_dict['{}'.format(i)]  = np.array(img_data)
   img_data = []
   df = []
+  print("--- %s seconds ---" %(time.time() - start_time))
 print(img_dict['0'][0].shape)
+
 #cv2.imshow("draw", img_dict['0'][0])
 #cv2.waitKey(0)
 

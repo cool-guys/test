@@ -27,6 +27,7 @@ bxy_data = []
 axy_data = []
 scaler = StandardScaler(with_std=False)
 t_data = []
+grad = []
 del_data = []
 
 for i in range(10):
@@ -46,7 +47,9 @@ for i in range(10):
     df_img = np.concatenate((df_img_x,df_img_y), axis=1)
     df_img = np.rint(df_img)
     df_img = df_img.astype(int)
-    print(df_img.shape)
+    [vx,vy,x,y] = cv2.fitLine(df_img, cv2.DIST_L2,0,1,0.01)
+    print([vx,vy,x,y])
+    #print(df_img.shape)
     img = np.zeros((500, 500, 3), np.uint8)
     #for k in range(len(df_img)):
       #if(k != len(df_img)-1):
@@ -62,7 +65,10 @@ for i in range(10):
       if(l != 0):
         cv2.line(img, (df_img[l-1][0]+x_dif,df_img[l-1][1]+y_dif), (df_img[l][0]+x_dif,df_img[l][1]+y_dif), (255,255,255), 20)
     img = cv2.flip(img, 1)
-
+    rows,cols = img.shape[:2]
+    lefty = int((-x*vy/vx) + y)
+    righty = int(((cols-x)*vy/vx)+y)
+    cv2.line(img,(cols-1,righty),(0,lefty),(255,255,255),2)
     img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
 
     x_data.append(img)

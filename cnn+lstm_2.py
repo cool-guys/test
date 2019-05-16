@@ -17,7 +17,7 @@ from sklearn.model_selection import train_test_split
 import tensorflow as tf
 import cv2
 import matplotlib.pyplot as plt
-
+import time 
 cb_checkpoint = ModelCheckpoint(filepath='model.hdf5',
                                 verbose=1)
 
@@ -31,27 +31,17 @@ xt_img = []
 scaler = MinMaxScaler((0,100))
 
 for i in range(10):
-  while(os.path.exists("./DATA/test/{}augs_{}".format(i,j))):
-    j += 1
-  for k in range(j):
-    df = pd.read_csv("./DATA/test/{}augs_{}".format(i,k))
-    df = df.loc[(df.x!=0) & (df.y !=0)]
-    df_img_x = df[['x']].to_numpy()
-    df_img_x_mean = np.mean(df_img_x)
-    x_dif = int(400-df_img_x_mean)
-    df_img_x += x_dif
-    #print('x',df_img_x)
-    df_img_y = df[['y']].to_numpy()
-    df_img_y_mean = np.mean(df_img_y)
-    y_dif = int(400-df_img_y_mean)
-    df_img_y +=y_dif
-    #print('y',df_img_y)
-    df_img = np.concatenate((df_img_x,df_img_y), axis=1)
-    df_img = np.rint(df_img)
-    df_img = df_img.astype(int)
+  start_time = time.time()
+  #while(os.path.exists("./DATA/test/{}augs_{}".format(i,j))):
+    #j += 1
+  
+  for k in range(500):
+    df = pd.read_pickle("./DATA/test/{}augs_{}".format(i,k))
+    #df = df.loc[(df.x!=0) & (df.y !=0)]
+    df_img = df[['x','y']].to_numpy()
     x_data.append(df_img)
     y_data.append(df[['label']].to_numpy())
-
+  print("--- %s seconds ---" %(time.time() - start_time))
     
 X_DATA = np.array(x_data)
 Y_DATA = np.array(y_data)
@@ -113,6 +103,7 @@ for i in range(np.size(X_test,0)):
     X_test[i][j][0] /= np.std(X_test[i],axis=0)[0]
     X_test[i][j][1] /= np.std(X_test[i],axis=0)[1]
 '''
+
 def train_generator():
   n = 0
   while True:
@@ -179,10 +170,10 @@ model.compile(loss='categorical_crossentropy',
                 optimizer=keras.optimizers.Adam(lr=0.0001),
                 metrics=['accuracy'])
 
-model.fit_generator(train_generator(),steps_per_epoch=7000, epochs=20,validation_data=test_generator(),validation_steps=3000)
+model.fit_generator(train_generator(),steps_per_epoch=3500, epochs=20,validation_data=test_generator(),validation_steps=1500)
 
-score = model.evaluate_generator(test_generator(),steps=3000)
-scores = model.predict_generator(test_generator(),steps=3000)
+score = model.evaluate_generator(test_generator(),steps=1500)
+scores = model.predict_generator(test_generator(),steps=1500)
 true_value = np.argmax(Y_test,1)
 predict_value = np.argmax(scores,1)
 list_ = []

@@ -1,4 +1,3 @@
-
 import pandas as pd
 import numpy as np
 import os
@@ -13,7 +12,7 @@ from sklearn.model_selection import train_test_split
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import cv2 
-
+import time
 cb_checkpoint = ModelCheckpoint(filepath='model.hdf5',
                                 verbose=1)
 
@@ -26,24 +25,18 @@ xt_img = []
 scaler = MinMaxScaler((0,100))
 
 for i in range(10):
+  #start_time = time.time() 
   while(os.path.exists("./DATA/test/{}augs_{}".format(i,j))):
     j += 1
+  start_time = time.time()
   for k in range(j):
-    df = pd.read_csv("./DATA/test/{}augs_{}".format(i,k))
-
-    df_img_x = df[['x']].to_numpy()
-    df_img_x_mean = np.mean(df_img_x)
-    df_img_x = (df_img_x - df_img_x_mean)/np.std(df_img_x)
-
-    df_img_y = df[['y']].to_numpy()
-    df_img_y_mean = np.mean(df_img_y)
-    df_img_y = (df_img_y - df_img_y_mean)/np.std(df_img_y)
-
-    df_img = np.concatenate((df_img_x,df_img_y), axis=1)
+    df = pd.read_pickle("./DATA/test/{}augs_{}".format(i,k))
+    df_img = df[['x','y']].to_numpy()
 
     z_data.append(df_img)
-    x_data.append(df[['x','y']].to_numpy())
+    #x_data.append(df[['x','y']].to_numpy())
     y_data.append(df[['label']].to_numpy())
+  print("--- %s seconds ---" %(time.time() - start_time))
 
     
 X_DATA = np.array(x_data)
@@ -57,7 +50,7 @@ for i in range(np.size(Y_DATA,0)):
 Y_DATA = Y_DATA.reshape((np.size(Y_DATA,0),1))
 
 
-X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.3, random_state=52)
+X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.7, random_state=52)
 
 Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 
@@ -70,13 +63,10 @@ for i in range(np.size(X_train,0)):
       cv2.line(img, (X_train[i][k][0],X_train[i][k][1]), (X_train[i][k+1][0],X_train[i][k+1][1]), (255,255,255), 25)
   img = cv2.flip(img, 1)
   img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
-
   x_img.append(img)
-
 X_train_img = np.array(x_img)
 X_train_img = np.reshape(X_train_img,(-1,28,28,1))
 X_train_img = X_train_img/255
-
 for i in range(np.size(X_test,0)):
   img = np.zeros((500, 500, 1), np.uint8)
   for k in range(len(X_test[i])):
@@ -84,9 +74,7 @@ for i in range(np.size(X_test,0)):
       cv2.line(img, (X_test[i][k][0],X_test[i][k][1]), (X_test[i][k+1][0],X_test[i][k+1][1]), (255,255,255), 25)
   img = cv2.flip(img, 1)
   img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
-
   xt_img.append(img)
-
 X_test_img = np.array(xt_img)
 X_test_img = np.reshape(X_test_img,(-1,28,28,1))
 X_test_img = X_test_img/255
@@ -125,7 +113,6 @@ def test_generator():
       n += 1
     else:
       n = 0
-    print(n)
     yield x_test, y_test 
 
 config = tf.ConfigProto()
@@ -146,10 +133,10 @@ model.summary()
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 
 
-results = model.fit_generator(train_generator() ,steps_per_epoch=7000, epochs=35,validation_data=test_generator(),validation_steps=3000, verbose=1)
+results = model.fit_generator(train_generator() ,steps_per_epoch=3500, epochs=35,validation_data=test_generator(),validation_steps=1500, verbose=1)
 
-score = model.evaluate_generator(test_generator(),steps=3000)
-scores = model.predict_generator(test_generator(),steps=3000)
+score = model.evaluate_generator(test_generator(),steps=1500)
+scores = model.predict_generator(test_generator(),steps=1500)
 true_value = np.argmax(Y_test,1)
 predict_value = np.argmax(scores,1)
 list_ = []
@@ -176,10 +163,7 @@ plt.tight_layout()   # automatic padding between subplots
 plt.savefig('mnist_plot.png')
 plt.show()
 '''
-
 fig = plt.figure(figsize=(10,10))
-
-
 for i in range(30):
         # 2x5 그리드에 i+1번째 subplot을 추가하고 얻어옴
         subplot = fig.add_subplot(5, 6, i + 1)
@@ -198,7 +182,6 @@ for i in range(30):
 plt.tight_layout()
 plt.savefig('lstm_plot.png')
 plt.show()
-
 print(results.history.keys())
 # summarize history for accuracy
 plt.figure(figsize=(10,5))
