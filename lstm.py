@@ -44,7 +44,7 @@ Y_DATA = np.array(y_data)
 Z_DATA = np.array(z_data)
 
 X_DATA = Z_DATA
-
+print(np.size(Y_DATA,0))
 for i in range(np.size(Y_DATA,0)):
     Y_DATA[i] = np.unique(Y_DATA[i],axis=0)
 Y_DATA = Y_DATA.reshape((np.size(Y_DATA,0),1))

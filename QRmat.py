@@ -30,7 +30,7 @@ for i in range(10):
   while(os.path.exists("./DATA/Video/{}/{}train_{}".format(i,i,j))):
     j += 1
 
-  for k in range(500):
+  for k in range(100):
     start_time = time.time()
     df = pd.read_csv("./DATA/Video/{}/{}train_{}".format(i,i,k%20))
     df = df.loc[(df.x!=0) & (df.y !=0)]
