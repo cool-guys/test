@@ -13,6 +13,7 @@ img = np.zeros((100, 100, 1), np.uint8)
 
 #368x496
 for i in range(10):
+  j = 0
   while(os.path.exists("./DATA/Video/{}/{}train_{}".format(i,i,j))):
     j += 1
   for j in range(j):

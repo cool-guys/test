@@ -61,7 +61,12 @@ for i in range(np.size(X_train,0)):
   img = np.zeros((800, 800, 1), np.uint8)
   for k in range(len(X_train[i])):
     if(k != len(X_train[i])-1):
-      cv2.line(img, (X_train[i][k][0],X_train[i][k][1]), (X_train[i][k+1][0],X_train[i][k+1][1]), (255,255,255), 25)
+      cv2.line(img, (X_train[i][k][0],X_train[i][k][1]), (X_train[i][k+1][0],X_train[i][k+1][1]), (255,255,255), 10)
+  ret,thresh = cv2.threshold(img,127,255,0)
+  contours,hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, 2)
+  cnt = contours[0]
+  x,y,w,h = cv2.boundingRect(cnt)
+  img = img[y-20:y+h+20,x-20:x+w+20]
   img = cv2.flip(img, 1)
   img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
 
@@ -75,7 +80,12 @@ for i in range(np.size(X_test,0)):
   img = np.zeros((800, 800, 1), np.uint8)
   for k in range(len(X_test[i])):
     if(k != len(X_test[i])-1):
-      cv2.line(img, (X_test[i][k][0],X_test[i][k][1]), (X_test[i][k+1][0],X_test[i][k+1][1]), (255,255,255), 25)
+      cv2.line(img, (X_test[i][k][0],X_test[i][k][1]), (X_test[i][k+1][0],X_test[i][k+1][1]), (255,255,255), 10)
+  ret,thresh = cv2.threshold(img,127,255,0)
+  contours,hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, 2)
+  cnt = contours[0]
+  x,y,w,h = cv2.boundingRect(cnt)
+  img = img[y-20:y+h+20,x-20:x+w+20]
   img = cv2.flip(img, 1)
   img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
 
@@ -138,7 +148,7 @@ sess = tf.Session(config=config)
 
 input_1 = Input(shape=(28, 28, 1))
 
-x_1 = Conv2D(40, kernel_size=5, padding="same", activation = 'relu')(input_1)
+x_1 = Conv2D(40, kernel_size=3, padding="same", activation = 'relu')(input_1)
 x_1 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(x_1)
 
 x_1 = Conv2D(70, kernel_size=3, padding="same", activation = 'relu')(x_1)
@@ -184,8 +194,8 @@ for i in range(np.size(true_value,0)):
 
 print(score[1]*100)
 
-ROW = 4
-COLUMN = 5
+ROW = 5
+COLUMN = 6
 j = 1
 for i in list_:
     # train[i][0] is i-th image data with size 28x28

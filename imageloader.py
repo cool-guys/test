@@ -70,7 +70,7 @@ for i in range(10):
     A = np.matmul(Q,R)
     #A = np.array([[1+a,0],[0,1+a]])
     for l in range(len(df_img)):
-      if(k == 0):
+      if(k <= 100):
         point_ = df_img[l]
       else:
         point_ = np.matmul(Q,df_img[l])
@@ -88,12 +88,12 @@ for i in range(10):
     #df = df.loc[(df.x!=400) & (df.y !=400)]
     df_img_x = df[['x']].to_numpy()
     df_img_x_mean = np.mean(df_img_x)
-    x_dif = int(225-df_img_x_mean)
+    x_dif = int(400-df_img_x_mean)
     df_img_x += x_dif
     #print('x',df_img_x)
     df_img_y = df[['y']].to_numpy()
     df_img_y_mean = np.mean(df_img_y)
-    y_dif = int(225-df_img_y_mean)
+    y_dif = int(400-df_img_y_mean)
     df_img_y +=y_dif
 
     df_img = np.concatenate((df_img_x,df_img_y), axis=1)

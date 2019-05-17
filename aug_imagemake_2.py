@@ -25,9 +25,15 @@ for i in range(10):
     img = np.zeros((800, 800, 1), np.uint8)
     for k in range(len(df_img)):
       if(k != len(df_img)-1):
-        cv2.line(img, (df_img[k][0],df_img[k][1]), (df_img[k+1][0],df_img[k+1][1]), (255,255,255), 25)
+        cv2.line(img, (df_img[k][0],df_img[k][1]), (df_img[k+1][0],df_img[k+1][1]), (255,255,255), 10)
+
+    ret,thresh = cv2.threshold(img,127,255,0)
+    contours,hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, 2)
+    cnt = contours[0]
+    x,y,w,h = cv2.boundingRect(cnt)
+    img = img[y-20:y+h+20,x-20:x+w+20]
     img = cv2.flip(img, 1)
-    img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+    img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
     img_data.append(img)
     img_dict['{}'.format(i)]  = np.array(img_data)
   img_data = []
