@@ -5,6 +5,7 @@ import cv2
 from sklearn.preprocessing import MinMaxScaler,StandardScaler,QuantileTransformer
 import os
 
+
 j = 0
 n = 0
 img_data = []
@@ -13,35 +14,36 @@ img = np.zeros((100, 100, 1), np.uint8)
 
 #368x496
 for i in range(10):
-  j = 0
-  while(os.path.exists("./DATA/Video/{}/{}train_{}".format(i,i,j))):
+  while(os.path.exists("./DATA/0/0train_{}".format(j))):
     j += 1
   for j in range(j):
-    df = pd.read_csv("./DATA/Video/{}/{}train_{}".format(i,i,j))
-    df = df.loc[(df.x!=0) & (df.y !=0)]
-
-    #scaler = MinMaxScaler(feature_range=(0, 100))
-    #df = scaler.fit_transform(df)
-    #df = df.astype(int)
-
-    df =df.values
+    if(os.path.exists("./DATA/{}/{}train_{}".format(i,i,j))):
+      df = pd.read_csv("./DATA/{}/{}train_{}".format(i,i,j))
+      df =df.values
     
-    img = np.zeros((500, 500, 1), np.uint8)
-    for k in range(len(df)):
-      if(k != len(df)-1):
-        cv2.line(img, (df[k][0],df[k][1]), (df[k+1][0],df[k+1][1]), (255,255,255), 25)
-    img = cv2.flip(img, 1)
-    img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
-    img_data.append(img)
-    img_dict['{}'.format(i)]  = np.array(img_data)
+      img = np.zeros((500, 500, 1), np.uint8)
+      for k in range(len(df)):
+        if(k != len(df)-1):
+          cv2.line(img, (df[k][0],df[k][1]), (df[k+1][0],df[k+1][1]), (255,255,255), 25)
+      img = cv2.flip(img, 1)
+      img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+      img_data.append(img)
+      img_dict['{}'.format(i)]  = np.array(img_data)
+    else:
+      img = np.zeros((500, 500, 1), np.uint8)
+      img = cv2.flip(img, 1)
+      img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+      img_data.append(img)
+      img_dict['{}'.format(i)]  = np.array(img_data)
   img_data = []
   df = []
-print(img_dict['0'][0].shape)
+
+#print(img_dict['0'][0].shape)
 #cv2.imshow("draw", img_dict['0'][0])
 #cv2.waitKey(0)
 
 
-max_val = 7
+max_val = 17
 def onclick(event):
     global n
     if(event.key == 'right'):
@@ -49,10 +51,13 @@ def onclick(event):
       print("right")
       plt.close()
 
+      
+
     elif(event.key == 'left'):
       n -= 1
       print("left")
       plt.close()
+
     elif(event.key == 'enter'):
       exit()
 
@@ -64,8 +69,9 @@ def onclick(event):
       idx=n
       print('figure {} , number {} is deleted'.format(n,k))
       for filename in files:
-        while(idx < max_val):
+        while(idx < (len(files)/2)-1):
                 os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                os.rename(dir + "{}train_{}.mp4".format(k,idx+1), dir +"{}train_{}.mp4".format(k,idx))
                 idx=idx+1
 
 
@@ -76,8 +82,9 @@ def onclick(event):
       k=2
       print('figure {} , number {} is deleted'.format(n,k))
       for filename in files:
-        while(idx < max_val):
+        while(idx < (len(files)-2)/2 ):
                 os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                os.rename(dir + "{}train_{}.mp4".format(k,idx+1), dir +"{}train_{}.mp4".format(k,idx))
                 idx=idx+1
      
     elif(event.key =='3'):
@@ -87,8 +94,9 @@ def onclick(event):
       k=3
       print('figure {} , number {} is deleted'.format(n,k))
       for filename in files:
-        while(idx < max_val):
+        while(idx < (len(files)/2)-1 ):
                 os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                os.rename(dir + "{}train_{}.mp4".format(k,idx+1), dir +"{}train_{}.mp4".format(k,idx))
                 idx=idx+1
 
     elif(event.key =='4'):
@@ -98,8 +106,9 @@ def onclick(event):
       k=4
       print('figure {} , number {} is deleted'.format(n,k))
       for filename in files:
-        while(idx < max_val):
+        while(idx < (len(files)/2)-1 ):
                 os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                os.rename(dir + "{}train_{}.mp4".format(k,idx+1), dir +"{}train_{}.mp4".format(k,idx))
                 idx=idx+1
 
     elif(event.key =='5'):
@@ -109,8 +118,9 @@ def onclick(event):
       k=5
       print('figure {} , number {} is deleted'.format(n,k))
       for filename in files:
-        while(idx < max_val):
+        while(idx < (len(files)/2)-1 ):
                 os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                os.rename(dir + "{}train_{}.mp4".format(k,idx+1), dir +"{}train_{}.mp4".format(k,idx))
                 idx=idx+1
 
     elif(event.key =='6'):
@@ -120,8 +130,9 @@ def onclick(event):
       k=6
       print('figure {} , number {} is deleted'.format(n,k))
       for filename in files:
-        while(idx < max_val):
+        while(idx < (len(files)/2)-1 ):
                 os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                os.rename(dir + "{}train_{}.mp4".format(k,idx+1), dir +"{}train_{}.mp4".format(k,idx))
                 idx=idx+1
 
     elif(event.key =='7'):
@@ -131,8 +142,9 @@ def onclick(event):
       k=7
       print('figure {} , number {} is deleted'.format(n,k))
       for filename in files:
-        while(idx < max_val):
+        while(idx < (len(files)/2)-1 ):
                 os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                os.rename(dir + "{}train_{}.mp4".format(k,idx+1), dir +"{}train_{}.mp4".format(k,idx))
                 idx=idx+1
 
     elif(event.key =='8'):
@@ -142,8 +154,9 @@ def onclick(event):
       k=8
       print('figure {} , number {} is deleted'.format(n,k))
       for filename in files:
-        while(idx < max_val):
+        while(idx < (len(files)/2)-1):
                 os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                os.rename(dir + "{}train_{}.mp4".format(k,idx+1), dir +"{}train_{}.mp4".format(k,idx))
                 idx=idx+1
 
     elif(event.key =='9'):
@@ -153,19 +166,21 @@ def onclick(event):
       k=9
       print('figure {} , number {} is deleted'.format(n,k))
       for filename in files:
-        while(idx < max_val):
+        while(idx < (len(files)/2)-1 ):
                 os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                os.rename(dir + "{}train_{}.mp4".format(k,idx+1), dir +"{}train_{}.mp4".format(k,idx))
                 idx=idx+1  
 
     elif(event.key =='0'):
       dir = './DATA/0/'
       files = os.listdir(dir)
       idx=n
-      print('figure {} , number {} is deleted'.format(n,k))
       k=0
+      print('figure {} , number {} is deleted'.format(n,k))
       for filename in files:
-        while(idx < max_val):
+        while(idx < (len(files)/2)-1 ):
                 os.rename(dir + "{}train_{}".format(k,idx+1), dir +"{}train_{}".format(k,idx))
+                os.rename(dir + "{}train_{}.mp4".format(k,idx+1), dir +"{}train_{}.mp4".format(k,idx))
                 idx=idx+1
      
 fig = plt.figure(n)
@@ -173,6 +188,7 @@ fig = plt.figure(n)
 while(1):
 
   fig = plt.figure(n)
+  
   for i in range(10):
     subplot = fig.add_subplot(2, 5, i+1)
     subplot.set_xticks([])
@@ -181,16 +197,10 @@ while(1):
     subplot.set_title('{}'.format(i))
     #cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick)
     subplot.imshow(img_dict['{}'.format(i)][n],cmap=plt.cm.gray_r)
-   
+    
+
   
-  cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick)
+  cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick) 
   plt.show(fig)
   
-
-
-  #cid = plt.gcf().canvas.mpl_connect('key_press_event', onclick)
- # plt.close(fig)
-
-
-#print(img_dict['1'][3].shape)
-
+  
