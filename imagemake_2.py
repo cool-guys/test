@@ -23,6 +23,7 @@ for i in range(10):
     #scaler = MinMaxScaler(feature_range=(0, 100))
     #df = scaler.fit_transform(df)
     #df = df.astype(int)
+
     df =df.values
     
     img = np.zeros((500, 500, 1), np.uint8)
@@ -30,7 +31,7 @@ for i in range(10):
       if(k != len(df)-1):
         cv2.line(img, (df[k][0],df[k][1]), (df[k+1][0],df[k+1][1]), (255,255,255), 25)
     img = cv2.flip(img, 1)
-    img = cv2.resize(img,(100,100),interpolation=cv2.INTER_AREA)
+    img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
     img_data.append(img)
     img_dict['{}'.format(i)]  = np.array(img_data)
   img_data = []

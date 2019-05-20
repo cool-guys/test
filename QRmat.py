@@ -30,7 +30,7 @@ for i in range(10):
   while(os.path.exists("./DATA/Video/{}/{}train_{}".format(i,i,j))):
     j += 1
 
-  for k in range(500):
+  for k in range(100):
     start_time = time.time()
     df = pd.read_csv("./DATA/Video/{}/{}train_{}".format(i,i,k%j))
     df = df.loc[(df.x!=0) & (df.y !=0)]
@@ -88,12 +88,12 @@ for i in range(10):
     #df = df.loc[(df.x!=400) & (df.y !=400)]
     df_img_x = df[['x']].to_numpy()
     df_img_x_mean = np.mean(df_img_x)
-    x_dif = int(225-df_img_x_mean)
+    x_dif = int(275-df_img_x_mean)
     df_img_x += x_dif
     #print('x',df_img_x)
     df_img_y = df[['y']].to_numpy()
     df_img_y_mean = np.mean(df_img_y)
-    y_dif = int(225-df_img_y_mean)
+    y_dif = int(275-df_img_y_mean)
     df_img_y +=y_dif
 
     df_img = np.concatenate((df_img_x,df_img_y), axis=1)
@@ -101,7 +101,7 @@ for i in range(10):
     df_img = df_img.astype(int)
     dataframe = pd.DataFrame(df_img, columns= ['x','y'])
     dataframe['label'] = i
-    dataframe.to_pickle("./DATA/test/{}augs_{}".format(i,k))
+    dataframe.to_pickle("./DATA/test/{}augs_{}.pickle".format(i,k))
     augmented_images = []
     augmented_image = []
     augmented_point = []

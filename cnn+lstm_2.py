@@ -18,6 +18,8 @@ import tensorflow as tf
 import cv2
 import matplotlib.pyplot as plt
 import time 
+from sklearn.metrics import classification_report, confusion_matrix
+import seaborn as sn
 cb_checkpoint = ModelCheckpoint(filepath='model.hdf5',
                                 verbose=1)
 
@@ -35,8 +37,8 @@ for i in range(10):
   #while(os.path.exists("./DATA/test/{}augs_{}".format(i,j))):
     #j += 1
   
-  for k in range(500):
-    df = pd.read_pickle("./DATA/test/{}augs_{}".format(i,k))
+  for k in range(100):
+    df = pd.read_pickle("./DATA/test/{}augs_{}.pickle".format(i,k))
     #df = df.loc[(df.x!=0) & (df.y !=0)]
     df_img = df[['x','y']].to_numpy()
     x_data.append(df_img)
@@ -51,7 +53,7 @@ for i in range(np.size(Y_DATA,0)):
 Y_DATA = Y_DATA.reshape((np.size(Y_DATA,0),1))
 
 
-X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.3, random_state=52)
+X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.1, random_state=52)
 
 Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 
@@ -180,10 +182,10 @@ model.compile(loss='categorical_crossentropy',
                 optimizer=keras.optimizers.Adam(lr=0.0001),
                 metrics=['accuracy'])
 
-model.fit_generator(train_generator(),steps_per_epoch=3500, epochs=20,validation_data=test_generator(),validation_steps=1500)
+model.fit_generator(train_generator(),steps_per_epoch=900, epochs=1,validation_data=test_generator(),validation_steps=100)
 
-score = model.evaluate_generator(test_generator(),steps=1500)
-scores = model.predict_generator(test_generator(),steps=1500)
+score = model.evaluate_generator(test_generator(),steps=100)
+scores = model.predict_generator(test_generator(),steps=100)
 true_value = np.argmax(Y_test,1)
 predict_value = np.argmax(scores,1)
 list_ = []
@@ -194,8 +196,8 @@ for i in range(np.size(true_value,0)):
 
 print(score[1]*100)
 
-ROW = 5
-COLUMN = 6
+ROW = 4
+COLUMN = 5
 j = 1
 for i in list_:
     # train[i][0] is i-th image data with size 28x28
@@ -207,6 +209,12 @@ for i in list_:
     plt.title('predict = {}'.format(np.argmax(scores[i],0)))
     plt.axis('off')  # do not show axis value
 plt.tight_layout()   # automatic padding between subplots
+
+cm = confusion_matrix(true_value, predict_value)
+df_cm = pd.DataFrame(cm, index = [i for i in "0123456789"],
+                  columns = [i for i in "0123456789"])
+plt.figure(figsize = (10,7))
+sn.heatmap(df_cm, annot=True)
 plt.savefig('mnist_plot.png')
 plt.show()
 

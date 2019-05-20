@@ -44,7 +44,7 @@ class data_process:
       for direct in dir_list[0]:
         folder = self.dir + '/' + direct
         for files in os.listdir(folder):
-          if(files[-1] == 'v'):
+          if(files[-2] != 'p'):
             df = pd.read_csv(folder + '/' + files)
             df = df.loc[(df.x!=0) & (df.y !=0)]
             points = df[['x','y']].to_numpy()
@@ -72,21 +72,31 @@ class data_process:
   def image_make(self):
 
     for i in range(np.size(self.point,0)):
-      img = np.zeros((800, 800, 1), np.uint8)
+      img = np.zeros((550, 550, 1), np.uint8)
       for k in range(len(self.point[i])):
         if(k != len(self.point[i])-1):
           if(self.label[i][0][0][0] == 1):
-            cv2.line(img, (self.point[i][k][0],self.point[i][k][1]), (self.point[i][k+1][0],self.point[i][k+1][1]), (255,255,255), 3)
+            cv2.line(img, (self.point[i][k][0],self.point[i][k][1]), (self.point[i][k+1][0],self.point[i][k+1][1]), (255,255,255), 20)
           else:
-            cv2.line(img, (self.point[i][k][0],self.point[i][k][1]), (self.point[i][k+1][0],self.point[i][k+1][1]), (255,255,255), 10)
+            cv2.line(img, (self.point[i][k][0],self.point[i][k][1]), (self.point[i][k+1][0],self.point[i][k+1][1]), (255,255,255), 20)
+
       ret,thresh = cv2.threshold(img,127,255,0)
       contours,hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, 2)
       cnt = contours[0]
       x,y,w,h = cv2.boundingRect(cnt)
-      if(x < 20 or y < 20):
-        img = img[y:y+h+20,x:x+w+20]
+      a = 0
+      while(x > a and y > a and x + w > a and y + h > a and self.label[i][0][0][0] == 1):
+        a += 1 
+      #if(x < 40 or y < 40):
+        #img = img[y:y+h+20,x:x+w+20]
+      #else:
+      if(a != 0):
+        img = img[y-60:y+h+60,x-60:x+w+60]
       else:
-        img = img[y-20:y+h+20,x-20:x+w+20]
+        if(x < 40 or y < 40):
+          img = img[y:y+h+20,x:x+w+20]
+        else:
+          img = img[y-40:y+h+40,x-40:x+w+40]
       img = cv2.flip(img, 1)
       img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
       #print(self.label[i][0][0][0])

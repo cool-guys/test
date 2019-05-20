@@ -26,7 +26,7 @@ early_stopping = EarlyStopping()
 
 scaler = MinMaxScaler((0,100))
 
-dp = data_process('DATA/test')
+dp = data_process('./DATA/test')
 dp.point_data_load()
 dp.image_make()
 dp.image_read()
@@ -69,6 +69,7 @@ def train_generator():
     x_train_img = X_train_img[n]
     x_train_img = np.reshape(x_train_img,(1,28,28,1))
     y_train = Y_train[n].reshape(1,10)
+    
     #print(y_train)
     if(n < np.size(X_train,0)-1):
       n += 1
