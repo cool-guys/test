@@ -13,6 +13,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import cv2 
 import time
+from imageloader import data_process
 cb_checkpoint = ModelCheckpoint(filepath='model.hdf5',
                                 verbose=1)
 
@@ -24,37 +25,26 @@ x_img = []
 xt_img = []
 scaler = MinMaxScaler((0,100))
 
-for i in range(10):
-  #start_time = time.time() 
-  while(os.path.exists("./DATA/test/{}augs_{}.pickle".format(i,j))):
-    j += 1
-  start_time = time.time()
-  for k in range(j):
-    df = pd.read_pickle("./DATA/test/{}augs_{}.pickle".format(i,k))
-    df_img = df[['x','y']].to_numpy()
-
-    z_data.append(df_img)
-    #x_data.append(df[['x','y']].to_numpy())
-    y_data.append(df[['label']].to_numpy())
-  print("--- %s seconds ---" %(time.time() - start_time))
-
-    
-X_DATA = np.array(x_data)
-Y_DATA = np.array(y_data)
-Z_DATA = np.array(z_data)
-
-X_DATA = Z_DATA
-print(np.size(Y_DATA,0))
-for i in range(np.size(Y_DATA,0)):
-    Y_DATA[i] = np.unique(Y_DATA[i],axis=0)
-Y_DATA = Y_DATA.reshape((np.size(Y_DATA,0),1))
+dp = data_process('./DATA/test')
+dp.point_data_load()
+dp.image_make()
+#dp.image_read()
+dp.data_shuffle()
 
 
-X_train, X_test, Y_train, Y_test = train_test_split(X_DATA, Y_DATA, test_size=0.7, random_state=52)
+
+size = int(np.size(dp.point,0) * 0.9)
+X_train = dp.point[:size]
+X_test = dp.point[size:]
+X_train_img = dp.images[:size]
+X_test_img = dp.images[size:]
+Y_train = dp.label[:size]
+Y_test = dp.label[size:]
 
 Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
-
 Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
+
+
 '''
 for i in range(np.size(X_train,0)):
   img = np.zeros((500, 500, 1), np.uint8)
@@ -133,7 +123,7 @@ model.summary()
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 
 
-results = model.fit_generator(train_generator() ,steps_per_epoch=3500, epochs=35,validation_data=test_generator(),validation_steps=1500, verbose=1)
+results = model.fit_generator(train_generator() ,steps_per_epoch=3500, epochs=1,validation_data=test_generator(),validation_steps=1500, verbose=1)
 
 score = model.evaluate_generator(test_generator(),steps=1500)
 scores = model.predict_generator(test_generator(),steps=1500)
@@ -151,6 +141,8 @@ ROW = 4
 COLUMN = 5
 j = 1
 for i in list_:
+    if(j> 20):
+      j = 20
     # train[i][0] is i-th image data with size 28x28
     image = X_test_img[i].reshape(28, 28)   # not necessary to reshape if ndim is set to 2
     plt.subplot(ROW, COLUMN, j)         # subplot with size (width 3, height 5)

@@ -13,6 +13,7 @@ from scipy.ndimage import gaussian_filter
 import time
 import glob
 
+np.random.seed(52)
 class data_process:
   def __init__(self,dir):
     self.point = []
@@ -39,6 +40,7 @@ class data_process:
           labels = df[['label']].to_numpy()
           point_list.append(points)
           label_list.append(labels)
+
 
     else:
       for direct in dir_list[0]:
@@ -70,7 +72,7 @@ class data_process:
 
 
   def image_make(self):
-
+    
     for i in range(np.size(self.point,0)):
       img = np.zeros((550, 550, 1), np.uint8)
       for k in range(len(self.point[i])):
@@ -80,18 +82,21 @@ class data_process:
           else:
             cv2.line(img, (self.point[i][k][0],self.point[i][k][1]), (self.point[i][k+1][0],self.point[i][k+1][1]), (255,255,255), 20)
 
-      ret,thresh = cv2.threshold(img,127,255,0)
-      contours,hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, 2)
+      ret,thresh = cv2.threshold(img,10,255,0)
+      contours,hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
       cnt = contours[0]
       x,y,w,h = cv2.boundingRect(cnt)
       a = 0
-      while(x > a and y > a and x + w > a and y + h > a and self.label[i][0][0][0] == 1):
+      while(x > a and y > a and x + w > a and y + h > a):
         a += 1 
       #if(x < 40 or y < 40):
         #img = img[y:y+h+20,x:x+w+20]
       #else:
       if(a != 0):
-        img = img[y-60:y+h+60,x-60:x+w+60]
+        if(a > 60):
+          img = img[y-60:y+h+60,x-60:x+w+60]
+        else:
+          img = img[y-a:y+h+a,x-a:x+w+a]
       else:
         if(x < 40 or y < 40):
           img = img[y:y+h+20,x:x+w+20]
@@ -99,12 +104,21 @@ class data_process:
           img = img[y-40:y+h+40,x-40:x+w+40]
       img = cv2.flip(img, 1)
       img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
-      #print(self.label[i][0][0][0])
       j = 0
       while(os.path.exists('./DATA/image/{}img_{}.jpg'.format(self.label[i][0][0][0],j))):
-        if(j < self.num_dict[str(self.label[i][0][0][0])]):
+        if(j < self.num_dict[str(self.label[i][0][0][0])] ):
           j += 1
+        if(j == self.num_dict[str(self.label[i][0][0][0])]):
+          break
       cv2.imwrite('./DATA/image/{}img_{}.jpg'.format(self.label[i][0][0][0],j), img)
+      img = np.array(img)
+      img = np.reshape(img,(28,28,1))
+      img = img/255
+      self.images.append(img)
+      #print(self.label[i][0][0][0])
+    
+
+    self.images = np.array(self.images)
 
   def image_read(self):
     images = []

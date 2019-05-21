@@ -14,11 +14,11 @@ img_dict = {}
 #368x496
 for i in range(10):
   start_time = time.time() 
-  while(os.path.exists("./DATA/test/{}augs_{}".format(i,j))):
+  while(os.path.exists("./DATA/test/{}augs_{}.pickle".format(i,j))):
     j += 1
   for l in range(j):
 
-    df = pd.read_pickle("./DATA/test/{}augs_{}".format(i,l))
+    df = pd.read_pickle("./DATA/test/{}augs_{}.pickle".format(i,l))
     #df = df.loc[(df.x!=400) & (df.y !=400)]
     df_img = df[['x','y']].to_numpy()
     
@@ -31,7 +31,7 @@ for i in range(10):
     contours,hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, 2)
     cnt = contours[0]
     x,y,w,h = cv2.boundingRect(cnt)
-    img = img[y-20:y+h+20,x-20:x+w+20]
+    #img = img[y-20:y+h+20,x-20:x+w+20]
     img = cv2.flip(img, 1)
     img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
     img_data.append(img)

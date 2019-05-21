@@ -19,6 +19,9 @@ import cv2
 import matplotlib.pyplot as plt
 import time
 from imageloader import data_process
+from sklearn.metrics import classification_report, confusion_matrix
+import seaborn as sn
+
 cb_checkpoint = ModelCheckpoint(filepath='model.hdf5',
                                 verbose=1)
 
@@ -29,8 +32,10 @@ scaler = MinMaxScaler((0,100))
 dp = data_process('./DATA/test')
 dp.point_data_load()
 dp.image_make()
-dp.image_read()
+#dp.image_read()
 dp.data_shuffle()
+
+
 
 size = int(np.size(dp.point,0) * 0.9)
 X_train = dp.point[:size]
@@ -129,10 +134,10 @@ model.compile(loss='categorical_crossentropy',
                 optimizer=keras.optimizers.Adam(lr=0.0001),
                 metrics=['accuracy'])
 
-model.fit_generator(train_generator(),steps_per_epoch=3500, epochs=20,validation_data=test_generator(),validation_steps=1500)
+model.fit_generator(train_generator(),steps_per_epoch=4500, epochs=20,validation_data=test_generator(),validation_steps=500)
 
-score = model.evaluate_generator(test_generator(),steps=1500)
-scores = model.predict_generator(test_generator(),steps=1500)
+score = model.evaluate_generator(test_generator(),steps=500)
+scores = model.predict_generator(test_generator(),steps=500)
 true_value = np.argmax(Y_test,1)
 predict_value = np.argmax(scores,1)
 list_ = []
@@ -156,6 +161,12 @@ for i in list_:
     plt.title('predict = {}'.format(np.argmax(scores[i],0)))
     plt.axis('off')  # do not show axis value
 plt.tight_layout()   # automatic padding between subplots
+
+cm = confusion_matrix(true_value, predict_value)
+df_cm = pd.DataFrame(cm, index = [i for i in "0123456789"],
+                  columns = [i for i in "0123456789"])
+plt.figure(figsize = (10,7))
+sn.heatmap(df_cm, annot=True)
 plt.savefig('mnist_plot.png')
 plt.show()
 
