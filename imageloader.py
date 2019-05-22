@@ -13,7 +13,7 @@ from scipy.ndimage import gaussian_filter
 import time
 import glob
 
-np.random.seed(52)
+
 class data_process:
   def __init__(self,dir):
     self.point = []

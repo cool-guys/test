@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 import keras
 from keras.models import Sequential
-from keras.layers import Dense, Dropout, Flatten
+from keras.layers import Dense, Dropout, Flatten, Activation
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 import tensorflow as tf
 import keras.backend.tensorflow_backend as K
@@ -33,16 +33,14 @@ Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
 model = Sequential()
-model.add(Conv2D(40, kernel_size=5, padding="same",input_shape=(28, 28, 1), activation = 'relu'))
+model.add(Conv2D(32, kernel_size=5, padding="same",input_shape=(28, 28, 1), activation = 'relu'))
 model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-model.add(Conv2D(70, kernel_size=3, padding="same", activation = 'relu'))
-model.add(Conv2D(200, kernel_size=3, padding="same", activation = 'relu'))
+model.add(Conv2D(64, kernel_size=3, padding="same", activation = 'relu'))
 model.add(MaxPooling2D(pool_size=(3, 3), strides=(1, 1)))
-
-model.add(Conv2D(512, kernel_size=3, padding="valid", activation = 'relu'))
+model.add(Conv2D(128, kernel_size=3, padding="same", activation = 'relu'))
 model.add(MaxPooling2D(pool_size=(3, 3), strides=(1, 1)))
 model.add(Flatten())
-model.add(Dense(units=100, activation='relu'  ))
+model.add(Dense(units=1024, activation='relu'  ))
 model.add(Dropout(0.3))
 
 model.add(Dense(10,activation='softmax'))
@@ -55,7 +53,7 @@ sess = tf.Session(config=config)
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 hist = model.fit(X_train, Y_train,
-                batch_size=16,
+                batch_size=32,
                 validation_data=(X_test,Y_test),
                 epochs=100,
                 verbose=1)
@@ -89,5 +87,5 @@ for i in list_:
     plt.title('predict = {}'.format(np.argmax(pred[i],0)))
     plt.axis('off')  # do not show axis value
 plt.tight_layout()   # automatic padding between subplots
-plt.savefig('mnist_plot.png')
+plt.savefig('cnn.png')
 plt.show()

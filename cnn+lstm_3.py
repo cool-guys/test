@@ -37,7 +37,7 @@ dp.data_shuffle()
 
 
 
-size = int(np.size(dp.point,0) * 0.9)
+size = int(np.size(dp.point,0) * 0.7)
 X_train = dp.point[:size]
 X_test = dp.point[size:]
 X_train_img = dp.images[:size]
@@ -102,26 +102,24 @@ sess = tf.Session(config=config)
 
 input_1 = Input(shape=(28, 28, 1))
 
-x_1 = Conv2D(40, kernel_size=3, padding="same", activation = 'relu')(input_1)
+x_1 = Conv2D(32, kernel_size=3, padding="same", activation = 'relu')(input_1)
 x_1 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(x_1)
 
-x_1 = Conv2D(70, kernel_size=3, padding="same", activation = 'relu')(x_1)
+x_1 = Conv2D(64, kernel_size=3, padding="same", activation = 'relu')(x_1)
 x_1 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(x_1)
 
-x_1 = Conv2D(200, kernel_size=3, padding="same", activation = 'relu')(x_1)
+x_1 = Conv2D(128, kernel_size=3, padding="same", activation = 'relu')(x_1)
 x_1 = MaxPooling2D(pool_size=(3, 3), strides=(1, 1))(x_1)
 
 
-x_1 = Conv2D(512, kernel_size=3, padding="valid", activation = 'relu')(x_1)
-
-x_1 = MaxPooling2D(pool_size=(3, 3), strides=(1, 1))(x_1)
 x_1 = Flatten()(x_1)
-x_1 = Dense(units=1000, activation='relu')(x_1)
+x_1 = Dense(units=1024, activation='relu')(x_1)
 
 
 input_2 = Input(shape=(None, 2))
-x_2 = CuDNNLSTM(256, return_sequences=True)(input_2)
-x_2 = CuDNNLSTM(128)(x_2)
+x_2 = CuDNNLSTM(32)(input_2)
+#x_2 = Dense(128, activation='relu')(x_2)
+
 
 
 merged = concatenate([x_1,x_2])
@@ -130,14 +128,15 @@ m = Dense(10, activation='softmax')(m)
 
 model = Model(inputs=[input_1, input_2], outputs = m)
 
+model.summary()
 model.compile(loss='categorical_crossentropy',
                 optimizer=keras.optimizers.Adam(lr=0.0001),
                 metrics=['accuracy'])
 
-model.fit_generator(train_generator(),steps_per_epoch=4500, epochs=20,validation_data=test_generator(),validation_steps=500)
+model.fit_generator(train_generator(),steps_per_epoch=2100, epochs=20,validation_data=test_generator(),validation_steps=900)
 
-score = model.evaluate_generator(test_generator(),steps=500)
-scores = model.predict_generator(test_generator(),steps=500)
+score = model.evaluate_generator(test_generator(),steps=900)
+scores = model.predict_generator(test_generator(),steps=900)
 true_value = np.argmax(Y_test,1)
 predict_value = np.argmax(scores,1)
 list_ = []
@@ -161,12 +160,12 @@ for i in list_:
     plt.title('predict = {}'.format(np.argmax(scores[i],0)))
     plt.axis('off')  # do not show axis value
 plt.tight_layout()   # automatic padding between subplots
-
+plt.savefig('lstm+cnn.png')
 cm = confusion_matrix(true_value, predict_value)
 df_cm = pd.DataFrame(cm, index = [i for i in "0123456789"],
                   columns = [i for i in "0123456789"])
 plt.figure(figsize = (10,7))
 sn.heatmap(df_cm, annot=True)
-plt.savefig('mnist_plot.png')
+
 plt.show()
 

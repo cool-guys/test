@@ -44,6 +44,24 @@ Y_test = dp.label[size:]
 Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
+for i in range(np.size(X_train,0)):
+  X_train[i] = scaler.fit_transform(X_train[i])
+'''
+  for j in range(np.size(X_train[i],0)):
+    X_train[i][j][0] -= np.mean(X_train[i], axis=0)[0]
+    X_train[i][j][1] -= np.mean(X_train[i], axis=0)[1]
+    X_train[i][j][0] /= np.std(X_train[i],axis=0)[0]
+    X_train[i][j][1] /= np.std(X_train[i],axis=0)[1]
+''' 
+for i in range(np.size(X_test,0)):
+  X_test[i] = scaler.fit_transform(X_test[i])
+'''
+  for j in range(np.size(X_test[i],0)):
+    X_test[i][j][0] -= np.mean(X_test[i], axis=0)[0]
+    X_test[i][j][1] -= np.mean(X_test[i], axis=0)[1]
+    X_test[i][j][0] /= np.std(X_test[i],axis=0)[0]
+    X_test[i][j][1] /= np.std(X_test[i],axis=0)[1]
+'''
 
 '''
 for i in range(np.size(X_train,0)):
@@ -111,11 +129,9 @@ sess = tf.Session(config=config)
 
 model = Sequential()
 
-model.add(CuDNNLSTM(128, return_sequences=True, input_shape=(None, 2)))
-model.add(CuDNNLSTM(32))
-model.add(Dense(128))
+model.add(CuDNNLSTM(256, input_shape=(None, 2)))
+model.add(Dense(128, activation='relu'))
 
-model.add(LeakyReLU(alpha=0.2))
 model.add(Dense(10, activation='softmax'))
 
 model.summary()
@@ -123,10 +139,10 @@ model.summary()
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 
 
-results = model.fit_generator(train_generator() ,steps_per_epoch=3500, epochs=1,validation_data=test_generator(),validation_steps=1500, verbose=1)
+results = model.fit_generator(train_generator() ,steps_per_epoch=2100, epochs=20,validation_data=test_generator(),validation_steps=900, verbose=1)
 
-score = model.evaluate_generator(test_generator(),steps=1500)
-scores = model.predict_generator(test_generator(),steps=1500)
+score = model.evaluate_generator(test_generator(),steps=900)
+scores = model.predict_generator(test_generator(),steps=900)
 true_value = np.argmax(Y_test,1)
 predict_value = np.argmax(scores,1)
 list_ = []
