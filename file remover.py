@@ -14,9 +14,10 @@ import time
 
 import glob
 
-lis = [2206,216,219,714,7212,930]
+lis = [5265,531,517,]
 for i in lis:
     if i < 1000:
+
         a = int(i/100)
         b = int(i%100)
     else:

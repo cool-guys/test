@@ -37,8 +37,24 @@ class data_process:
         for k in range(j):
           df = pd.read_pickle(self.dir + '/{}augs_{}.pickle'.format(i,k))
           points = df[['x','y']].to_numpy()
-          labels = df[['label']].to_numpy()
-          point_list.append(points)
+          
+          leng = np.size(points,0)
+          point = []
+          if(leng > 50):
+            #print(i,k)
+            for l in range(50):
+              point.append(points[int(leng*l/50)])
+          else:
+            for l in range(leng):
+              point.append(points[l])
+            while(len(point) != 50):
+              point.append(points[leng-1])
+          point = np.array(point)
+          point.reshape((50,2))
+          
+          labels = int(df[['label']].to_numpy()[0,0])
+
+          point_list.append(point)
           label_list.append(labels)
 
 
@@ -56,9 +72,9 @@ class data_process:
     
     Point_DATA = np.array(point_list)
     Label_DATA = np.array(label_list)
-    
-    for i in range(np.size(Label_DATA,0)):
-      Label_DATA[i] = np.unique(Label_DATA[i],axis=0)
+    print(Label_DATA.shape)
+    #for i in range(np.size(Label_DATA,0)):
+    #  Label_DATA[i] = np.unique(Label_DATA[i],axis=0)
     Label_DATA = Label_DATA.reshape((np.size(Label_DATA,0),1))
     unique, counts = np.unique(Label_DATA, return_counts=True)
     #print(unique)
@@ -72,12 +88,12 @@ class data_process:
 
 
   def image_make(self):
-    
+    print(self.label[0,0])
     for i in range(np.size(self.point,0)):
       img = np.zeros((550, 550, 1), np.uint8)
       for k in range(len(self.point[i])):
         if(k != len(self.point[i])-1):
-          if(self.label[i][0][0][0] == 1):
+          if(self.label[i] == 1):
             cv2.line(img, (self.point[i][k][0],self.point[i][k][1]), (self.point[i][k+1][0],self.point[i][k+1][1]), (255,255,255), 20)
           else:
             cv2.line(img, (self.point[i][k][0],self.point[i][k][1]), (self.point[i][k+1][0],self.point[i][k+1][1]), (255,255,255), 20)
@@ -85,7 +101,23 @@ class data_process:
       ret,thresh = cv2.threshold(img,10,255,0)
       contours,hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
       cnt = contours[0]
-      x,y,w,h = cv2.boundingRect(cnt)
+      if(len(contours) > 1):
+        x_ = []
+        y_ = []
+        xw = []
+        yh = []
+        for l in range(len(contours)):
+          x,y,w,h = cv2.boundingRect(contours[l])
+          x_.append(x)
+          y_.append(y)
+          xw.append(x+w)
+          yh.append(y+h)
+        x = min(x_)
+        y = min(y_)
+        w = max(xw) - x
+        h = max(yh) - y
+      else:    
+        x,y,w,h = cv2.boundingRect(cnt)
       a = 0
       while(x > a and y > a and x + w > a and y + h > a):
         a += 1 
@@ -105,12 +137,13 @@ class data_process:
       img = cv2.flip(img, 1)
       img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
       j = 0
-      while(os.path.exists('./DATA/image/{}img_{}.jpg'.format(self.label[i][0][0][0],j))):
-        if(j < self.num_dict[str(self.label[i][0][0][0])] ):
+      while(os.path.exists('./DATA/image/{}img_{}.jpg'.format(self.label[i,0],j))):
+        
+        if(j < self.num_dict[str(self.label[i,0])]):
           j += 1
-        if(j == self.num_dict[str(self.label[i][0][0][0])]):
+        if(j == self.num_dict[str(self.label[i,0])]):
           break
-      cv2.imwrite('./DATA/image/{}img_{}.jpg'.format(self.label[i][0][0][0],j), img)
+      cv2.imwrite('./DATA/image/{}img_{}.jpg'.format(self.label[i,0],j), img)
       img = np.array(img)
       img = np.reshape(img,(28,28,1))
       img = img/255

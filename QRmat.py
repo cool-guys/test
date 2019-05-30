@@ -23,18 +23,21 @@ augmented_image = []
 augmented_point = []
 augmented_points = []
 rotation = 0
-
+test = []
 
 for i in range(10):
   j = 0
   while(os.path.exists("./DATA/Video/{}/{}train_{}".format(i,i,j))):
     j += 1
+  #print(j)
 
   for k in range(300):
     start_time = time.time()
     df = pd.read_csv("./DATA/Video/{}/{}train_{}".format(i,i,k%j))
     df = df.loc[(df.x!=0) & (df.y !=0)]
     df_img = df[['x','y']].to_numpy()
+    print(df_img.size/2)
+    test.append(df_img.size/2)
     img = np.zeros((550, 550, 1), np.uint8)
     img_ = np.zeros((550, 550, 1), np.uint8)
     theta = np.random.uniform(-1,1) * np.pi
@@ -106,5 +109,8 @@ for i in range(10):
     augmented_image = []
     augmented_point = []
     augmented_points = []
-    print("--- %s seconds ---" %(time.time() - start_time))
+    #print("--- %s seconds ---" %(time.time() - start_time))
 
+test = np.array(test)
+print(np.amax(test))
+print(np.mean(test))

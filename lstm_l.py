@@ -44,8 +44,8 @@ Y_test = dp.label[size:]
 Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
-for i in range(np.size(X_train,0)):
-  X_train[i] = scaler.fit_transform(X_train[i])
+#for i in range(np.size(X_train,0)):
+  #X_train[i] = scaler.fit_transform(X_train[i])
 '''
   for j in range(np.size(X_train[i],0)):
     X_train[i][j][0] -= np.mean(X_train[i], axis=0)[0]
@@ -53,8 +53,8 @@ for i in range(np.size(X_train,0)):
     X_train[i][j][0] /= np.std(X_train[i],axis=0)[0]
     X_train[i][j][1] /= np.std(X_train[i],axis=0)[1]
 ''' 
-for i in range(np.size(X_test,0)):
-  X_test[i] = scaler.fit_transform(X_test[i])
+#for i in range(np.size(X_test,0)):
+  #X_test[i] = scaler.fit_transform(X_test[i])
 '''
   for j in range(np.size(X_test[i],0)):
     X_test[i][j][0] -= np.mean(X_test[i], axis=0)[0]
@@ -129,7 +129,7 @@ sess = tf.Session(config=config)
 
 model = Sequential()
 
-model.add(CuDNNLSTM(256, input_shape=(None, 2)))
+model.add(CuDNNLSTM(256, input_shape=(50, 2)))
 model.add(Dense(128, activation='relu'))
 
 model.add(Dense(10, activation='softmax'))
@@ -139,10 +139,11 @@ model.summary()
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 
 
-results = model.fit_generator(train_generator() ,steps_per_epoch=2100, epochs=20,validation_data=test_generator(),validation_steps=900, verbose=1)
+results = model.fit(X_train,Y_train,epochs=100,batch_size=32,validation_data=(X_test,Y_test))
 
-score = model.evaluate_generator(test_generator(),steps=900)
-scores = model.predict_generator(test_generator(),steps=900)
+
+score = model.evaluate(X_test,Y_test)
+scores = model.predict(X_test)
 true_value = np.argmax(Y_test,1)
 predict_value = np.argmax(scores,1)
 list_ = []

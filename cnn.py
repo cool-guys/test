@@ -18,7 +18,7 @@ x_data = []
 y_data = []
 scaler = MinMaxScaler()
 
-dp = data_process('./DATA/test')
+dp = data_process('./DATA/aug/all')
 dp.point_data_load()
 dp.image_make()
 dp.data_shuffle()
@@ -55,7 +55,7 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 hist = model.fit(X_train, Y_train,
                 batch_size=32,
                 validation_data=(X_test,Y_test),
-                epochs=100,
+                epochs=70,
                 verbose=1)
 
 score = model.evaluate(X_test, Y_test, verbose=0)
