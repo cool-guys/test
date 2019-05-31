@@ -93,10 +93,7 @@ class data_process:
       img = np.zeros((550, 550, 1), np.uint8)
       for k in range(len(self.point[i])):
         if(k != len(self.point[i])-1):
-          if(self.label[i] == 1):
-            cv2.line(img, (self.point[i][k][0],self.point[i][k][1]), (self.point[i][k+1][0],self.point[i][k+1][1]), (255,255,255), 20)
-          else:
-            cv2.line(img, (self.point[i][k][0],self.point[i][k][1]), (self.point[i][k+1][0],self.point[i][k+1][1]), (255,255,255), 20)
+          cv2.line(img, (self.point[i][k][0],self.point[i][k][1]), (self.point[i][k+1][0],self.point[i][k+1][1]), (255,255,255), 20)
 
       ret,thresh = cv2.threshold(img,10,255,0)
       contours,hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
@@ -134,6 +131,7 @@ class data_process:
           img = img[y:y+h+20,x:x+w+20]
         else:
           img = img[y-40:y+h+40,x-40:x+w+40]
+      
       img = cv2.flip(img, 1)
       img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
       j = 0

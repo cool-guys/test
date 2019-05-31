@@ -18,7 +18,7 @@ x_data = []
 y_data = []
 scaler = MinMaxScaler()
 
-dp = data_process('./DATA/aug/all')
+dp = data_process('./DATA/test')
 dp.point_data_load()
 dp.image_make()
 dp.data_shuffle()
