@@ -31,16 +31,16 @@ X_test = dp.images[size:]
 Y_train = dp.label
 Y_test = dp.label[size:]
 
-folds = list(StratifiedKFold(n_splits=3, shuffle=True, random_state=1).split(X_train, Y_train))
+folds = list(StratifiedKFold(n_splits=5, shuffle=True, random_state=1).split(X_train, Y_train))
 
 acc_list = []
 #Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 #Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
-for j, (train_idx, val_idx) in enumerate(folds):
+for l, (train_idx, val_idx) in enumerate(folds):
 
-  print('\n Fold',j)
+  print('\n Fold',l)
   X_train_cv = X_train[train_idx]
-
+  X_val_ =dp.point[val_idx]
   X_valid_cv = X_train[val_idx]
 
 
@@ -63,7 +63,7 @@ for j, (train_idx, val_idx) in enumerate(folds):
 
   model.add(Dense(10,activation='softmax'))
 
-  model.summary()
+  #model.summary()
 
   config = tf.ConfigProto()
   config.gpu_options.allow_growth = True
@@ -74,7 +74,7 @@ for j, (train_idx, val_idx) in enumerate(folds):
                   batch_size=32,
                   validation_data=(X_valid_cv,Y_valid_cv),
                   epochs=70,
-                  verbose=1)
+                  verbose=0)
 
   score = model.evaluate(X_valid_cv, Y_valid_cv, verbose=0)
   pred = model.predict(X_valid_cv)
@@ -91,22 +91,33 @@ for j, (train_idx, val_idx) in enumerate(folds):
       list_.append(i)
 
 
-
+  print(list_)
+  print(j)
   ROW = 5
   COLUMN = 4
   j = 1
   for i in list_:
+      print('j',j)
+      print('i',i)
       if(j> 20):
         j = 20
       # train[i][0] is i-th image data with size 28x28
       image = X_valid_cv[i].reshape(28, 28)   # not necessary to reshape if ndim is set to 2
       plt.subplot(ROW, COLUMN, j)         # subplot with size (width 3, height 5)
       j +=1
-      plt.imshow(image, cmap='gray')  # cmap='gray' is for black and white picture.
+      plt.imshow(image, cmap=plt.cm.Blues)  # cmap='gray' is for black and white picture.
       # train[i][1] is i-th digit label
       plt.title('predict = {}'.format(np.argmax(pred[i],0)))
       plt.axis('off')  # do not show axis value
+  
+  for i in range(np.size(X_train_cv,0)):
+    cv2.imwrite('./plot/cnn/img/train/{}img_{}.jpg'.format(l,i), X_train_cv[i]*255)
+
+  for i in range(np.size(X_valid_cv,0)):
+    cv2.imwrite('./plot/cnn/img/train/{}img_{}.jpg'.format(l,i), X_valid_cv[i]*255)
+
   plt.tight_layout()   # automatic padding between subplots
-  plt.savefig('./plot/cnn/cnn{}.png'.format(j))
+  plt.savefig('./plot/cnn/cnn{}.png'.format(l))
+  plt.clf()
 
 print(acc_list)

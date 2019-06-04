@@ -18,17 +18,20 @@ x_data = []
 y_data = []
 scaler = MinMaxScaler()
 
-dp = data_process('./DATA/test')
-dp.point_data_load()
-dp.image_make()
-dp.data_shuffle()
+dp_train = data_process('./DATA/aug/all/train')
+dp_test = data_process('./DATA/aug/all/test')
 
-size = int(np.size(dp.images,0) * 0.7)
+dp_train.point_data_load()
+dp_train.image_make()
 
-X_train = dp.images[:size]
-X_test = dp.images[size:]
-Y_train = dp.label[:size]
-Y_test = dp.label[size:]
+dp_test.point_data_load()
+dp_test.image_make()
+
+X_train = dp_train.images
+X_test = dp_test.images
+Y_train = dp_train.label
+Y_test = dp_test.label
+print(Y_train)
 Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
@@ -53,9 +56,9 @@ sess = tf.Session(config=config)
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 hist = model.fit(X_train, Y_train,
-                batch_size=32,
+                batch_size=64,
                 validation_data=(X_test,Y_test),
-                epochs=70,
+                epochs=100,
                 verbose=1)
 
 score = model.evaluate(X_test, Y_test, verbose=0)

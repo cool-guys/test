@@ -135,13 +135,21 @@ class data_process:
       img = cv2.flip(img, 1)
       img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
       j = 0
-      while(os.path.exists('./DATA/image/{}img_{}.jpg'.format(self.label[i,0],j))):
-        
-        if(j < self.num_dict[str(self.label[i,0])]):
-          j += 1
-        if(j == self.num_dict[str(self.label[i,0])]):
-          break
-      cv2.imwrite('./DATA/image/{}img_{}.jpg'.format(self.label[i,0],j), img)
+      if(self.dir == './DATA/aug/all/train'):
+        while(os.path.exists('./DATA/image/train/{}img_{}.jpg'.format(self.label[i,0],j))):
+          
+          if(j < self.num_dict[str(self.label[i,0])]):
+            j += 1
+          if(j == self.num_dict[str(self.label[i,0])]):
+            break
+        cv2.imwrite('./DATA/image/train/{}img_{}.jpg'.format(self.label[i,0],j), img)
+      elif(self.dir == './DATA/aug/all/test'):
+        while(os.path.exists('./DATA/image/test/{}img_{}.jpg'.format(self.label[i,0],j))):
+          if(j < self.num_dict[str(self.label[i,0])]):
+            j += 1
+          if(j == self.num_dict[str(self.label[i,0])]):
+            break
+        cv2.imwrite('./DATA/image/test/{}img_{}.jpg'.format(self.label[i,0],j), img)
       img = np.array(img)
       img = np.reshape(img,(28,28,1))
       img = img/255

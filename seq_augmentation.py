@@ -20,8 +20,11 @@ print(int(Y_train[0]))
 lnegth = np.size(X_train,0)
 
 def DA_Jitter(X, sigma):
-    myNoise = np.random.normal(loc=0, scale=sigma, size=X.shape)
-    return X+myNoise
+    myNoise = np.random.normal(loc=0, scale=sigma, size=(1,2))
+    for i in range(10):
+        j = np.random.randint(0,50)
+        X[j] = X[j]+myNoise
+    return X
 
 points = []
 for i in range(lnegth):

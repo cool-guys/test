@@ -21,7 +21,7 @@ import time
 from imageloader import data_process
 from sklearn.metrics import classification_report, confusion_matrix
 import seaborn as sn
-
+import copy
 cb_checkpoint = ModelCheckpoint(filepath='model.hdf5',
                                 verbose=1)
 
@@ -40,7 +40,8 @@ dp.data_shuffle()
 
 
 size = int(np.size(dp.point,0) * 0.7)
-X_train = dp.point
+X_val_ = dp.point
+X_train = copy.deepcopy(dp.point)
 X_test = dp.point[size:]
 
 X_train_img = dp.images
@@ -50,10 +51,10 @@ Y_test = dp.label[size:]
 #Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 #Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
-folds = list(StratifiedKFold(n_splits=3, shuffle=True, random_state=1).split(X_train, Y_train))
+folds = list(StratifiedKFold(n_splits=5, shuffle=True, random_state=1).split(X_train, Y_train))
 
-#for i in range(np.size(X_train,0)):
-  #X_train[i] = scaler.fit_transform(X_train[i])
+for i in range(np.size(X_train,0)):
+  X_train[i] = scaler.fit_transform(X_train[i])
 '''
   for j in range(np.size(X_train[i],0)):
     X_train[i][j][0] -= np.mean(X_train[i], axis=0)[0]
@@ -62,7 +63,7 @@ folds = list(StratifiedKFold(n_splits=3, shuffle=True, random_state=1).split(X_t
     X_train[i][j][1] /= np.std(X_train[i],axis=0)[1]
 ''' 
 #for i in range(np.size(X_test,0)):
-  #X_test[i] = scaler.fit_transform(X_test[i])
+#  X_test[i] = scaler.fit_transform(X_test[i])
 '''
   for j in range(np.size(X_test[i],0)):
     X_test[i][j][0] -= np.mean(X_test[i], axis=0)[0]
@@ -106,8 +107,11 @@ config.gpu_options.allow_growth = True
 sess = tf.Session(config=config)
 acc_list = []
 
-for j, (train_idx, val_idx) in enumerate(folds):
-  print('\n Fold',j)
+for l, (train_idx, val_idx) in enumerate(folds):
+  print('\n Fold',l)
+
+  X_val_ =dp.point[val_idx]
+
   X_train_cv = X_train[train_idx]
   X_train_img_cv = X_train_img[train_idx]
   X_valid_cv = X_train[val_idx]
@@ -141,9 +145,11 @@ for j, (train_idx, val_idx) in enumerate(folds):
   input_2 = Input(shape=(50, 2))
   '''
   x_2 = Conv1D(256,3,padding='valid',activation='relu',strides=1)(input_2)
-
   x_2 = Conv1D(256,3,padding='valid',activation='relu',strides=1)(x_2)
-
+  x_2 = MaxPooling1D(3)(x_2)
+  x_2 = Conv1D(512,3,padding='valid',activation='relu',strides=1)(x_2)
+  x_2 = Conv1D(512,3,padding='valid',activation='relu',strides=1)(x_2)
+  x_2 = MaxPooling1D(3)(x_2)
   x_2 = CuDNNLSTM(128)(x_2)
   '''
   
@@ -167,7 +173,7 @@ for j, (train_idx, val_idx) in enumerate(folds):
                   metrics=['accuracy'])
 
   #model.fit_generator(train_generator(),steps_per_epoch=2700, epochs=20,validation_data=test_generator(),validation_steps=300)
-  model.fit([X_train_img_cv,X_train_cv],Y_train_cv,epochs=100,batch_size=32,validation_data=([X_valid_img_cv,X_valid_cv],Y_valid_cv))
+  model.fit([X_train_img_cv,X_train_cv],Y_train_cv,epochs=40,batch_size=32,validation_data=([X_valid_img_cv,X_valid_cv],Y_valid_cv))
   score = model.evaluate([X_valid_img_cv,X_valid_cv],Y_valid_cv)
   scores = model.predict([X_valid_img_cv,X_valid_cv])
   true_value = np.argmax(Y_valid_cv,1)
@@ -182,16 +188,44 @@ for j, (train_idx, val_idx) in enumerate(folds):
   upper = np.array([0,0,255])
   lower = np.array([0,0,5])
   acc_list.append(score[1]*100)
-
+  ROW = 5
+  COLUMN = 4
+  j = 1
   for i in list_:
     img = np.ones((550, 550, 3), np.uint8) * 255
-    for k in range(len(X_valid_cv[i])):
-      if(k != len(X_valid_cv[i])-1):
-        cv2.line(img, (X_valid_cv[i][k][0],X_valid_cv[i][k][1]), (X_valid_cv[i][k+1][0],X_valid_cv[i][k+1][1]), (0,0,5*k+5), 20)
+    for k in range(len(X_val_[i])):
+      if(k != len(X_val_[i])-1):
+        cv2.line(img, (X_val_[i][k][0],X_val_[i][k][1]), (X_val_[i][k+1][0],X_val_[i][k+1][1]), (0,0,5*k+5), 20)
     img = cv2.flip(img, 1)
     mask = cv2.inRange(img, lower, upper)
     #img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
     cv2.imwrite('./plot/lstm/{}lstm_seq{}{}.jpg'.format(i,true_value[i],predict_value[i]),img)
+
+    fig = plt.figure(figsize=(10,6))
+    ax = fig.add_subplot(1,1,1)
+    ax.title.set_text('Unchanged')
+    ax.plot(X_valid_cv[i])
+    ax.set_xlim([0,50])
+    ax.set_ylim([-50,150])
+    ax.title.set_fontsize(20)
+    plt.savefig('./plot/lstm/lstm+cnn{}{}.png'.format(true_value[i],predict_value[i]))
+
+
+  for i in list_:
+      if(j> 20):
+        j = 20
+      # train[i][0] is i-th image data with size 28x28
+      image = X_valid_img_cv[i].reshape(28, 28)   # not necessary to reshape if ndim is set to 2
+      plt.subplot(ROW, COLUMN, j)         # subplot with size (width 3, height 5)
+      j +=1
+      plt.imshow(image, cmap=plt.cm.Blues)  # cmap='gray' is for black and white picture.
+      # train[i][1] is i-th digit label
+      plt.title('predict = {}'.format(np.argmax(scores[i],0)))
+      plt.axis('off')  # do not show axis value
+
+  plt.tight_layout()   # automatic padding between subplots
+  plt.savefig('./plot/lstm/all/LSTM{}.png'.format(l))
+  plt.clf()
 
 print(acc_list)
 '''  

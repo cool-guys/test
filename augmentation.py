@@ -7,8 +7,11 @@ from scipy.interpolate import CubicSpline
 from imageloader import data_process
 import random
 def DA_Jitter(X, sigma):
-    myNoise = np.random.normal(loc=0, scale=sigma, size=X.shape)
-    return X+myNoise
+    myNoise = np.random.normal(loc=0, scale=sigma, size=(1,2))
+    for i in range(10):
+        j = np.random.randint(0,50)
+        X[j] = X[j]+myNoise
+    return X
 
 def GenerateRandomCurves(X, sigma=0.01, knot=7):
     xx = (np.ones((X.shape[1],1))*(np.arange(0,X.shape[0], (X.shape[0]-1)/(knot+1)))).transpose()
@@ -66,7 +69,7 @@ def RandSampleTimesteps(X, nSample=80):
     tt[-1,:] = X.shape[0]-1
     return tt
 
-def DA_RandSampling(X, nSample=80):
+def DA_RandSampling(X, nSample=100):
     tt = RandSampleTimesteps(X, nSample)
     X_new = np.zeros(X.shape)
     X_new[:,0] = np.interp(np.arange(X.shape[0]), tt[:,0], X[tt[:,0],0])
@@ -88,44 +91,89 @@ dp = data_process('./DATA/test')
 dp.point_data_load()
 #dp.image_make()
 #dp.image_read()
+dp.data_shuffle(point_only=True)
+size = int(np.size(dp.point,0) * 0.7)
+size_ = 3000-size
+X_train = dp.point[:size]
+X_test = dp.point[size:]
 
-
-
-X_train = dp.point
-Y_train =dp.label
+Y_train = dp.label[:size]
+Y_test = dp.label[size:]
 print(int(Y_train[0]))
 lnegth = np.size(X_train,0)
 aug_list = []
-for i in range(3000):
+
+for i in range(size * 3):
     a = random.randint(0,3)
 
-    A = str(i//300)
-    B = str(i%300)
-
-    if(a == 0):
-        point = DA_RandSampling(X_train[i%3000])
-        C = A + ' ' + B + ' ' + 'rand'
-    elif(a == 1):
-        point = DA_TimeWarp(X_train[i%3000],0.05)
-        C = A + ' ' + B + ' ' + 'TW'
-    elif(a == 2):
-        point = Rotation(X_train[i%3000])
-        C = A + ' ' + B + ' ' + 'Rot'
+    A = str(i//(size/10))
+    B = str(i%(size/10))
+    if(i > size):
+        if(a == 0):
+            point = DA_RandSampling(X_train[i%size])
+            C = A + ' ' + B + ' ' + 'rand'
+        elif(a == 1):
+            point = DA_TimeWarp(X_train[i%size],0.03)
+            C = A + ' ' + B + ' ' + 'TW'
+        elif(a == 2):
+            point = Rotation(X_train[i%size])
+            C = A + ' ' + B + ' ' + 'Rot'
+        else:
+            point = DA_Jitter(X_train[i%size],5)
+            C = A + ' ' + B + ' ' + 'jit'
     else:
-        point = DA_Jitter(X_train[i%3000],4)
-        C = A + ' ' + B + ' ' + 'jit'
-
+        point = X_train[i%size]
+        C = 'org'
 
     print(C)
     aug_list.append(C)
     dataframe = pd.DataFrame(point.astype(int), columns= ['x','y'])
-    dataframe['label'] = int(Y_train[i%3000])
-    if(i >= 3000 and i < 6000):
-        dataframe.to_pickle("./DATA/aug/all/{}augs_{}.pickle".format((i-3000)//300,i%300 + 300))
-    elif(i >= 6000 and i < 9000):
-        dataframe.to_pickle("./DATA/aug/all/{}augs_{}.pickle".format((i-6000)//300,i%300 + 600))
+    dataframe['label'] = int(Y_train[i%size])
+    if(i >= size and i < size*2):
+        dataframe.to_pickle("./DATA/aug/all/train/{}augs_{}.pickle".format(int((i-size)//(size/10)),int(i%(size/10) + (size/10))))
+    elif(i >= size*2 and i < size*3):
+        dataframe.to_pickle("./DATA/aug/all/train/{}augs_{}.pickle".format(int((i-size*2)//(size/10)),int(i%(size/10) + (size*2/10))))
     else:
-        dataframe.to_pickle("./DATA/aug/all/{}augs_{}.pickle".format(i//300,i%300))
+        dataframe.to_pickle("./DATA/aug/all/train/{}augs_{}.pickle".format(int(i//(size/10)),int(i%(size/10))))
+
+aug_list = np.array(aug_list)
+df = pd.DataFrame(aug_list)
+df.to_csv('aug_train',index=False)
+
+aug_list = []
+
+for i in range(size_ * 3):
+    a = random.randint(0,3)
+
+    A = str(i//(size_/10))
+    B = str(i%(size_/10))
+    if(i > size_):
+        if(a == 0):
+            point = DA_RandSampling(X_test[i%size_])
+            C = A + ' ' + B + ' ' + 'rand'
+        elif(a == 1):
+            point = DA_TimeWarp(X_test[i%size_],0.03)
+            C = A + ' ' + B + ' ' + 'TW'
+        elif(a == 2):
+            point = Rotation(X_test[i%size_])
+            C = A + ' ' + B + ' ' + 'Rot'
+        else:
+            point = DA_Jitter(X_test[i%size_],5)
+            C = A + ' ' + B + ' ' + 'jit'
+    else:
+        point = X_test[i%size_]
+        C = 'org'
+
+    print(C)
+    aug_list.append(C)
+    dataframe = pd.DataFrame(point.astype(int), columns= ['x','y'])
+    dataframe['label'] = int(Y_test[i%size_])
+    if(i >= size_ and i < size_*2):
+        dataframe.to_pickle("./DATA/aug/all/test/{}augs_{}.pickle".format(int((i-size_)//(size_/10)),int(i%(size_/10) + (size_/10))))
+    elif(i >= size_*2 and i < size_*3):
+        dataframe.to_pickle("./DATA/aug/all/test/{}augs_{}.pickle".format(int((i-size_*2)//(size_/10)),int(i%(size_/10) + (size_*2/10))))
+    else:
+        dataframe.to_pickle("./DATA/aug/all/test/{}augs_{}.pickle".format(int(i//(size_/10)),int(i%(size_/10))))
 
 aug_list = np.array(aug_list)
 df = pd.DataFrame(aug_list)

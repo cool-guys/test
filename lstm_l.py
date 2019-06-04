@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 from keras.models import Sequential
-from keras.layers import LSTM, Dense, TimeDistributed,CuDNNLSTM,BatchNormalization
+from keras.layers import LSTM, Dense, TimeDistributed,CuDNNLSTM,BatchNormalization,Dropout,Bidirectional,Input
 from keras.utils import to_categorical
 from keras.callbacks import ModelCheckpoint
 import keras
@@ -129,8 +129,12 @@ sess = tf.Session(config=config)
 
 model = Sequential()
 
-model.add(CuDNNLSTM(256, input_shape=(50, 2)))
-model.add(Dense(128, activation='relu'))
+model.add(Bidirectional(CuDNNLSTM(256,return_sequences=True),input_shape=(50, 2)))
+model.add(Dropout(0.3))
+model.add(Bidirectional(CuDNNLSTM(256,return_sequences=True)))
+model.add(Dropout(0.3))
+model.add(CuDNNLSTM(256))
+#model.add(Dense(256, activation='relu'))
 
 model.add(Dense(10, activation='softmax'))
 
@@ -168,8 +172,19 @@ for i in list_:
     # train[i][1] is i-th digit label
     plt.title('predict = {}'.format(np.argmax(scores[i],0)))
     plt.axis('off')  # do not show axis value
+    
+for i in list_:
+    fig = plt.figure(figsize=(10,6))
+    ax = fig.add_subplot(1,1,1)
+    ax.title.set_text('Unchanged')
+    ax.plot(X_test[i])
+    ax.set_xlim([0,50])
+    ax.set_ylim([-50,150])
+    ax.title.set_fontsize(20)
+    plt.savefig('./plot/lstm_only/lstm{}{}.png'.format(true_value[i],predict_value[i]))
+
 plt.tight_layout()   # automatic padding between subplots
-plt.savefig('mnist_plot.png')
+plt.savefig('LSTM_only.png')
 plt.show()
 '''
 fig = plt.figure(figsize=(10,10))

@@ -1,3001 +1,2701 @@
 0
-0 0 jit
-0 1 jit
-0 2 rand
-0 3 TW
-0 4 TW
-0 5 TW
-0 6 TW
-0 7 jit
-0 8 rand
-0 9 Rot
-0 10 rand
-0 11 jit
-0 12 jit
-0 13 Rot
-0 14 Rot
-0 15 Rot
-0 16 rand
-0 17 jit
-0 18 Rot
-0 19 rand
-0 20 rand
-0 21 TW
-0 22 TW
-0 23 Rot
-0 24 rand
-0 25 Rot
-0 26 rand
-0 27 TW
-0 28 Rot
-0 29 TW
-0 30 rand
-0 31 TW
-0 32 jit
-0 33 TW
-0 34 TW
-0 35 rand
-0 36 jit
-0 37 jit
-0 38 jit
-0 39 Rot
-0 40 jit
-0 41 rand
-0 42 TW
-0 43 rand
-0 44 jit
-0 45 Rot
-0 46 jit
-0 47 TW
-0 48 jit
-0 49 jit
-0 50 TW
-0 51 Rot
-0 52 Rot
-0 53 TW
-0 54 rand
-0 55 Rot
-0 56 jit
-0 57 jit
-0 58 jit
-0 59 Rot
-0 60 Rot
-0 61 rand
-0 62 jit
-0 63 TW
-0 64 jit
-0 65 rand
-0 66 TW
-0 67 TW
-0 68 TW
-0 69 jit
-0 70 jit
-0 71 jit
-0 72 jit
-0 73 Rot
-0 74 rand
-0 75 TW
-0 76 Rot
-0 77 rand
-0 78 rand
-0 79 Rot
-0 80 Rot
-0 81 TW
-0 82 TW
-0 83 Rot
-0 84 jit
-0 85 Rot
-0 86 TW
-0 87 Rot
-0 88 TW
-0 89 Rot
-0 90 Rot
-0 91 TW
-0 92 TW
-0 93 Rot
-0 94 TW
-0 95 Rot
-0 96 jit
-0 97 jit
-0 98 jit
-0 99 jit
-0 100 TW
-0 101 rand
-0 102 rand
-0 103 rand
-0 104 Rot
-0 105 TW
-0 106 Rot
-0 107 rand
-0 108 rand
-0 109 Rot
-0 110 jit
-0 111 Rot
-0 112 Rot
-0 113 Rot
-0 114 rand
-0 115 jit
-0 116 rand
-0 117 Rot
-0 118 rand
-0 119 Rot
-0 120 rand
-0 121 Rot
-0 122 Rot
-0 123 TW
-0 124 TW
-0 125 jit
-0 126 TW
-0 127 jit
-0 128 rand
-0 129 Rot
-0 130 Rot
-0 131 TW
-0 132 Rot
-0 133 TW
-0 134 TW
-0 135 rand
-0 136 jit
-0 137 Rot
-0 138 TW
-0 139 TW
-0 140 jit
-0 141 rand
-0 142 rand
-0 143 rand
-0 144 rand
-0 145 jit
-0 146 jit
-0 147 rand
-0 148 Rot
-0 149 jit
-0 150 Rot
-0 151 TW
-0 152 jit
-0 153 Rot
-0 154 rand
-0 155 TW
-0 156 jit
-0 157 Rot
-0 158 Rot
-0 159 rand
-0 160 Rot
-0 161 Rot
-0 162 rand
-0 163 TW
-0 164 jit
-0 165 TW
-0 166 rand
-0 167 TW
-0 168 TW
-0 169 rand
-0 170 rand
-0 171 jit
-0 172 jit
-0 173 Rot
-0 174 rand
-0 175 jit
-0 176 rand
-0 177 jit
-0 178 TW
-0 179 rand
-0 180 Rot
-0 181 rand
-0 182 TW
-0 183 TW
-0 184 Rot
-0 185 Rot
-0 186 TW
-0 187 Rot
-0 188 rand
-0 189 TW
-0 190 rand
-0 191 jit
-0 192 rand
-0 193 rand
-0 194 Rot
-0 195 rand
-0 196 rand
-0 197 jit
-0 198 rand
-0 199 Rot
-0 200 rand
-0 201 Rot
-0 202 Rot
-0 203 rand
-0 204 TW
-0 205 Rot
-0 206 Rot
-0 207 TW
-0 208 rand
-0 209 rand
-0 210 TW
-0 211 TW
-0 212 TW
-0 213 jit
-0 214 TW
-0 215 rand
-0 216 TW
-0 217 jit
-0 218 jit
-0 219 Rot
-0 220 rand
-0 221 jit
-0 222 jit
-0 223 jit
-0 224 TW
-0 225 Rot
-0 226 Rot
-0 227 rand
-0 228 rand
-0 229 TW
-0 230 rand
-0 231 jit
-0 232 TW
-0 233 rand
-0 234 TW
-0 235 jit
-0 236 Rot
-0 237 jit
-0 238 jit
-0 239 Rot
-0 240 rand
-0 241 TW
-0 242 TW
-0 243 jit
-0 244 rand
-0 245 rand
-0 246 Rot
-0 247 TW
-0 248 Rot
-0 249 jit
-0 250 rand
-0 251 jit
-0 252 rand
-0 253 TW
-0 254 rand
-0 255 Rot
-0 256 TW
-0 257 Rot
-0 258 Rot
-0 259 rand
-0 260 rand
-0 261 TW
-0 262 Rot
-0 263 rand
-0 264 Rot
-0 265 jit
-0 266 rand
-0 267 jit
-0 268 Rot
-0 269 jit
-0 270 TW
-0 271 Rot
-0 272 TW
-0 273 TW
-0 274 rand
-0 275 Rot
-0 276 Rot
-0 277 TW
-0 278 rand
-0 279 rand
-0 280 rand
-0 281 jit
-0 282 jit
-0 283 rand
-0 284 jit
-0 285 jit
-0 286 Rot
-0 287 TW
-0 288 Rot
-0 289 jit
-0 290 jit
-0 291 jit
-0 292 rand
-0 293 jit
-0 294 Rot
-0 295 rand
-0 296 TW
-0 297 jit
-0 298 Rot
-0 299 Rot
-1 0 TW
-1 1 Rot
-1 2 jit
-1 3 TW
-1 4 jit
-1 5 Rot
-1 6 rand
-1 7 jit
-1 8 Rot
-1 9 jit
-1 10 TW
-1 11 rand
-1 12 Rot
-1 13 TW
-1 14 jit
-1 15 jit
-1 16 jit
-1 17 Rot
-1 18 jit
-1 19 Rot
-1 20 TW
-1 21 TW
-1 22 TW
-1 23 jit
-1 24 TW
-1 25 rand
-1 26 jit
-1 27 rand
-1 28 jit
-1 29 TW
-1 30 jit
-1 31 rand
-1 32 jit
-1 33 TW
-1 34 TW
-1 35 jit
-1 36 rand
-1 37 Rot
-1 38 jit
-1 39 Rot
-1 40 jit
-1 41 jit
-1 42 rand
-1 43 TW
-1 44 rand
-1 45 rand
-1 46 jit
-1 47 TW
-1 48 TW
-1 49 rand
-1 50 Rot
-1 51 Rot
-1 52 TW
-1 53 TW
-1 54 Rot
-1 55 Rot
-1 56 TW
-1 57 TW
-1 58 TW
-1 59 Rot
-1 60 Rot
-1 61 TW
-1 62 jit
-1 63 TW
-1 64 Rot
-1 65 Rot
-1 66 rand
-1 67 TW
-1 68 Rot
-1 69 TW
-1 70 TW
-1 71 jit
-1 72 rand
-1 73 TW
-1 74 rand
-1 75 rand
-1 76 TW
-1 77 TW
-1 78 jit
-1 79 TW
-1 80 TW
-1 81 jit
-1 82 TW
-1 83 rand
-1 84 jit
-1 85 Rot
-1 86 TW
-1 87 Rot
-1 88 Rot
-1 89 rand
-1 90 Rot
-1 91 Rot
-1 92 TW
-1 93 TW
-1 94 Rot
-1 95 jit
-1 96 rand
-1 97 TW
-1 98 Rot
-1 99 jit
-1 100 rand
-1 101 jit
-1 102 Rot
-1 103 jit
-1 104 jit
-1 105 Rot
-1 106 rand
-1 107 rand
-1 108 jit
-1 109 Rot
-1 110 jit
-1 111 jit
-1 112 TW
-1 113 TW
-1 114 Rot
-1 115 Rot
-1 116 TW
-1 117 jit
-1 118 rand
-1 119 Rot
-1 120 jit
-1 121 Rot
-1 122 TW
-1 123 rand
-1 124 rand
-1 125 jit
-1 126 rand
-1 127 TW
-1 128 Rot
-1 129 TW
-1 130 Rot
-1 131 jit
-1 132 TW
-1 133 Rot
-1 134 rand
-1 135 jit
-1 136 jit
-1 137 TW
-1 138 TW
-1 139 TW
-1 140 Rot
-1 141 rand
-1 142 TW
-1 143 Rot
-1 144 rand
-1 145 TW
-1 146 Rot
-1 147 Rot
-1 148 rand
-1 149 jit
-1 150 Rot
-1 151 TW
-1 152 rand
-1 153 Rot
-1 154 Rot
-1 155 Rot
-1 156 jit
-1 157 Rot
-1 158 TW
-1 159 rand
-1 160 Rot
-1 161 rand
-1 162 Rot
-1 163 TW
-1 164 jit
-1 165 rand
-1 166 jit
-1 167 Rot
-1 168 rand
-1 169 TW
-1 170 TW
-1 171 TW
-1 172 Rot
-1 173 Rot
-1 174 Rot
-1 175 TW
-1 176 TW
-1 177 rand
-1 178 Rot
-1 179 rand
-1 180 Rot
-1 181 rand
-1 182 TW
-1 183 TW
-1 184 jit
-1 185 Rot
-1 186 jit
-1 187 rand
-1 188 jit
-1 189 Rot
-1 190 TW
-1 191 TW
-1 192 jit
-1 193 TW
-1 194 Rot
-1 195 jit
-1 196 TW
-1 197 rand
-1 198 jit
-1 199 rand
-1 200 jit
-1 201 Rot
-1 202 jit
-1 203 jit
-1 204 rand
-1 205 rand
-1 206 TW
-1 207 Rot
-1 208 rand
-1 209 TW
-1 210 Rot
-1 211 rand
-1 212 Rot
-1 213 jit
-1 214 TW
-1 215 TW
-1 216 TW
-1 217 jit
-1 218 jit
-1 219 rand
-1 220 jit
-1 221 rand
-1 222 rand
-1 223 Rot
-1 224 TW
-1 225 rand
-1 226 Rot
-1 227 rand
-1 228 TW
-1 229 rand
-1 230 Rot
-1 231 rand
-1 232 jit
-1 233 rand
-1 234 Rot
-1 235 jit
-1 236 Rot
-1 237 Rot
-1 238 TW
-1 239 jit
-1 240 rand
-1 241 rand
-1 242 jit
-1 243 TW
-1 244 rand
-1 245 Rot
-1 246 jit
-1 247 TW
-1 248 rand
-1 249 jit
-1 250 jit
-1 251 rand
-1 252 rand
-1 253 Rot
-1 254 rand
-1 255 TW
-1 256 jit
-1 257 Rot
-1 258 Rot
-1 259 Rot
-1 260 rand
-1 261 jit
-1 262 jit
-1 263 jit
-1 264 rand
-1 265 jit
-1 266 jit
-1 267 Rot
-1 268 jit
-1 269 TW
-1 270 rand
-1 271 TW
-1 272 TW
-1 273 Rot
-1 274 rand
-1 275 TW
-1 276 Rot
-1 277 TW
-1 278 jit
-1 279 TW
-1 280 TW
-1 281 Rot
-1 282 TW
-1 283 TW
-1 284 rand
-1 285 rand
-1 286 TW
-1 287 rand
-1 288 jit
-1 289 TW
-1 290 Rot
-1 291 jit
-1 292 rand
-1 293 TW
-1 294 Rot
-1 295 TW
-1 296 TW
-1 297 rand
-1 298 rand
-1 299 rand
-2 0 Rot
-2 1 TW
-2 2 jit
-2 3 jit
-2 4 rand
-2 5 rand
-2 6 TW
-2 7 jit
-2 8 TW
-2 9 TW
-2 10 Rot
-2 11 TW
-2 12 Rot
-2 13 TW
-2 14 rand
-2 15 jit
-2 16 TW
-2 17 jit
-2 18 rand
-2 19 jit
-2 20 Rot
-2 21 jit
-2 22 rand
-2 23 jit
-2 24 TW
-2 25 Rot
-2 26 jit
-2 27 rand
-2 28 TW
-2 29 Rot
-2 30 TW
-2 31 rand
-2 32 Rot
-2 33 Rot
-2 34 rand
-2 35 TW
-2 36 Rot
-2 37 TW
-2 38 TW
-2 39 Rot
-2 40 jit
-2 41 jit
-2 42 TW
-2 43 Rot
-2 44 TW
-2 45 rand
-2 46 TW
-2 47 jit
-2 48 Rot
-2 49 Rot
-2 50 rand
-2 51 TW
-2 52 rand
-2 53 rand
-2 54 rand
-2 55 Rot
-2 56 rand
-2 57 TW
-2 58 jit
-2 59 TW
-2 60 jit
-2 61 TW
-2 62 jit
-2 63 Rot
-2 64 Rot
-2 65 rand
-2 66 rand
-2 67 jit
-2 68 TW
-2 69 rand
-2 70 Rot
-2 71 Rot
-2 72 TW
-2 73 rand
-2 74 jit
-2 75 TW
-2 76 jit
-2 77 jit
-2 78 TW
-2 79 rand
-2 80 jit
-2 81 jit
-2 82 TW
-2 83 rand
-2 84 TW
-2 85 TW
-2 86 rand
-2 87 Rot
-2 88 rand
-2 89 Rot
-2 90 rand
-2 91 jit
-2 92 rand
-2 93 rand
-2 94 jit
-2 95 TW
-2 96 Rot
-2 97 Rot
-2 98 jit
-2 99 rand
-2 100 rand
-2 101 rand
-2 102 rand
-2 103 rand
-2 104 TW
-2 105 rand
-2 106 jit
-2 107 rand
-2 108 rand
-2 109 rand
-2 110 rand
-2 111 TW
-2 112 rand
-2 113 jit
-2 114 jit
-2 115 rand
-2 116 Rot
-2 117 TW
-2 118 jit
-2 119 Rot
-2 120 TW
-2 121 TW
-2 122 Rot
-2 123 jit
-2 124 TW
-2 125 Rot
-2 126 TW
-2 127 TW
-2 128 rand
-2 129 TW
-2 130 Rot
-2 131 rand
-2 132 Rot
-2 133 TW
-2 134 Rot
-2 135 TW
-2 136 jit
-2 137 Rot
-2 138 rand
-2 139 TW
-2 140 Rot
-2 141 TW
-2 142 TW
-2 143 rand
-2 144 Rot
-2 145 TW
-2 146 TW
-2 147 TW
-2 148 Rot
-2 149 jit
-2 150 Rot
-2 151 rand
-2 152 jit
-2 153 rand
-2 154 TW
-2 155 jit
-2 156 rand
-2 157 Rot
-2 158 jit
-2 159 Rot
-2 160 TW
-2 161 TW
-2 162 Rot
-2 163 jit
-2 164 rand
-2 165 Rot
-2 166 Rot
-2 167 TW
-2 168 rand
-2 169 Rot
-2 170 rand
-2 171 jit
-2 172 jit
-2 173 jit
-2 174 Rot
-2 175 jit
-2 176 jit
-2 177 rand
-2 178 rand
-2 179 jit
-2 180 TW
-2 181 jit
-2 182 rand
-2 183 TW
-2 184 jit
-2 185 jit
-2 186 Rot
-2 187 jit
-2 188 Rot
-2 189 rand
-2 190 Rot
-2 191 rand
-2 192 rand
-2 193 Rot
-2 194 rand
-2 195 jit
-2 196 rand
-2 197 rand
-2 198 Rot
-2 199 jit
-2 200 TW
-2 201 Rot
-2 202 rand
-2 203 Rot
-2 204 Rot
-2 205 jit
-2 206 TW
-2 207 Rot
-2 208 TW
-2 209 TW
-2 210 rand
-2 211 rand
-2 212 TW
-2 213 TW
-2 214 TW
-2 215 rand
-2 216 jit
-2 217 jit
-2 218 jit
-2 219 jit
-2 220 jit
-2 221 jit
-2 222 TW
-2 223 TW
-2 224 TW
-2 225 rand
-2 226 jit
-2 227 TW
-2 228 Rot
-2 229 jit
-2 230 TW
-2 231 TW
-2 232 jit
-2 233 Rot
-2 234 rand
-2 235 Rot
-2 236 jit
-2 237 jit
-2 238 Rot
-2 239 jit
-2 240 TW
-2 241 jit
-2 242 Rot
-2 243 jit
-2 244 TW
-2 245 jit
-2 246 TW
-2 247 Rot
-2 248 rand
-2 249 Rot
-2 250 rand
-2 251 Rot
-2 252 Rot
-2 253 TW
-2 254 jit
-2 255 jit
-2 256 TW
-2 257 TW
-2 258 rand
-2 259 jit
-2 260 rand
-2 261 Rot
-2 262 TW
-2 263 rand
-2 264 TW
-2 265 TW
-2 266 Rot
-2 267 Rot
-2 268 TW
-2 269 Rot
-2 270 Rot
-2 271 jit
-2 272 jit
-2 273 Rot
-2 274 TW
-2 275 TW
-2 276 Rot
-2 277 Rot
-2 278 rand
-2 279 Rot
-2 280 jit
-2 281 TW
-2 282 rand
-2 283 jit
-2 284 TW
-2 285 TW
-2 286 TW
-2 287 Rot
-2 288 rand
-2 289 jit
-2 290 rand
-2 291 TW
-2 292 jit
-2 293 TW
-2 294 TW
-2 295 Rot
-2 296 TW
-2 297 rand
-2 298 Rot
-2 299 jit
-3 0 rand
-3 1 jit
-3 2 Rot
-3 3 TW
-3 4 rand
-3 5 rand
-3 6 rand
-3 7 Rot
-3 8 rand
-3 9 TW
-3 10 jit
-3 11 Rot
-3 12 TW
-3 13 rand
-3 14 Rot
-3 15 TW
-3 16 jit
-3 17 jit
-3 18 rand
-3 19 Rot
-3 20 jit
-3 21 Rot
-3 22 jit
-3 23 jit
-3 24 Rot
-3 25 TW
-3 26 jit
-3 27 jit
-3 28 TW
-3 29 Rot
-3 30 rand
-3 31 rand
-3 32 TW
-3 33 Rot
-3 34 rand
-3 35 jit
-3 36 TW
-3 37 jit
-3 38 Rot
-3 39 Rot
-3 40 rand
-3 41 rand
-3 42 rand
-3 43 TW
-3 44 rand
-3 45 jit
-3 46 rand
-3 47 TW
-3 48 rand
-3 49 jit
-3 50 rand
-3 51 rand
-3 52 rand
-3 53 jit
-3 54 rand
-3 55 TW
-3 56 jit
-3 57 Rot
-3 58 TW
-3 59 rand
-3 60 TW
-3 61 jit
-3 62 jit
-3 63 jit
-3 64 TW
-3 65 rand
-3 66 Rot
-3 67 TW
-3 68 jit
-3 69 jit
-3 70 TW
-3 71 TW
-3 72 rand
-3 73 TW
-3 74 TW
-3 75 Rot
-3 76 Rot
-3 77 rand
-3 78 TW
-3 79 Rot
-3 80 Rot
-3 81 rand
-3 82 TW
-3 83 jit
-3 84 Rot
-3 85 rand
-3 86 Rot
-3 87 jit
-3 88 TW
-3 89 Rot
-3 90 rand
-3 91 rand
-3 92 TW
-3 93 rand
-3 94 TW
-3 95 rand
-3 96 jit
-3 97 jit
-3 98 rand
-3 99 jit
-3 100 Rot
-3 101 jit
-3 102 TW
-3 103 jit
-3 104 jit
-3 105 jit
-3 106 TW
-3 107 Rot
-3 108 jit
-3 109 jit
-3 110 rand
-3 111 rand
-3 112 Rot
-3 113 Rot
-3 114 jit
-3 115 jit
-3 116 TW
-3 117 TW
-3 118 Rot
-3 119 TW
-3 120 Rot
-3 121 TW
-3 122 Rot
-3 123 jit
-3 124 Rot
-3 125 jit
-3 126 Rot
-3 127 Rot
-3 128 rand
-3 129 TW
-3 130 jit
-3 131 Rot
-3 132 jit
-3 133 Rot
-3 134 Rot
-3 135 Rot
-3 136 Rot
-3 137 rand
-3 138 TW
-3 139 TW
-3 140 jit
-3 141 TW
-3 142 rand
-3 143 rand
-3 144 jit
-3 145 Rot
-3 146 TW
-3 147 Rot
-3 148 jit
-3 149 rand
-3 150 Rot
-3 151 Rot
-3 152 Rot
-3 153 rand
-3 154 TW
-3 155 rand
-3 156 rand
-3 157 TW
-3 158 rand
-3 159 jit
-3 160 jit
-3 161 Rot
-3 162 rand
-3 163 TW
-3 164 TW
-3 165 rand
-3 166 jit
-3 167 rand
-3 168 rand
-3 169 jit
-3 170 Rot
-3 171 TW
-3 172 Rot
-3 173 TW
-3 174 rand
-3 175 jit
-3 176 jit
-3 177 rand
-3 178 jit
-3 179 jit
-3 180 Rot
-3 181 jit
-3 182 rand
-3 183 Rot
-3 184 TW
-3 185 TW
-3 186 Rot
-3 187 Rot
-3 188 rand
-3 189 jit
-3 190 Rot
-3 191 TW
-3 192 TW
-3 193 TW
-3 194 jit
-3 195 jit
-3 196 jit
-3 197 jit
-3 198 Rot
-3 199 rand
-3 200 jit
-3 201 Rot
-3 202 rand
-3 203 rand
-3 204 Rot
-3 205 Rot
-3 206 TW
-3 207 Rot
-3 208 jit
-3 209 jit
-3 210 rand
-3 211 Rot
-3 212 Rot
-3 213 rand
-3 214 jit
-3 215 Rot
-3 216 jit
-3 217 TW
-3 218 jit
-3 219 TW
-3 220 rand
-3 221 Rot
-3 222 rand
-3 223 TW
-3 224 jit
-3 225 jit
-3 226 jit
-3 227 Rot
-3 228 jit
-3 229 Rot
-3 230 Rot
-3 231 Rot
-3 232 TW
-3 233 rand
-3 234 Rot
-3 235 Rot
-3 236 Rot
-3 237 TW
-3 238 rand
-3 239 rand
-3 240 Rot
-3 241 TW
-3 242 TW
-3 243 Rot
-3 244 Rot
-3 245 TW
-3 246 Rot
-3 247 TW
-3 248 rand
-3 249 rand
-3 250 rand
-3 251 rand
-3 252 TW
-3 253 rand
-3 254 jit
-3 255 rand
-3 256 Rot
-3 257 rand
-3 258 Rot
-3 259 rand
-3 260 rand
-3 261 Rot
-3 262 jit
-3 263 Rot
-3 264 rand
-3 265 jit
-3 266 Rot
-3 267 TW
-3 268 rand
-3 269 jit
-3 270 Rot
-3 271 Rot
-3 272 rand
-3 273 jit
-3 274 rand
-3 275 jit
-3 276 jit
-3 277 jit
-3 278 Rot
-3 279 TW
-3 280 rand
-3 281 TW
-3 282 jit
-3 283 jit
-3 284 jit
-3 285 Rot
-3 286 rand
-3 287 rand
-3 288 jit
-3 289 rand
-3 290 rand
-3 291 TW
-3 292 Rot
-3 293 Rot
-3 294 rand
-3 295 TW
-3 296 rand
-3 297 TW
-3 298 Rot
-3 299 rand
-4 0 rand
-4 1 jit
-4 2 TW
-4 3 rand
-4 4 jit
-4 5 rand
-4 6 TW
-4 7 rand
-4 8 TW
-4 9 rand
-4 10 Rot
-4 11 Rot
-4 12 Rot
-4 13 TW
-4 14 Rot
-4 15 TW
-4 16 TW
-4 17 rand
-4 18 jit
-4 19 rand
-4 20 jit
-4 21 TW
-4 22 rand
-4 23 Rot
-4 24 Rot
-4 25 rand
-4 26 jit
-4 27 rand
-4 28 rand
-4 29 TW
-4 30 jit
-4 31 jit
-4 32 TW
-4 33 rand
-4 34 Rot
-4 35 TW
-4 36 rand
-4 37 jit
-4 38 TW
-4 39 Rot
-4 40 TW
-4 41 jit
-4 42 jit
-4 43 TW
-4 44 jit
-4 45 rand
-4 46 Rot
-4 47 TW
-4 48 rand
-4 49 rand
-4 50 rand
-4 51 TW
-4 52 TW
-4 53 rand
-4 54 TW
-4 55 TW
-4 56 TW
-4 57 jit
-4 58 Rot
-4 59 rand
-4 60 Rot
-4 61 TW
-4 62 TW
-4 63 rand
-4 64 jit
-4 65 rand
-4 66 Rot
-4 67 jit
-4 68 TW
-4 69 Rot
-4 70 TW
-4 71 TW
-4 72 Rot
-4 73 TW
-4 74 jit
-4 75 jit
-4 76 rand
-4 77 Rot
-4 78 jit
-4 79 TW
-4 80 TW
-4 81 Rot
-4 82 rand
-4 83 rand
-4 84 TW
-4 85 rand
-4 86 TW
-4 87 rand
-4 88 jit
-4 89 Rot
-4 90 TW
-4 91 Rot
-4 92 TW
-4 93 Rot
-4 94 jit
-4 95 Rot
-4 96 Rot
-4 97 rand
-4 98 Rot
-4 99 TW
-4 100 Rot
-4 101 jit
-4 102 Rot
-4 103 TW
-4 104 TW
-4 105 rand
-4 106 rand
-4 107 jit
-4 108 rand
-4 109 rand
-4 110 Rot
-4 111 jit
-4 112 rand
-4 113 TW
-4 114 TW
-4 115 rand
-4 116 jit
-4 117 TW
-4 118 Rot
-4 119 rand
-4 120 rand
-4 121 rand
-4 122 jit
-4 123 rand
-4 124 jit
-4 125 jit
-4 126 Rot
-4 127 jit
-4 128 TW
-4 129 TW
-4 130 TW
-4 131 Rot
-4 132 rand
-4 133 TW
-4 134 TW
-4 135 TW
-4 136 jit
-4 137 jit
-4 138 Rot
-4 139 jit
-4 140 Rot
-4 141 TW
-4 142 rand
-4 143 Rot
-4 144 rand
-4 145 jit
-4 146 rand
-4 147 rand
-4 148 TW
-4 149 rand
-4 150 Rot
-4 151 jit
-4 152 Rot
-4 153 Rot
-4 154 TW
-4 155 rand
-4 156 TW
-4 157 TW
-4 158 Rot
-4 159 jit
-4 160 Rot
-4 161 jit
-4 162 jit
-4 163 jit
-4 164 jit
-4 165 TW
-4 166 Rot
-4 167 rand
-4 168 rand
-4 169 Rot
-4 170 rand
-4 171 rand
-4 172 rand
-4 173 Rot
-4 174 jit
-4 175 jit
-4 176 Rot
-4 177 jit
-4 178 jit
-4 179 TW
-4 180 Rot
-4 181 jit
-4 182 Rot
-4 183 jit
-4 184 jit
-4 185 TW
-4 186 Rot
-4 187 rand
-4 188 rand
-4 189 Rot
-4 190 TW
-4 191 Rot
-4 192 TW
-4 193 TW
-4 194 rand
-4 195 TW
-4 196 rand
-4 197 jit
-4 198 TW
-4 199 jit
-4 200 jit
-4 201 TW
-4 202 rand
-4 203 jit
-4 204 rand
-4 205 Rot
-4 206 jit
-4 207 rand
-4 208 rand
-4 209 Rot
-4 210 Rot
-4 211 TW
-4 212 rand
-4 213 jit
-4 214 rand
-4 215 Rot
-4 216 Rot
-4 217 TW
-4 218 Rot
-4 219 rand
-4 220 jit
-4 221 jit
-4 222 Rot
-4 223 jit
-4 224 rand
-4 225 Rot
-4 226 Rot
-4 227 TW
-4 228 Rot
-4 229 jit
-4 230 jit
-4 231 Rot
-4 232 jit
-4 233 jit
-4 234 jit
-4 235 rand
-4 236 rand
-4 237 TW
-4 238 Rot
-4 239 TW
-4 240 TW
-4 241 Rot
-4 242 jit
-4 243 Rot
-4 244 rand
-4 245 jit
-4 246 TW
-4 247 Rot
-4 248 jit
-4 249 TW
-4 250 jit
-4 251 rand
-4 252 rand
-4 253 jit
-4 254 Rot
-4 255 Rot
-4 256 TW
-4 257 rand
-4 258 jit
-4 259 TW
-4 260 Rot
-4 261 jit
-4 262 TW
-4 263 jit
-4 264 rand
-4 265 rand
-4 266 TW
-4 267 jit
-4 268 Rot
-4 269 jit
-4 270 jit
-4 271 jit
-4 272 rand
-4 273 TW
-4 274 jit
-4 275 Rot
-4 276 jit
-4 277 Rot
-4 278 Rot
-4 279 jit
-4 280 rand
-4 281 rand
-4 282 jit
-4 283 Rot
-4 284 jit
-4 285 rand
-4 286 Rot
-4 287 TW
-4 288 TW
-4 289 TW
-4 290 TW
-4 291 TW
-4 292 TW
-4 293 rand
-4 294 Rot
-4 295 jit
-4 296 jit
-4 297 jit
-4 298 TW
-4 299 TW
-5 0 TW
-5 1 Rot
-5 2 TW
-5 3 rand
-5 4 rand
-5 5 rand
-5 6 rand
-5 7 TW
-5 8 TW
-5 9 rand
-5 10 Rot
-5 11 rand
-5 12 TW
-5 13 jit
-5 14 TW
-5 15 jit
-5 16 jit
-5 17 Rot
-5 18 jit
-5 19 rand
-5 20 jit
-5 21 rand
-5 22 rand
-5 23 jit
-5 24 Rot
-5 25 jit
-5 26 rand
-5 27 TW
-5 28 jit
-5 29 jit
-5 30 TW
-5 31 rand
-5 32 TW
-5 33 rand
-5 34 Rot
-5 35 rand
-5 36 rand
-5 37 Rot
-5 38 rand
-5 39 TW
-5 40 TW
-5 41 Rot
-5 42 rand
-5 43 jit
-5 44 jit
-5 45 rand
-5 46 rand
-5 47 rand
-5 48 jit
-5 49 jit
-5 50 Rot
-5 51 TW
-5 52 jit
-5 53 Rot
-5 54 rand
-5 55 rand
-5 56 rand
-5 57 jit
-5 58 Rot
-5 59 TW
-5 60 rand
-5 61 Rot
-5 62 jit
-5 63 rand
-5 64 Rot
-5 65 TW
-5 66 TW
-5 67 rand
-5 68 rand
-5 69 jit
-5 70 Rot
-5 71 Rot
-5 72 jit
-5 73 TW
-5 74 Rot
-5 75 rand
-5 76 TW
-5 77 TW
-5 78 Rot
-5 79 rand
-5 80 Rot
-5 81 jit
-5 82 jit
-5 83 jit
-5 84 TW
-5 85 jit
-5 86 rand
-5 87 TW
-5 88 jit
-5 89 Rot
-5 90 jit
-5 91 TW
-5 92 Rot
-5 93 jit
-5 94 Rot
-5 95 jit
-5 96 Rot
-5 97 Rot
-5 98 Rot
-5 99 TW
-5 100 rand
-5 101 Rot
-5 102 rand
-5 103 jit
-5 104 jit
-5 105 jit
-5 106 Rot
-5 107 rand
-5 108 TW
-5 109 jit
-5 110 TW
-5 111 Rot
-5 112 Rot
-5 113 rand
-5 114 TW
-5 115 rand
-5 116 jit
-5 117 rand
-5 118 Rot
-5 119 Rot
-5 120 TW
-5 121 TW
-5 122 Rot
-5 123 rand
-5 124 Rot
-5 125 rand
-5 126 Rot
-5 127 TW
-5 128 TW
-5 129 jit
-5 130 Rot
-5 131 jit
-5 132 jit
-5 133 TW
-5 134 TW
-5 135 Rot
-5 136 rand
-5 137 TW
-5 138 Rot
-5 139 Rot
-5 140 jit
-5 141 jit
-5 142 rand
-5 143 rand
-5 144 rand
-5 145 TW
-5 146 Rot
-5 147 rand
-5 148 TW
-5 149 Rot
-5 150 jit
-5 151 jit
-5 152 rand
-5 153 rand
-5 154 TW
-5 155 jit
-5 156 rand
-5 157 rand
-5 158 rand
-5 159 jit
-5 160 jit
-5 161 rand
-5 162 Rot
-5 163 TW
-5 164 jit
-5 165 rand
-5 166 TW
-5 167 rand
-5 168 Rot
-5 169 jit
-5 170 TW
-5 171 Rot
-5 172 TW
-5 173 TW
-5 174 rand
-5 175 rand
-5 176 TW
-5 177 Rot
-5 178 rand
-5 179 rand
-5 180 rand
-5 181 rand
-5 182 rand
-5 183 Rot
-5 184 TW
-5 185 rand
-5 186 TW
-5 187 jit
-5 188 Rot
-5 189 TW
-5 190 rand
-5 191 rand
-5 192 rand
-5 193 rand
-5 194 jit
-5 195 rand
-5 196 Rot
-5 197 TW
-5 198 rand
-5 199 Rot
-5 200 TW
-5 201 jit
-5 202 Rot
-5 203 jit
-5 204 rand
-5 205 TW
-5 206 jit
-5 207 rand
-5 208 Rot
-5 209 Rot
-5 210 TW
-5 211 Rot
-5 212 TW
-5 213 jit
-5 214 rand
-5 215 TW
-5 216 TW
-5 217 rand
-5 218 TW
-5 219 Rot
-5 220 jit
-5 221 Rot
-5 222 rand
-5 223 TW
-5 224 rand
-5 225 rand
-5 226 jit
-5 227 TW
-5 228 TW
-5 229 rand
-5 230 jit
-5 231 Rot
-5 232 rand
-5 233 rand
-5 234 jit
-5 235 jit
-5 236 Rot
-5 237 TW
-5 238 rand
-5 239 Rot
-5 240 rand
-5 241 rand
-5 242 rand
-5 243 jit
-5 244 rand
-5 245 jit
-5 246 jit
-5 247 jit
-5 248 rand
-5 249 rand
-5 250 Rot
-5 251 rand
-5 252 Rot
-5 253 Rot
-5 254 jit
-5 255 jit
-5 256 rand
-5 257 TW
-5 258 rand
-5 259 TW
-5 260 jit
-5 261 Rot
-5 262 TW
-5 263 rand
-5 264 rand
-5 265 jit
-5 266 Rot
-5 267 Rot
-5 268 Rot
-5 269 TW
-5 270 Rot
-5 271 TW
-5 272 Rot
-5 273 Rot
-5 274 jit
-5 275 rand
-5 276 Rot
-5 277 rand
-5 278 TW
-5 279 jit
-5 280 jit
-5 281 rand
-5 282 TW
-5 283 rand
-5 284 rand
-5 285 rand
-5 286 TW
-5 287 rand
-5 288 Rot
-5 289 TW
-5 290 Rot
-5 291 rand
-5 292 jit
-5 293 Rot
-5 294 jit
-5 295 TW
-5 296 Rot
-5 297 rand
-5 298 Rot
-5 299 jit
-6 0 jit
-6 1 TW
-6 2 Rot
-6 3 Rot
-6 4 Rot
-6 5 rand
-6 6 jit
-6 7 Rot
-6 8 TW
-6 9 jit
-6 10 rand
-6 11 jit
-6 12 rand
-6 13 TW
-6 14 jit
-6 15 jit
-6 16 jit
-6 17 TW
-6 18 rand
-6 19 jit
-6 20 TW
-6 21 jit
-6 22 jit
-6 23 jit
-6 24 jit
-6 25 jit
-6 26 jit
-6 27 TW
-6 28 TW
-6 29 TW
-6 30 jit
-6 31 TW
-6 32 jit
-6 33 jit
-6 34 Rot
-6 35 Rot
-6 36 TW
-6 37 rand
-6 38 rand
-6 39 Rot
-6 40 Rot
-6 41 TW
-6 42 Rot
-6 43 TW
-6 44 rand
-6 45 jit
-6 46 Rot
-6 47 TW
-6 48 rand
-6 49 jit
-6 50 jit
-6 51 jit
-6 52 rand
-6 53 Rot
-6 54 Rot
-6 55 TW
-6 56 TW
-6 57 TW
-6 58 rand
-6 59 TW
-6 60 rand
-6 61 rand
-6 62 Rot
-6 63 TW
-6 64 Rot
-6 65 Rot
-6 66 rand
-6 67 TW
-6 68 rand
-6 69 rand
-6 70 Rot
-6 71 rand
-6 72 TW
-6 73 Rot
-6 74 rand
-6 75 jit
-6 76 Rot
-6 77 Rot
-6 78 TW
-6 79 TW
-6 80 TW
-6 81 TW
-6 82 jit
-6 83 rand
-6 84 Rot
-6 85 TW
-6 86 jit
-6 87 jit
-6 88 rand
-6 89 Rot
-6 90 TW
-6 91 jit
-6 92 rand
-6 93 rand
-6 94 jit
-6 95 jit
-6 96 rand
-6 97 Rot
-6 98 rand
-6 99 Rot
-6 100 jit
-6 101 Rot
-6 102 jit
-6 103 TW
-6 104 Rot
-6 105 TW
-6 106 TW
-6 107 Rot
-6 108 TW
-6 109 Rot
-6 110 TW
-6 111 Rot
-6 112 Rot
-6 113 TW
-6 114 jit
-6 115 jit
-6 116 jit
-6 117 Rot
-6 118 Rot
-6 119 jit
-6 120 TW
-6 121 Rot
-6 122 rand
-6 123 jit
-6 124 TW
-6 125 Rot
-6 126 Rot
-6 127 jit
-6 128 Rot
-6 129 Rot
-6 130 Rot
-6 131 Rot
-6 132 Rot
-6 133 Rot
-6 134 TW
-6 135 TW
-6 136 Rot
-6 137 jit
-6 138 TW
-6 139 Rot
-6 140 TW
-6 141 Rot
-6 142 jit
-6 143 TW
-6 144 rand
-6 145 jit
-6 146 jit
-6 147 Rot
-6 148 TW
-6 149 jit
-6 150 jit
-6 151 rand
-6 152 jit
-6 153 jit
-6 154 TW
-6 155 rand
-6 156 rand
-6 157 rand
-6 158 rand
-6 159 rand
-6 160 TW
-6 161 Rot
-6 162 rand
-6 163 rand
-6 164 rand
-6 165 TW
-6 166 Rot
-6 167 rand
-6 168 Rot
-6 169 Rot
-6 170 jit
-6 171 jit
-6 172 TW
-6 173 Rot
-6 174 TW
-6 175 Rot
-6 176 Rot
-6 177 Rot
-6 178 TW
-6 179 Rot
-6 180 rand
-6 181 rand
-6 182 jit
-6 183 TW
-6 184 TW
-6 185 jit
-6 186 jit
-6 187 Rot
-6 188 jit
-6 189 Rot
-6 190 jit
-6 191 jit
-6 192 TW
-6 193 Rot
-6 194 jit
-6 195 TW
-6 196 jit
-6 197 jit
-6 198 TW
-6 199 jit
-6 200 rand
-6 201 TW
-6 202 rand
-6 203 rand
-6 204 TW
-6 205 jit
-6 206 Rot
-6 207 Rot
-6 208 jit
-6 209 rand
-6 210 jit
-6 211 TW
-6 212 rand
-6 213 jit
-6 214 TW
-6 215 Rot
-6 216 Rot
-6 217 jit
-6 218 jit
-6 219 jit
-6 220 Rot
-6 221 rand
-6 222 jit
-6 223 Rot
-6 224 jit
-6 225 Rot
-6 226 Rot
-6 227 jit
-6 228 Rot
-6 229 TW
-6 230 Rot
-6 231 Rot
-6 232 rand
-6 233 Rot
-6 234 Rot
-6 235 Rot
-6 236 rand
-6 237 jit
-6 238 rand
-6 239 Rot
-6 240 jit
-6 241 Rot
-6 242 rand
-6 243 TW
-6 244 TW
-6 245 TW
-6 246 TW
-6 247 TW
-6 248 Rot
-6 249 jit
-6 250 jit
-6 251 Rot
-6 252 rand
-6 253 jit
-6 254 TW
-6 255 rand
-6 256 jit
-6 257 jit
-6 258 jit
-6 259 jit
-6 260 jit
-6 261 Rot
-6 262 TW
-6 263 TW
-6 264 Rot
-6 265 rand
-6 266 rand
-6 267 Rot
-6 268 Rot
-6 269 TW
-6 270 Rot
-6 271 TW
-6 272 TW
-6 273 jit
-6 274 jit
-6 275 Rot
-6 276 jit
-6 277 rand
-6 278 TW
-6 279 jit
-6 280 rand
-6 281 jit
-6 282 jit
-6 283 rand
-6 284 TW
-6 285 Rot
-6 286 jit
-6 287 Rot
-6 288 Rot
-6 289 jit
-6 290 jit
-6 291 Rot
-6 292 Rot
-6 293 TW
-6 294 TW
-6 295 rand
-6 296 Rot
-6 297 jit
-6 298 jit
-6 299 rand
-7 0 rand
-7 1 jit
-7 2 TW
-7 3 Rot
-7 4 Rot
-7 5 rand
-7 6 TW
-7 7 jit
-7 8 TW
-7 9 Rot
-7 10 TW
-7 11 Rot
-7 12 Rot
-7 13 rand
-7 14 Rot
-7 15 TW
-7 16 rand
-7 17 jit
-7 18 Rot
-7 19 Rot
-7 20 Rot
-7 21 Rot
-7 22 rand
-7 23 jit
-7 24 TW
-7 25 TW
-7 26 jit
-7 27 rand
-7 28 Rot
-7 29 jit
-7 30 rand
-7 31 TW
-7 32 Rot
-7 33 rand
-7 34 rand
-7 35 Rot
-7 36 rand
-7 37 TW
-7 38 TW
-7 39 jit
-7 40 TW
-7 41 TW
-7 42 TW
-7 43 jit
-7 44 Rot
-7 45 jit
-7 46 Rot
-7 47 rand
-7 48 Rot
-7 49 jit
-7 50 rand
-7 51 TW
-7 52 rand
-7 53 rand
-7 54 jit
-7 55 rand
-7 56 jit
-7 57 rand
-7 58 TW
-7 59 TW
-7 60 TW
-7 61 jit
-7 62 rand
-7 63 TW
-7 64 jit
-7 65 Rot
-7 66 TW
-7 67 TW
-7 68 TW
-7 69 jit
-7 70 rand
-7 71 jit
-7 72 TW
-7 73 jit
-7 74 jit
-7 75 Rot
-7 76 Rot
-7 77 jit
-7 78 TW
-7 79 jit
-7 80 jit
-7 81 jit
-7 82 TW
-7 83 TW
-7 84 Rot
-7 85 Rot
-7 86 TW
-7 87 jit
-7 88 rand
-7 89 Rot
-7 90 TW
-7 91 rand
-7 92 jit
-7 93 TW
-7 94 Rot
-7 95 rand
-7 96 jit
-7 97 Rot
-7 98 rand
-7 99 TW
-7 100 Rot
-7 101 jit
-7 102 rand
-7 103 Rot
-7 104 rand
-7 105 rand
-7 106 jit
-7 107 rand
-7 108 rand
-7 109 rand
-7 110 Rot
-7 111 Rot
-7 112 rand
-7 113 TW
-7 114 jit
-7 115 TW
-7 116 rand
-7 117 rand
-7 118 Rot
-7 119 rand
-7 120 jit
-7 121 rand
-7 122 Rot
-7 123 TW
-7 124 Rot
-7 125 jit
-7 126 jit
-7 127 jit
-7 128 TW
-7 129 TW
-7 130 rand
-7 131 jit
-7 132 TW
-7 133 jit
-7 134 jit
-7 135 TW
-7 136 Rot
-7 137 Rot
-7 138 rand
-7 139 jit
-7 140 rand
-7 141 TW
-7 142 TW
-7 143 rand
-7 144 rand
-7 145 rand
-7 146 Rot
-7 147 jit
-7 148 TW
-7 149 jit
-7 150 rand
-7 151 TW
-7 152 rand
-7 153 Rot
-7 154 TW
-7 155 rand
-7 156 rand
-7 157 TW
-7 158 jit
-7 159 TW
-7 160 Rot
-7 161 rand
-7 162 TW
-7 163 jit
-7 164 Rot
-7 165 Rot
-7 166 TW
-7 167 TW
-7 168 Rot
-7 169 jit
-7 170 rand
-7 171 rand
-7 172 jit
-7 173 jit
-7 174 rand
-7 175 TW
-7 176 TW
-7 177 rand
-7 178 jit
-7 179 TW
-7 180 Rot
-7 181 jit
-7 182 rand
-7 183 Rot
-7 184 TW
-7 185 jit
-7 186 jit
-7 187 rand
-7 188 jit
-7 189 rand
-7 190 rand
-7 191 jit
-7 192 TW
-7 193 Rot
-7 194 Rot
-7 195 rand
-7 196 jit
-7 197 Rot
-7 198 jit
-7 199 TW
-7 200 Rot
-7 201 TW
-7 202 TW
-7 203 rand
-7 204 TW
-7 205 Rot
-7 206 jit
-7 207 Rot
-7 208 rand
-7 209 jit
-7 210 rand
-7 211 jit
-7 212 Rot
-7 213 jit
-7 214 Rot
-7 215 Rot
-7 216 TW
-7 217 TW
-7 218 Rot
-7 219 rand
-7 220 Rot
-7 221 jit
-7 222 rand
-7 223 TW
-7 224 Rot
-7 225 jit
-7 226 Rot
-7 227 jit
-7 228 jit
-7 229 jit
-7 230 TW
-7 231 rand
-7 232 jit
-7 233 TW
-7 234 Rot
-7 235 Rot
-7 236 Rot
-7 237 TW
-7 238 TW
-7 239 Rot
-7 240 Rot
-7 241 Rot
-7 242 TW
-7 243 Rot
-7 244 rand
-7 245 rand
-7 246 rand
-7 247 TW
-7 248 jit
-7 249 rand
-7 250 jit
-7 251 Rot
-7 252 jit
-7 253 Rot
-7 254 jit
-7 255 rand
-7 256 TW
-7 257 Rot
-7 258 Rot
-7 259 jit
-7 260 TW
-7 261 jit
-7 262 jit
-7 263 rand
-7 264 TW
-7 265 TW
-7 266 jit
-7 267 TW
-7 268 TW
-7 269 jit
-7 270 jit
-7 271 TW
-7 272 Rot
-7 273 TW
-7 274 Rot
-7 275 rand
-7 276 Rot
-7 277 rand
-7 278 rand
-7 279 TW
-7 280 TW
-7 281 Rot
-7 282 jit
-7 283 jit
-7 284 Rot
-7 285 rand
-7 286 TW
-7 287 jit
-7 288 TW
-7 289 rand
-7 290 Rot
-7 291 TW
-7 292 TW
-7 293 rand
-7 294 rand
-7 295 rand
-7 296 Rot
-7 297 Rot
-7 298 rand
-7 299 rand
-8 0 jit
-8 1 jit
-8 2 jit
-8 3 rand
-8 4 rand
-8 5 TW
-8 6 TW
-8 7 TW
-8 8 TW
-8 9 Rot
-8 10 rand
-8 11 Rot
-8 12 jit
-8 13 rand
-8 14 Rot
-8 15 rand
-8 16 TW
-8 17 TW
-8 18 TW
-8 19 rand
-8 20 Rot
-8 21 TW
-8 22 Rot
-8 23 jit
-8 24 rand
-8 25 TW
-8 26 Rot
-8 27 rand
-8 28 Rot
-8 29 rand
-8 30 jit
-8 31 rand
-8 32 jit
-8 33 rand
-8 34 rand
-8 35 Rot
-8 36 TW
-8 37 TW
-8 38 Rot
-8 39 TW
-8 40 Rot
-8 41 Rot
-8 42 jit
-8 43 Rot
-8 44 jit
-8 45 jit
-8 46 TW
-8 47 rand
-8 48 TW
-8 49 Rot
-8 50 Rot
-8 51 TW
-8 52 rand
-8 53 jit
-8 54 jit
-8 55 jit
-8 56 rand
-8 57 Rot
-8 58 TW
-8 59 rand
-8 60 TW
-8 61 Rot
-8 62 Rot
-8 63 jit
-8 64 rand
-8 65 TW
-8 66 TW
-8 67 jit
-8 68 Rot
-8 69 rand
-8 70 rand
-8 71 jit
-8 72 TW
-8 73 rand
-8 74 Rot
-8 75 TW
-8 76 Rot
-8 77 jit
-8 78 TW
-8 79 Rot
-8 80 rand
-8 81 Rot
-8 82 TW
-8 83 rand
-8 84 jit
-8 85 rand
-8 86 TW
-8 87 rand
-8 88 jit
-8 89 Rot
-8 90 TW
-8 91 Rot
-8 92 jit
-8 93 rand
-8 94 TW
-8 95 TW
-8 96 rand
-8 97 jit
-8 98 rand
-8 99 rand
-8 100 rand
-8 101 Rot
-8 102 TW
-8 103 TW
-8 104 TW
-8 105 rand
-8 106 rand
-8 107 rand
-8 108 TW
-8 109 Rot
-8 110 jit
-8 111 Rot
-8 112 TW
-8 113 jit
-8 114 Rot
-8 115 jit
-8 116 TW
-8 117 jit
-8 118 TW
-8 119 TW
-8 120 jit
-8 121 jit
-8 122 rand
-8 123 TW
-8 124 jit
-8 125 Rot
-8 126 rand
-8 127 jit
-8 128 jit
-8 129 rand
-8 130 jit
-8 131 jit
-8 132 Rot
-8 133 jit
-8 134 jit
-8 135 TW
-8 136 rand
-8 137 jit
-8 138 TW
-8 139 TW
-8 140 Rot
-8 141 rand
-8 142 Rot
-8 143 Rot
-8 144 TW
-8 145 jit
-8 146 jit
-8 147 TW
-8 148 Rot
-8 149 TW
-8 150 TW
-8 151 TW
-8 152 rand
-8 153 rand
-8 154 rand
-8 155 TW
-8 156 TW
-8 157 TW
-8 158 rand
-8 159 TW
-8 160 Rot
-8 161 rand
-8 162 rand
-8 163 jit
-8 164 TW
-8 165 jit
-8 166 jit
-8 167 jit
-8 168 Rot
-8 169 rand
-8 170 TW
-8 171 Rot
-8 172 rand
-8 173 Rot
-8 174 Rot
-8 175 jit
-8 176 TW
-8 177 TW
-8 178 Rot
-8 179 rand
-8 180 TW
-8 181 jit
-8 182 Rot
-8 183 jit
-8 184 TW
-8 185 Rot
-8 186 Rot
-8 187 Rot
-8 188 TW
-8 189 rand
-8 190 TW
-8 191 Rot
-8 192 jit
-8 193 Rot
-8 194 jit
-8 195 rand
-8 196 jit
-8 197 rand
-8 198 jit
-8 199 TW
-8 200 Rot
-8 201 jit
-8 202 rand
-8 203 jit
-8 204 Rot
-8 205 TW
-8 206 rand
-8 207 TW
-8 208 jit
-8 209 rand
-8 210 TW
-8 211 TW
-8 212 jit
-8 213 Rot
-8 214 rand
-8 215 Rot
-8 216 jit
-8 217 TW
-8 218 Rot
-8 219 jit
-8 220 Rot
-8 221 jit
-8 222 Rot
-8 223 rand
-8 224 TW
-8 225 rand
-8 226 jit
-8 227 rand
-8 228 TW
-8 229 TW
-8 230 Rot
-8 231 rand
-8 232 TW
-8 233 TW
-8 234 TW
-8 235 Rot
-8 236 jit
-8 237 jit
-8 238 rand
-8 239 Rot
-8 240 jit
-8 241 TW
-8 242 rand
-8 243 Rot
-8 244 Rot
-8 245 jit
-8 246 Rot
-8 247 jit
-8 248 Rot
-8 249 TW
-8 250 rand
-8 251 TW
-8 252 jit
-8 253 Rot
-8 254 jit
-8 255 rand
-8 256 rand
-8 257 TW
-8 258 jit
-8 259 rand
-8 260 Rot
-8 261 TW
-8 262 Rot
-8 263 jit
-8 264 TW
-8 265 Rot
-8 266 TW
-8 267 jit
-8 268 TW
-8 269 TW
-8 270 Rot
-8 271 rand
-8 272 TW
-8 273 jit
-8 274 rand
-8 275 jit
-8 276 Rot
-8 277 rand
-8 278 jit
-8 279 jit
-8 280 TW
-8 281 TW
-8 282 TW
-8 283 TW
-8 284 TW
-8 285 Rot
-8 286 Rot
-8 287 Rot
-8 288 jit
-8 289 rand
-8 290 rand
-8 291 jit
-8 292 Rot
-8 293 jit
-8 294 rand
-8 295 Rot
-8 296 jit
-8 297 jit
-8 298 jit
-8 299 jit
-9 0 TW
-9 1 rand
-9 2 TW
-9 3 rand
-9 4 TW
-9 5 jit
-9 6 TW
-9 7 rand
-9 8 rand
-9 9 Rot
-9 10 rand
-9 11 TW
-9 12 Rot
-9 13 TW
-9 14 TW
-9 15 TW
-9 16 Rot
-9 17 Rot
-9 18 Rot
-9 19 rand
-9 20 TW
-9 21 Rot
-9 22 rand
-9 23 rand
-9 24 jit
-9 25 jit
-9 26 Rot
-9 27 jit
-9 28 Rot
-9 29 rand
-9 30 rand
-9 31 rand
-9 32 rand
-9 33 rand
-9 34 TW
-9 35 Rot
-9 36 Rot
-9 37 TW
-9 38 TW
-9 39 jit
-9 40 rand
-9 41 jit
-9 42 TW
-9 43 TW
-9 44 jit
-9 45 jit
-9 46 rand
-9 47 jit
-9 48 TW
-9 49 jit
-9 50 Rot
-9 51 jit
-9 52 jit
-9 53 rand
-9 54 jit
-9 55 TW
-9 56 rand
-9 57 Rot
-9 58 rand
-9 59 Rot
-9 60 rand
-9 61 jit
-9 62 rand
-9 63 rand
-9 64 rand
-9 65 Rot
-9 66 TW
-9 67 Rot
-9 68 TW
-9 69 rand
-9 70 TW
-9 71 rand
-9 72 rand
-9 73 Rot
-9 74 rand
-9 75 jit
-9 76 Rot
-9 77 TW
-9 78 jit
-9 79 Rot
-9 80 Rot
-9 81 rand
-9 82 jit
-9 83 rand
-9 84 rand
-9 85 TW
-9 86 rand
-9 87 Rot
-9 88 rand
-9 89 rand
-9 90 Rot
-9 91 Rot
-9 92 Rot
-9 93 Rot
-9 94 TW
-9 95 TW
-9 96 jit
-9 97 Rot
-9 98 TW
-9 99 TW
-9 100 TW
-9 101 rand
-9 102 Rot
-9 103 jit
-9 104 TW
-9 105 TW
-9 106 jit
-9 107 jit
-9 108 jit
-9 109 Rot
-9 110 Rot
-9 111 jit
-9 112 jit
-9 113 jit
-9 114 jit
-9 115 TW
-9 116 rand
-9 117 rand
-9 118 jit
-9 119 TW
-9 120 TW
-9 121 jit
-9 122 jit
-9 123 TW
-9 124 TW
-9 125 TW
-9 126 TW
-9 127 rand
-9 128 rand
-9 129 rand
-9 130 Rot
-9 131 Rot
-9 132 TW
-9 133 TW
-9 134 TW
-9 135 rand
-9 136 Rot
-9 137 rand
-9 138 Rot
-9 139 jit
-9 140 TW
-9 141 TW
-9 142 Rot
-9 143 jit
-9 144 Rot
-9 145 TW
-9 146 rand
-9 147 jit
-9 148 rand
-9 149 Rot
-9 150 rand
-9 151 rand
-9 152 TW
-9 153 TW
-9 154 rand
-9 155 rand
-9 156 rand
-9 157 Rot
-9 158 TW
-9 159 jit
-9 160 Rot
-9 161 jit
-9 162 rand
-9 163 jit
-9 164 Rot
-9 165 TW
-9 166 TW
-9 167 Rot
-9 168 rand
-9 169 jit
-9 170 jit
-9 171 Rot
-9 172 rand
-9 173 Rot
-9 174 jit
-9 175 TW
-9 176 jit
-9 177 jit
-9 178 rand
-9 179 jit
-9 180 rand
-9 181 Rot
-9 182 jit
-9 183 Rot
-9 184 jit
-9 185 rand
-9 186 TW
-9 187 TW
-9 188 TW
-9 189 rand
-9 190 rand
-9 191 rand
-9 192 rand
-9 193 jit
-9 194 rand
-9 195 rand
-9 196 TW
-9 197 jit
-9 198 jit
-9 199 Rot
-9 200 Rot
-9 201 jit
-9 202 Rot
-9 203 rand
-9 204 rand
-9 205 rand
-9 206 Rot
-9 207 Rot
-9 208 jit
-9 209 jit
-9 210 Rot
-9 211 jit
-9 212 Rot
-9 213 Rot
-9 214 rand
-9 215 jit
-9 216 Rot
-9 217 TW
-9 218 jit
-9 219 TW
-9 220 rand
-9 221 rand
-9 222 TW
-9 223 Rot
-9 224 jit
-9 225 Rot
-9 226 TW
-9 227 jit
-9 228 rand
-9 229 rand
-9 230 rand
-9 231 jit
-9 232 TW
-9 233 jit
-9 234 TW
-9 235 TW
-9 236 rand
-9 237 TW
-9 238 rand
-9 239 jit
-9 240 jit
-9 241 Rot
-9 242 rand
-9 243 rand
-9 244 Rot
-9 245 Rot
-9 246 TW
-9 247 rand
-9 248 jit
-9 249 Rot
-9 250 rand
-9 251 Rot
-9 252 rand
-9 253 TW
-9 254 TW
-9 255 Rot
-9 256 Rot
-9 257 jit
-9 258 jit
-9 259 Rot
-9 260 jit
-9 261 TW
-9 262 jit
-9 263 TW
-9 264 Rot
-9 265 rand
-9 266 Rot
-9 267 jit
-9 268 rand
-9 269 jit
-9 270 TW
-9 271 TW
-9 272 rand
-9 273 TW
-9 274 TW
-9 275 rand
-9 276 rand
-9 277 Rot
-9 278 jit
-9 279 TW
-9 280 Rot
-9 281 jit
-9 282 rand
-9 283 rand
-9 284 jit
-9 285 rand
-9 286 TW
-9 287 jit
-9 288 TW
-9 289 jit
-9 290 jit
-9 291 jit
-9 292 jit
-9 293 Rot
-9 294 TW
-9 295 jit
-9 296 TW
-9 297 TW
-9 298 jit
-9 299 TW
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+org
+10.0 1.0 rand
+10.0 2.0 Rot
+10.0 3.0 TW
+10.0 4.0 TW
+10.0 5.0 TW
+10.0 6.0 jit
+10.0 7.0 jit
+10.0 8.0 jit
+10.0 9.0 rand
+10.0 10.0 rand
+10.0 11.0 Rot
+10.0 12.0 Rot
+10.0 13.0 TW
+10.0 14.0 rand
+10.0 15.0 Rot
+10.0 16.0 rand
+10.0 17.0 rand
+10.0 18.0 rand
+10.0 19.0 jit
+10.0 20.0 jit
+10.0 21.0 rand
+10.0 22.0 rand
+10.0 23.0 Rot
+10.0 24.0 Rot
+10.0 25.0 rand
+10.0 26.0 jit
+10.0 27.0 rand
+10.0 28.0 TW
+10.0 29.0 jit
+10.0 30.0 TW
+10.0 31.0 TW
+10.0 32.0 jit
+10.0 33.0 Rot
+10.0 34.0 TW
+10.0 35.0 TW
+10.0 36.0 rand
+10.0 37.0 TW
+10.0 38.0 jit
+10.0 39.0 Rot
+10.0 40.0 rand
+10.0 41.0 rand
+10.0 42.0 rand
+10.0 43.0 Rot
+10.0 44.0 rand
+10.0 45.0 jit
+10.0 46.0 TW
+10.0 47.0 Rot
+10.0 48.0 TW
+10.0 49.0 Rot
+10.0 50.0 TW
+10.0 51.0 Rot
+10.0 52.0 Rot
+10.0 53.0 jit
+10.0 54.0 Rot
+10.0 55.0 jit
+10.0 56.0 TW
+10.0 57.0 jit
+10.0 58.0 rand
+10.0 59.0 rand
+10.0 60.0 TW
+10.0 61.0 jit
+10.0 62.0 jit
+10.0 63.0 Rot
+10.0 64.0 jit
+10.0 65.0 jit
+10.0 66.0 Rot
+10.0 67.0 jit
+10.0 68.0 jit
+10.0 69.0 rand
+10.0 70.0 jit
+10.0 71.0 Rot
+10.0 72.0 TW
+10.0 73.0 TW
+10.0 74.0 TW
+10.0 75.0 Rot
+10.0 76.0 TW
+10.0 77.0 TW
+10.0 78.0 jit
+10.0 79.0 rand
+10.0 80.0 TW
+10.0 81.0 TW
+10.0 82.0 TW
+10.0 83.0 rand
+10.0 84.0 TW
+10.0 85.0 Rot
+10.0 86.0 Rot
+10.0 87.0 rand
+10.0 88.0 Rot
+10.0 89.0 TW
+11.0 0.0 jit
+11.0 1.0 TW
+11.0 2.0 rand
+11.0 3.0 TW
+11.0 4.0 TW
+11.0 5.0 jit
+11.0 6.0 Rot
+11.0 7.0 TW
+11.0 8.0 rand
+11.0 9.0 jit
+11.0 10.0 Rot
+11.0 11.0 rand
+11.0 12.0 jit
+11.0 13.0 Rot
+11.0 14.0 TW
+11.0 15.0 Rot
+11.0 16.0 TW
+11.0 17.0 TW
+11.0 18.0 jit
+11.0 19.0 jit
+11.0 20.0 Rot
+11.0 21.0 jit
+11.0 22.0 TW
+11.0 23.0 Rot
+11.0 24.0 Rot
+11.0 25.0 TW
+11.0 26.0 TW
+11.0 27.0 TW
+11.0 28.0 rand
+11.0 29.0 Rot
+11.0 30.0 Rot
+11.0 31.0 jit
+11.0 32.0 rand
+11.0 33.0 TW
+11.0 34.0 rand
+11.0 35.0 jit
+11.0 36.0 TW
+11.0 37.0 TW
+11.0 38.0 Rot
+11.0 39.0 jit
+11.0 40.0 jit
+11.0 41.0 rand
+11.0 42.0 Rot
+11.0 43.0 TW
+11.0 44.0 jit
+11.0 45.0 TW
+11.0 46.0 rand
+11.0 47.0 TW
+11.0 48.0 rand
+11.0 49.0 Rot
+11.0 50.0 jit
+11.0 51.0 jit
+11.0 52.0 rand
+11.0 53.0 Rot
+11.0 54.0 Rot
+11.0 55.0 rand
+11.0 56.0 rand
+11.0 57.0 rand
+11.0 58.0 TW
+11.0 59.0 TW
+11.0 60.0 rand
+11.0 61.0 Rot
+11.0 62.0 TW
+11.0 63.0 rand
+11.0 64.0 rand
+11.0 65.0 Rot
+11.0 66.0 Rot
+11.0 67.0 jit
+11.0 68.0 Rot
+11.0 69.0 TW
+11.0 70.0 jit
+11.0 71.0 jit
+11.0 72.0 Rot
+11.0 73.0 TW
+11.0 74.0 rand
+11.0 75.0 jit
+11.0 76.0 TW
+11.0 77.0 jit
+11.0 78.0 rand
+11.0 79.0 jit
+11.0 80.0 jit
+11.0 81.0 jit
+11.0 82.0 Rot
+11.0 83.0 TW
+11.0 84.0 Rot
+11.0 85.0 Rot
+11.0 86.0 rand
+11.0 87.0 rand
+11.0 88.0 jit
+11.0 89.0 jit
+12.0 0.0 rand
+12.0 1.0 rand
+12.0 2.0 rand
+12.0 3.0 Rot
+12.0 4.0 TW
+12.0 5.0 jit
+12.0 6.0 Rot
+12.0 7.0 jit
+12.0 8.0 jit
+12.0 9.0 TW
+12.0 10.0 Rot
+12.0 11.0 jit
+12.0 12.0 Rot
+12.0 13.0 TW
+12.0 14.0 jit
+12.0 15.0 rand
+12.0 16.0 TW
+12.0 17.0 jit
+12.0 18.0 Rot
+12.0 19.0 jit
+12.0 20.0 rand
+12.0 21.0 TW
+12.0 22.0 Rot
+12.0 23.0 Rot
+12.0 24.0 TW
+12.0 25.0 jit
+12.0 26.0 jit
+12.0 27.0 jit
+12.0 28.0 rand
+12.0 29.0 rand
+12.0 30.0 rand
+12.0 31.0 rand
+12.0 32.0 jit
+12.0 33.0 jit
+12.0 34.0 rand
+12.0 35.0 jit
+12.0 36.0 Rot
+12.0 37.0 TW
+12.0 38.0 rand
+12.0 39.0 TW
+12.0 40.0 Rot
+12.0 41.0 jit
+12.0 42.0 jit
+12.0 43.0 jit
+12.0 44.0 TW
+12.0 45.0 jit
+12.0 46.0 jit
+12.0 47.0 Rot
+12.0 48.0 jit
+12.0 49.0 TW
+12.0 50.0 jit
+12.0 51.0 TW
+12.0 52.0 rand
+12.0 53.0 jit
+12.0 54.0 jit
+12.0 55.0 TW
+12.0 56.0 TW
+12.0 57.0 Rot
+12.0 58.0 jit
+12.0 59.0 Rot
+12.0 60.0 Rot
+12.0 61.0 jit
+12.0 62.0 jit
+12.0 63.0 rand
+12.0 64.0 jit
+12.0 65.0 rand
+12.0 66.0 jit
+12.0 67.0 rand
+12.0 68.0 jit
+12.0 69.0 Rot
+12.0 70.0 TW
+12.0 71.0 Rot
+12.0 72.0 jit
+12.0 73.0 Rot
+12.0 74.0 rand
+12.0 75.0 Rot
+12.0 76.0 rand
+12.0 77.0 TW
+12.0 78.0 jit
+12.0 79.0 TW
+12.0 80.0 rand
+12.0 81.0 Rot
+12.0 82.0 TW
+12.0 83.0 TW
+12.0 84.0 Rot
+12.0 85.0 jit
+12.0 86.0 TW
+12.0 87.0 TW
+12.0 88.0 jit
+12.0 89.0 TW
+13.0 0.0 rand
+13.0 1.0 TW
+13.0 2.0 Rot
+13.0 3.0 rand
+13.0 4.0 Rot
+13.0 5.0 Rot
+13.0 6.0 TW
+13.0 7.0 TW
+13.0 8.0 TW
+13.0 9.0 Rot
+13.0 10.0 rand
+13.0 11.0 jit
+13.0 12.0 jit
+13.0 13.0 TW
+13.0 14.0 jit
+13.0 15.0 Rot
+13.0 16.0 Rot
+13.0 17.0 jit
+13.0 18.0 Rot
+13.0 19.0 jit
+13.0 20.0 TW
+13.0 21.0 Rot
+13.0 22.0 TW
+13.0 23.0 rand
+13.0 24.0 TW
+13.0 25.0 TW
+13.0 26.0 Rot
+13.0 27.0 Rot
+13.0 28.0 Rot
+13.0 29.0 jit
+13.0 30.0 rand
+13.0 31.0 jit
+13.0 32.0 jit
+13.0 33.0 TW
+13.0 34.0 TW
+13.0 35.0 rand
+13.0 36.0 TW
+13.0 37.0 rand
+13.0 38.0 jit
+13.0 39.0 Rot
+13.0 40.0 rand
+13.0 41.0 Rot
+13.0 42.0 jit
+13.0 43.0 jit
+13.0 44.0 rand
+13.0 45.0 rand
+13.0 46.0 Rot
+13.0 47.0 TW
+13.0 48.0 jit
+13.0 49.0 rand
+13.0 50.0 jit
+13.0 51.0 jit
+13.0 52.0 jit
+13.0 53.0 TW
+13.0 54.0 TW
+13.0 55.0 TW
+13.0 56.0 rand
+13.0 57.0 TW
+13.0 58.0 rand
+13.0 59.0 Rot
+13.0 60.0 jit
+13.0 61.0 TW
+13.0 62.0 rand
+13.0 63.0 rand
+13.0 64.0 rand
+13.0 65.0 rand
+13.0 66.0 Rot
+13.0 67.0 TW
+13.0 68.0 TW
+13.0 69.0 jit
+13.0 70.0 jit
+13.0 71.0 rand
+13.0 72.0 jit
+13.0 73.0 jit
+13.0 74.0 Rot
+13.0 75.0 Rot
+13.0 76.0 rand
+13.0 77.0 jit
+13.0 78.0 Rot
+13.0 79.0 rand
+13.0 80.0 rand
+13.0 81.0 TW
+13.0 82.0 Rot
+13.0 83.0 TW
+13.0 84.0 TW
+13.0 85.0 jit
+13.0 86.0 rand
+13.0 87.0 rand
+13.0 88.0 Rot
+13.0 89.0 TW
+14.0 0.0 rand
+14.0 1.0 rand
+14.0 2.0 rand
+14.0 3.0 Rot
+14.0 4.0 TW
+14.0 5.0 Rot
+14.0 6.0 TW
+14.0 7.0 rand
+14.0 8.0 Rot
+14.0 9.0 TW
+14.0 10.0 jit
+14.0 11.0 jit
+14.0 12.0 Rot
+14.0 13.0 TW
+14.0 14.0 TW
+14.0 15.0 rand
+14.0 16.0 Rot
+14.0 17.0 rand
+14.0 18.0 Rot
+14.0 19.0 rand
+14.0 20.0 jit
+14.0 21.0 jit
+14.0 22.0 rand
+14.0 23.0 Rot
+14.0 24.0 TW
+14.0 25.0 Rot
+14.0 26.0 rand
+14.0 27.0 TW
+14.0 28.0 Rot
+14.0 29.0 jit
+14.0 30.0 rand
+14.0 31.0 jit
+14.0 32.0 TW
+14.0 33.0 jit
+14.0 34.0 jit
+14.0 35.0 jit
+14.0 36.0 Rot
+14.0 37.0 jit
+14.0 38.0 rand
+14.0 39.0 Rot
+14.0 40.0 rand
+14.0 41.0 Rot
+14.0 42.0 TW
+14.0 43.0 TW
+14.0 44.0 TW
+14.0 45.0 TW
+14.0 46.0 rand
+14.0 47.0 jit
+14.0 48.0 jit
+14.0 49.0 Rot
+14.0 50.0 rand
+14.0 51.0 jit
+14.0 52.0 rand
+14.0 53.0 Rot
+14.0 54.0 Rot
+14.0 55.0 jit
+14.0 56.0 TW
+14.0 57.0 Rot
+14.0 58.0 TW
+14.0 59.0 Rot
+14.0 60.0 jit
+14.0 61.0 Rot
+14.0 62.0 jit
+14.0 63.0 jit
+14.0 64.0 rand
+14.0 65.0 Rot
+14.0 66.0 Rot
+14.0 67.0 jit
+14.0 68.0 rand
+14.0 69.0 Rot
+14.0 70.0 Rot
+14.0 71.0 jit
+14.0 72.0 jit
+14.0 73.0 rand
+14.0 74.0 Rot
+14.0 75.0 Rot
+14.0 76.0 TW
+14.0 77.0 Rot
+14.0 78.0 rand
+14.0 79.0 TW
+14.0 80.0 TW
+14.0 81.0 jit
+14.0 82.0 jit
+14.0 83.0 jit
+14.0 84.0 TW
+14.0 85.0 rand
+14.0 86.0 jit
+14.0 87.0 TW
+14.0 88.0 jit
+14.0 89.0 Rot
+15.0 0.0 jit
+15.0 1.0 rand
+15.0 2.0 jit
+15.0 3.0 TW
+15.0 4.0 Rot
+15.0 5.0 rand
+15.0 6.0 Rot
+15.0 7.0 Rot
+15.0 8.0 TW
+15.0 9.0 Rot
+15.0 10.0 rand
+15.0 11.0 TW
+15.0 12.0 rand
+15.0 13.0 Rot
+15.0 14.0 rand
+15.0 15.0 rand
+15.0 16.0 rand
+15.0 17.0 jit
+15.0 18.0 TW
+15.0 19.0 rand
+15.0 20.0 Rot
+15.0 21.0 jit
+15.0 22.0 jit
+15.0 23.0 jit
+15.0 24.0 TW
+15.0 25.0 jit
+15.0 26.0 TW
+15.0 27.0 jit
+15.0 28.0 rand
+15.0 29.0 Rot
+15.0 30.0 Rot
+15.0 31.0 jit
+15.0 32.0 TW
+15.0 33.0 Rot
+15.0 34.0 TW
+15.0 35.0 rand
+15.0 36.0 TW
+15.0 37.0 Rot
+15.0 38.0 Rot
+15.0 39.0 Rot
+15.0 40.0 rand
+15.0 41.0 Rot
+15.0 42.0 jit
+15.0 43.0 TW
+15.0 44.0 Rot
+15.0 45.0 TW
+15.0 46.0 TW
+15.0 47.0 jit
+15.0 48.0 rand
+15.0 49.0 TW
+15.0 50.0 rand
+15.0 51.0 TW
+15.0 52.0 TW
+15.0 53.0 rand
+15.0 54.0 rand
+15.0 55.0 Rot
+15.0 56.0 TW
+15.0 57.0 Rot
+15.0 58.0 Rot
+15.0 59.0 Rot
+15.0 60.0 jit
+15.0 61.0 Rot
+15.0 62.0 rand
+15.0 63.0 jit
+15.0 64.0 rand
+15.0 65.0 rand
+15.0 66.0 Rot
+15.0 67.0 Rot
+15.0 68.0 jit
+15.0 69.0 rand
+15.0 70.0 rand
+15.0 71.0 jit
+15.0 72.0 Rot
+15.0 73.0 TW
+15.0 74.0 TW
+15.0 75.0 rand
+15.0 76.0 TW
+15.0 77.0 rand
+15.0 78.0 jit
+15.0 79.0 jit
+15.0 80.0 Rot
+15.0 81.0 jit
+15.0 82.0 Rot
+15.0 83.0 Rot
+15.0 84.0 Rot
+15.0 85.0 Rot
+15.0 86.0 TW
+15.0 87.0 Rot
+15.0 88.0 Rot
+15.0 89.0 TW
+16.0 0.0 rand
+16.0 1.0 TW
+16.0 2.0 jit
+16.0 3.0 jit
+16.0 4.0 TW
+16.0 5.0 jit
+16.0 6.0 TW
+16.0 7.0 rand
+16.0 8.0 rand
+16.0 9.0 rand
+16.0 10.0 Rot
+16.0 11.0 rand
+16.0 12.0 Rot
+16.0 13.0 Rot
+16.0 14.0 Rot
+16.0 15.0 rand
+16.0 16.0 Rot
+16.0 17.0 rand
+16.0 18.0 jit
+16.0 19.0 jit
+16.0 20.0 Rot
+16.0 21.0 TW
+16.0 22.0 Rot
+16.0 23.0 Rot
+16.0 24.0 TW
+16.0 25.0 Rot
+16.0 26.0 rand
+16.0 27.0 jit
+16.0 28.0 rand
+16.0 29.0 Rot
+16.0 30.0 rand
+16.0 31.0 Rot
+16.0 32.0 TW
+16.0 33.0 jit
+16.0 34.0 TW
+16.0 35.0 rand
+16.0 36.0 jit
+16.0 37.0 TW
+16.0 38.0 TW
+16.0 39.0 Rot
+16.0 40.0 TW
+16.0 41.0 rand
+16.0 42.0 jit
+16.0 43.0 Rot
+16.0 44.0 Rot
+16.0 45.0 jit
+16.0 46.0 rand
+16.0 47.0 rand
+16.0 48.0 TW
+16.0 49.0 jit
+16.0 50.0 rand
+16.0 51.0 rand
+16.0 52.0 rand
+16.0 53.0 Rot
+16.0 54.0 rand
+16.0 55.0 Rot
+16.0 56.0 Rot
+16.0 57.0 jit
+16.0 58.0 Rot
+16.0 59.0 jit
+16.0 60.0 TW
+16.0 61.0 TW
+16.0 62.0 jit
+16.0 63.0 jit
+16.0 64.0 rand
+16.0 65.0 rand
+16.0 66.0 Rot
+16.0 67.0 Rot
+16.0 68.0 TW
+16.0 69.0 rand
+16.0 70.0 rand
+16.0 71.0 jit
+16.0 72.0 rand
+16.0 73.0 jit
+16.0 74.0 Rot
+16.0 75.0 Rot
+16.0 76.0 rand
+16.0 77.0 Rot
+16.0 78.0 TW
+16.0 79.0 Rot
+16.0 80.0 Rot
+16.0 81.0 Rot
+16.0 82.0 Rot
+16.0 83.0 TW
+16.0 84.0 jit
+16.0 85.0 Rot
+16.0 86.0 rand
+16.0 87.0 Rot
+16.0 88.0 Rot
+16.0 89.0 rand
+17.0 0.0 jit
+17.0 1.0 rand
+17.0 2.0 rand
+17.0 3.0 jit
+17.0 4.0 rand
+17.0 5.0 jit
+17.0 6.0 rand
+17.0 7.0 TW
+17.0 8.0 Rot
+17.0 9.0 rand
+17.0 10.0 TW
+17.0 11.0 Rot
+17.0 12.0 jit
+17.0 13.0 Rot
+17.0 14.0 jit
+17.0 15.0 jit
+17.0 16.0 Rot
+17.0 17.0 rand
+17.0 18.0 Rot
+17.0 19.0 TW
+17.0 20.0 TW
+17.0 21.0 TW
+17.0 22.0 rand
+17.0 23.0 Rot
+17.0 24.0 jit
+17.0 25.0 rand
+17.0 26.0 TW
+17.0 27.0 Rot
+17.0 28.0 Rot
+17.0 29.0 TW
+17.0 30.0 Rot
+17.0 31.0 rand
+17.0 32.0 rand
+17.0 33.0 jit
+17.0 34.0 TW
+17.0 35.0 TW
+17.0 36.0 Rot
+17.0 37.0 rand
+17.0 38.0 rand
+17.0 39.0 Rot
+17.0 40.0 TW
+17.0 41.0 TW
+17.0 42.0 jit
+17.0 43.0 Rot
+17.0 44.0 Rot
+17.0 45.0 Rot
+17.0 46.0 Rot
+17.0 47.0 TW
+17.0 48.0 jit
+17.0 49.0 Rot
+17.0 50.0 Rot
+17.0 51.0 jit
+17.0 52.0 Rot
+17.0 53.0 jit
+17.0 54.0 TW
+17.0 55.0 TW
+17.0 56.0 jit
+17.0 57.0 rand
+17.0 58.0 jit
+17.0 59.0 rand
+17.0 60.0 TW
+17.0 61.0 jit
+17.0 62.0 TW
+17.0 63.0 TW
+17.0 64.0 TW
+17.0 65.0 Rot
+17.0 66.0 Rot
+17.0 67.0 rand
+17.0 68.0 jit
+17.0 69.0 Rot
+17.0 70.0 TW
+17.0 71.0 TW
+17.0 72.0 Rot
+17.0 73.0 Rot
+17.0 74.0 TW
+17.0 75.0 TW
+17.0 76.0 rand
+17.0 77.0 rand
+17.0 78.0 rand
+17.0 79.0 TW
+17.0 80.0 jit
+17.0 81.0 jit
+17.0 82.0 rand
+17.0 83.0 TW
+17.0 84.0 rand
+17.0 85.0 rand
+17.0 86.0 rand
+17.0 87.0 Rot
+17.0 88.0 jit
+17.0 89.0 TW
+18.0 0.0 rand
+18.0 1.0 TW
+18.0 2.0 rand
+18.0 3.0 Rot
+18.0 4.0 rand
+18.0 5.0 jit
+18.0 6.0 rand
+18.0 7.0 rand
+18.0 8.0 jit
+18.0 9.0 jit
+18.0 10.0 Rot
+18.0 11.0 TW
+18.0 12.0 jit
+18.0 13.0 rand
+18.0 14.0 TW
+18.0 15.0 rand
+18.0 16.0 rand
+18.0 17.0 jit
+18.0 18.0 rand
+18.0 19.0 TW
+18.0 20.0 jit
+18.0 21.0 Rot
+18.0 22.0 TW
+18.0 23.0 rand
+18.0 24.0 TW
+18.0 25.0 jit
+18.0 26.0 Rot
+18.0 27.0 TW
+18.0 28.0 TW
+18.0 29.0 TW
+18.0 30.0 TW
+18.0 31.0 rand
+18.0 32.0 Rot
+18.0 33.0 rand
+18.0 34.0 Rot
+18.0 35.0 Rot
+18.0 36.0 Rot
+18.0 37.0 Rot
+18.0 38.0 rand
+18.0 39.0 jit
+18.0 40.0 Rot
+18.0 41.0 Rot
+18.0 42.0 Rot
+18.0 43.0 rand
+18.0 44.0 jit
+18.0 45.0 Rot
+18.0 46.0 Rot
+18.0 47.0 TW
+18.0 48.0 jit
+18.0 49.0 jit
+18.0 50.0 TW
+18.0 51.0 Rot
+18.0 52.0 jit
+18.0 53.0 Rot
+18.0 54.0 TW
+18.0 55.0 TW
+18.0 56.0 Rot
+18.0 57.0 TW
+18.0 58.0 TW
+18.0 59.0 rand
+18.0 60.0 jit
+18.0 61.0 Rot
+18.0 62.0 jit
+18.0 63.0 TW
+18.0 64.0 jit
+18.0 65.0 jit
+18.0 66.0 jit
+18.0 67.0 rand
+18.0 68.0 rand
+18.0 69.0 Rot
+18.0 70.0 TW
+18.0 71.0 jit
+18.0 72.0 jit
+18.0 73.0 rand
+18.0 74.0 Rot
+18.0 75.0 TW
+18.0 76.0 jit
+18.0 77.0 Rot
+18.0 78.0 jit
+18.0 79.0 TW
+18.0 80.0 jit
+18.0 81.0 rand
+18.0 82.0 Rot
+18.0 83.0 TW
+18.0 84.0 rand
+18.0 85.0 jit
+18.0 86.0 jit
+18.0 87.0 Rot
+18.0 88.0 jit
+18.0 89.0 rand
+19.0 0.0 jit
+19.0 1.0 rand
+19.0 2.0 jit
+19.0 3.0 TW
+19.0 4.0 rand
+19.0 5.0 jit
+19.0 6.0 TW
+19.0 7.0 jit
+19.0 8.0 TW
+19.0 9.0 TW
+19.0 10.0 TW
+19.0 11.0 Rot
+19.0 12.0 TW
+19.0 13.0 TW
+19.0 14.0 Rot
+19.0 15.0 TW
+19.0 16.0 rand
+19.0 17.0 rand
+19.0 18.0 jit
+19.0 19.0 TW
+19.0 20.0 jit
+19.0 21.0 jit
+19.0 22.0 Rot
+19.0 23.0 TW
+19.0 24.0 rand
+19.0 25.0 jit
+19.0 26.0 Rot
+19.0 27.0 jit
+19.0 28.0 Rot
+19.0 29.0 Rot
+19.0 30.0 rand
+19.0 31.0 Rot
+19.0 32.0 rand
+19.0 33.0 TW
+19.0 34.0 jit
+19.0 35.0 jit
+19.0 36.0 jit
+19.0 37.0 jit
+19.0 38.0 rand
+19.0 39.0 Rot
+19.0 40.0 Rot
+19.0 41.0 jit
+19.0 42.0 rand
+19.0 43.0 Rot
+19.0 44.0 Rot
+19.0 45.0 Rot
+19.0 46.0 jit
+19.0 47.0 rand
+19.0 48.0 TW
+19.0 49.0 TW
+19.0 50.0 jit
+19.0 51.0 jit
+19.0 52.0 Rot
+19.0 53.0 jit
+19.0 54.0 Rot
+19.0 55.0 jit
+19.0 56.0 rand
+19.0 57.0 jit
+19.0 58.0 TW
+19.0 59.0 rand
+19.0 60.0 TW
+19.0 61.0 TW
+19.0 62.0 jit
+19.0 63.0 rand
+19.0 64.0 rand
+19.0 65.0 rand
+19.0 66.0 TW
+19.0 67.0 Rot
+19.0 68.0 rand
+19.0 69.0 jit
+19.0 70.0 TW
+19.0 71.0 TW
+19.0 72.0 Rot
+19.0 73.0 Rot
+19.0 74.0 rand
+19.0 75.0 Rot
+19.0 76.0 rand
+19.0 77.0 jit
+19.0 78.0 jit
+19.0 79.0 jit
+19.0 80.0 TW
+19.0 81.0 rand
+19.0 82.0 jit
+19.0 83.0 TW
+19.0 84.0 jit
+19.0 85.0 rand
+19.0 86.0 rand
+19.0 87.0 Rot
+19.0 88.0 jit
+19.0 89.0 TW
+20.0 0.0 jit
+20.0 1.0 Rot
+20.0 2.0 rand
+20.0 3.0 Rot
+20.0 4.0 Rot
+20.0 5.0 TW
+20.0 6.0 rand
+20.0 7.0 Rot
+20.0 8.0 Rot
+20.0 9.0 Rot
+20.0 10.0 rand
+20.0 11.0 TW
+20.0 12.0 jit
+20.0 13.0 TW
+20.0 14.0 TW
+20.0 15.0 Rot
+20.0 16.0 jit
+20.0 17.0 TW
+20.0 18.0 TW
+20.0 19.0 rand
+20.0 20.0 Rot
+20.0 21.0 jit
+20.0 22.0 jit
+20.0 23.0 jit
+20.0 24.0 Rot
+20.0 25.0 jit
+20.0 26.0 Rot
+20.0 27.0 Rot
+20.0 28.0 TW
+20.0 29.0 jit
+20.0 30.0 TW
+20.0 31.0 jit
+20.0 32.0 TW
+20.0 33.0 TW
+20.0 34.0 TW
+20.0 35.0 rand
+20.0 36.0 jit
+20.0 37.0 rand
+20.0 38.0 TW
+20.0 39.0 jit
+20.0 40.0 rand
+20.0 41.0 TW
+20.0 42.0 TW
+20.0 43.0 TW
+20.0 44.0 rand
+20.0 45.0 jit
+20.0 46.0 jit
+20.0 47.0 Rot
+20.0 48.0 TW
+20.0 49.0 TW
+20.0 50.0 jit
+20.0 51.0 TW
+20.0 52.0 TW
+20.0 53.0 TW
+20.0 54.0 jit
+20.0 55.0 jit
+20.0 56.0 jit
+20.0 57.0 TW
+20.0 58.0 TW
+20.0 59.0 Rot
+20.0 60.0 TW
+20.0 61.0 Rot
+20.0 62.0 TW
+20.0 63.0 TW
+20.0 64.0 Rot
+20.0 65.0 jit
+20.0 66.0 rand
+20.0 67.0 TW
+20.0 68.0 TW
+20.0 69.0 rand
+20.0 70.0 TW
+20.0 71.0 rand
+20.0 72.0 rand
+20.0 73.0 rand
+20.0 74.0 rand
+20.0 75.0 jit
+20.0 76.0 Rot
+20.0 77.0 jit
+20.0 78.0 TW
+20.0 79.0 Rot
+20.0 80.0 TW
+20.0 81.0 jit
+20.0 82.0 Rot
+20.0 83.0 Rot
+20.0 84.0 Rot
+20.0 85.0 Rot
+20.0 86.0 Rot
+20.0 87.0 jit
+20.0 88.0 TW
+20.0 89.0 jit
+21.0 0.0 rand
+21.0 1.0 Rot
+21.0 2.0 jit
+21.0 3.0 jit
+21.0 4.0 Rot
+21.0 5.0 TW
+21.0 6.0 rand
+21.0 7.0 jit
+21.0 8.0 Rot
+21.0 9.0 rand
+21.0 10.0 jit
+21.0 11.0 TW
+21.0 12.0 jit
+21.0 13.0 TW
+21.0 14.0 Rot
+21.0 15.0 Rot
+21.0 16.0 rand
+21.0 17.0 Rot
+21.0 18.0 TW
+21.0 19.0 Rot
+21.0 20.0 Rot
+21.0 21.0 rand
+21.0 22.0 TW
+21.0 23.0 Rot
+21.0 24.0 rand
+21.0 25.0 TW
+21.0 26.0 jit
+21.0 27.0 rand
+21.0 28.0 rand
+21.0 29.0 TW
+21.0 30.0 jit
+21.0 31.0 TW
+21.0 32.0 rand
+21.0 33.0 jit
+21.0 34.0 TW
+21.0 35.0 Rot
+21.0 36.0 Rot
+21.0 37.0 rand
+21.0 38.0 rand
+21.0 39.0 jit
+21.0 40.0 jit
+21.0 41.0 Rot
+21.0 42.0 rand
+21.0 43.0 rand
+21.0 44.0 Rot
+21.0 45.0 rand
+21.0 46.0 Rot
+21.0 47.0 Rot
+21.0 48.0 TW
+21.0 49.0 rand
+21.0 50.0 TW
+21.0 51.0 jit
+21.0 52.0 TW
+21.0 53.0 Rot
+21.0 54.0 jit
+21.0 55.0 TW
+21.0 56.0 Rot
+21.0 57.0 rand
+21.0 58.0 jit
+21.0 59.0 TW
+21.0 60.0 rand
+21.0 61.0 jit
+21.0 62.0 jit
+21.0 63.0 TW
+21.0 64.0 TW
+21.0 65.0 jit
+21.0 66.0 TW
+21.0 67.0 rand
+21.0 68.0 Rot
+21.0 69.0 rand
+21.0 70.0 Rot
+21.0 71.0 TW
+21.0 72.0 jit
+21.0 73.0 jit
+21.0 74.0 jit
+21.0 75.0 jit
+21.0 76.0 TW
+21.0 77.0 TW
+21.0 78.0 Rot
+21.0 79.0 rand
+21.0 80.0 jit
+21.0 81.0 jit
+21.0 82.0 rand
+21.0 83.0 jit
+21.0 84.0 jit
+21.0 85.0 rand
+21.0 86.0 rand
+21.0 87.0 TW
+21.0 88.0 jit
+21.0 89.0 Rot
+22.0 0.0 rand
+22.0 1.0 jit
+22.0 2.0 TW
+22.0 3.0 jit
+22.0 4.0 TW
+22.0 5.0 jit
+22.0 6.0 rand
+22.0 7.0 TW
+22.0 8.0 jit
+22.0 9.0 TW
+22.0 10.0 Rot
+22.0 11.0 jit
+22.0 12.0 jit
+22.0 13.0 Rot
+22.0 14.0 TW
+22.0 15.0 jit
+22.0 16.0 rand
+22.0 17.0 rand
+22.0 18.0 TW
+22.0 19.0 jit
+22.0 20.0 rand
+22.0 21.0 rand
+22.0 22.0 TW
+22.0 23.0 Rot
+22.0 24.0 TW
+22.0 25.0 TW
+22.0 26.0 rand
+22.0 27.0 rand
+22.0 28.0 TW
+22.0 29.0 TW
+22.0 30.0 jit
+22.0 31.0 TW
+22.0 32.0 Rot
+22.0 33.0 TW
+22.0 34.0 jit
+22.0 35.0 Rot
+22.0 36.0 Rot
+22.0 37.0 rand
+22.0 38.0 jit
+22.0 39.0 TW
+22.0 40.0 TW
+22.0 41.0 rand
+22.0 42.0 rand
+22.0 43.0 rand
+22.0 44.0 rand
+22.0 45.0 TW
+22.0 46.0 Rot
+22.0 47.0 jit
+22.0 48.0 Rot
+22.0 49.0 Rot
+22.0 50.0 TW
+22.0 51.0 Rot
+22.0 52.0 rand
+22.0 53.0 rand
+22.0 54.0 Rot
+22.0 55.0 rand
+22.0 56.0 jit
+22.0 57.0 jit
+22.0 58.0 Rot
+22.0 59.0 jit
+22.0 60.0 TW
+22.0 61.0 TW
+22.0 62.0 TW
+22.0 63.0 Rot
+22.0 64.0 rand
+22.0 65.0 rand
+22.0 66.0 rand
+22.0 67.0 jit
+22.0 68.0 jit
+22.0 69.0 rand
+22.0 70.0 TW
+22.0 71.0 jit
+22.0 72.0 rand
+22.0 73.0 TW
+22.0 74.0 rand
+22.0 75.0 Rot
+22.0 76.0 jit
+22.0 77.0 TW
+22.0 78.0 jit
+22.0 79.0 TW
+22.0 80.0 rand
+22.0 81.0 Rot
+22.0 82.0 jit
+22.0 83.0 Rot
+22.0 84.0 jit
+22.0 85.0 rand
+22.0 86.0 Rot
+22.0 87.0 rand
+22.0 88.0 jit
+22.0 89.0 jit
+23.0 0.0 TW
+23.0 1.0 jit
+23.0 2.0 jit
+23.0 3.0 TW
+23.0 4.0 Rot
+23.0 5.0 TW
+23.0 6.0 TW
+23.0 7.0 TW
+23.0 8.0 TW
+23.0 9.0 rand
+23.0 10.0 jit
+23.0 11.0 Rot
+23.0 12.0 jit
+23.0 13.0 jit
+23.0 14.0 jit
+23.0 15.0 rand
+23.0 16.0 rand
+23.0 17.0 TW
+23.0 18.0 Rot
+23.0 19.0 Rot
+23.0 20.0 Rot
+23.0 21.0 jit
+23.0 22.0 rand
+23.0 23.0 TW
+23.0 24.0 rand
+23.0 25.0 rand
+23.0 26.0 jit
+23.0 27.0 jit
+23.0 28.0 Rot
+23.0 29.0 Rot
+23.0 30.0 TW
+23.0 31.0 jit
+23.0 32.0 rand
+23.0 33.0 jit
+23.0 34.0 rand
+23.0 35.0 jit
+23.0 36.0 TW
+23.0 37.0 Rot
+23.0 38.0 jit
+23.0 39.0 jit
+23.0 40.0 jit
+23.0 41.0 rand
+23.0 42.0 TW
+23.0 43.0 TW
+23.0 44.0 Rot
+23.0 45.0 TW
+23.0 46.0 TW
+23.0 47.0 jit
+23.0 48.0 TW
+23.0 49.0 TW
+23.0 50.0 jit
+23.0 51.0 Rot
+23.0 52.0 rand
+23.0 53.0 rand
+23.0 54.0 rand
+23.0 55.0 jit
+23.0 56.0 TW
+23.0 57.0 Rot
+23.0 58.0 Rot
+23.0 59.0 TW
+23.0 60.0 Rot
+23.0 61.0 rand
+23.0 62.0 rand
+23.0 63.0 Rot
+23.0 64.0 TW
+23.0 65.0 TW
+23.0 66.0 jit
+23.0 67.0 Rot
+23.0 68.0 TW
+23.0 69.0 TW
+23.0 70.0 jit
+23.0 71.0 rand
+23.0 72.0 TW
+23.0 73.0 jit
+23.0 74.0 Rot
+23.0 75.0 rand
+23.0 76.0 Rot
+23.0 77.0 jit
+23.0 78.0 jit
+23.0 79.0 TW
+23.0 80.0 Rot
+23.0 81.0 jit
+23.0 82.0 jit
+23.0 83.0 Rot
+23.0 84.0 Rot
+23.0 85.0 Rot
+23.0 86.0 rand
+23.0 87.0 jit
+23.0 88.0 TW
+23.0 89.0 jit
+24.0 0.0 rand
+24.0 1.0 jit
+24.0 2.0 jit
+24.0 3.0 rand
+24.0 4.0 Rot
+24.0 5.0 rand
+24.0 6.0 jit
+24.0 7.0 TW
+24.0 8.0 Rot
+24.0 9.0 rand
+24.0 10.0 Rot
+24.0 11.0 jit
+24.0 12.0 jit
+24.0 13.0 rand
+24.0 14.0 Rot
+24.0 15.0 jit
+24.0 16.0 Rot
+24.0 17.0 jit
+24.0 18.0 jit
+24.0 19.0 Rot
+24.0 20.0 rand
+24.0 21.0 Rot
+24.0 22.0 jit
+24.0 23.0 Rot
+24.0 24.0 rand
+24.0 25.0 jit
+24.0 26.0 TW
+24.0 27.0 Rot
+24.0 28.0 TW
+24.0 29.0 rand
+24.0 30.0 jit
+24.0 31.0 TW
+24.0 32.0 TW
+24.0 33.0 rand
+24.0 34.0 Rot
+24.0 35.0 TW
+24.0 36.0 Rot
+24.0 37.0 Rot
+24.0 38.0 jit
+24.0 39.0 TW
+24.0 40.0 Rot
+24.0 41.0 rand
+24.0 42.0 rand
+24.0 43.0 Rot
+24.0 44.0 TW
+24.0 45.0 Rot
+24.0 46.0 jit
+24.0 47.0 Rot
+24.0 48.0 Rot
+24.0 49.0 Rot
+24.0 50.0 jit
+24.0 51.0 jit
+24.0 52.0 rand
+24.0 53.0 jit
+24.0 54.0 TW
+24.0 55.0 TW
+24.0 56.0 jit
+24.0 57.0 Rot
+24.0 58.0 jit
+24.0 59.0 jit
+24.0 60.0 Rot
+24.0 61.0 rand
+24.0 62.0 jit
+24.0 63.0 Rot
+24.0 64.0 rand
+24.0 65.0 rand
+24.0 66.0 jit
+24.0 67.0 TW
+24.0 68.0 TW
+24.0 69.0 jit
+24.0 70.0 jit
+24.0 71.0 jit
+24.0 72.0 Rot
+24.0 73.0 Rot
+24.0 74.0 Rot
+24.0 75.0 Rot
+24.0 76.0 TW
+24.0 77.0 jit
+24.0 78.0 Rot
+24.0 79.0 rand
+24.0 80.0 TW
+24.0 81.0 jit
+24.0 82.0 Rot
+24.0 83.0 rand
+24.0 84.0 Rot
+24.0 85.0 TW
+24.0 86.0 rand
+24.0 87.0 rand
+24.0 88.0 rand
+24.0 89.0 Rot
+25.0 0.0 TW
+25.0 1.0 jit
+25.0 2.0 jit
+25.0 3.0 rand
+25.0 4.0 TW
+25.0 5.0 TW
+25.0 6.0 rand
+25.0 7.0 jit
+25.0 8.0 jit
+25.0 9.0 TW
+25.0 10.0 Rot
+25.0 11.0 TW
+25.0 12.0 TW
+25.0 13.0 rand
+25.0 14.0 Rot
+25.0 15.0 TW
+25.0 16.0 rand
+25.0 17.0 rand
+25.0 18.0 TW
+25.0 19.0 Rot
+25.0 20.0 jit
+25.0 21.0 Rot
+25.0 22.0 rand
+25.0 23.0 Rot
+25.0 24.0 Rot
+25.0 25.0 jit
+25.0 26.0 rand
+25.0 27.0 TW
+25.0 28.0 rand
+25.0 29.0 TW
+25.0 30.0 TW
+25.0 31.0 rand
+25.0 32.0 jit
+25.0 33.0 Rot
+25.0 34.0 Rot
+25.0 35.0 rand
+25.0 36.0 jit
+25.0 37.0 Rot
+25.0 38.0 rand
+25.0 39.0 jit
+25.0 40.0 TW
+25.0 41.0 Rot
+25.0 42.0 rand
+25.0 43.0 Rot
+25.0 44.0 Rot
+25.0 45.0 Rot
+25.0 46.0 TW
+25.0 47.0 rand
+25.0 48.0 TW
+25.0 49.0 Rot
+25.0 50.0 TW
+25.0 51.0 jit
+25.0 52.0 jit
+25.0 53.0 rand
+25.0 54.0 Rot
+25.0 55.0 rand
+25.0 56.0 Rot
+25.0 57.0 TW
+25.0 58.0 Rot
+25.0 59.0 Rot
+25.0 60.0 Rot
+25.0 61.0 rand
+25.0 62.0 jit
+25.0 63.0 rand
+25.0 64.0 TW
+25.0 65.0 rand
+25.0 66.0 rand
+25.0 67.0 Rot
+25.0 68.0 jit
+25.0 69.0 TW
+25.0 70.0 jit
+25.0 71.0 Rot
+25.0 72.0 TW
+25.0 73.0 jit
+25.0 74.0 jit
+25.0 75.0 Rot
+25.0 76.0 jit
+25.0 77.0 jit
+25.0 78.0 rand
+25.0 79.0 TW
+25.0 80.0 jit
+25.0 81.0 jit
+25.0 82.0 TW
+25.0 83.0 jit
+25.0 84.0 Rot
+25.0 85.0 TW
+25.0 86.0 rand
+25.0 87.0 jit
+25.0 88.0 Rot
+25.0 89.0 rand
+26.0 0.0 jit
+26.0 1.0 Rot
+26.0 2.0 Rot
+26.0 3.0 jit
+26.0 4.0 Rot
+26.0 5.0 jit
+26.0 6.0 TW
+26.0 7.0 Rot
+26.0 8.0 Rot
+26.0 9.0 jit
+26.0 10.0 rand
+26.0 11.0 TW
+26.0 12.0 jit
+26.0 13.0 Rot
+26.0 14.0 rand
+26.0 15.0 jit
+26.0 16.0 jit
+26.0 17.0 jit
+26.0 18.0 Rot
+26.0 19.0 TW
+26.0 20.0 Rot
+26.0 21.0 Rot
+26.0 22.0 Rot
+26.0 23.0 Rot
+26.0 24.0 jit
+26.0 25.0 TW
+26.0 26.0 Rot
+26.0 27.0 jit
+26.0 28.0 TW
+26.0 29.0 TW
+26.0 30.0 jit
+26.0 31.0 rand
+26.0 32.0 rand
+26.0 33.0 jit
+26.0 34.0 jit
+26.0 35.0 Rot
+26.0 36.0 Rot
+26.0 37.0 jit
+26.0 38.0 TW
+26.0 39.0 TW
+26.0 40.0 Rot
+26.0 41.0 jit
+26.0 42.0 Rot
+26.0 43.0 TW
+26.0 44.0 rand
+26.0 45.0 Rot
+26.0 46.0 rand
+26.0 47.0 TW
+26.0 48.0 Rot
+26.0 49.0 Rot
+26.0 50.0 rand
+26.0 51.0 TW
+26.0 52.0 TW
+26.0 53.0 rand
+26.0 54.0 TW
+26.0 55.0 Rot
+26.0 56.0 Rot
+26.0 57.0 rand
+26.0 58.0 Rot
+26.0 59.0 rand
+26.0 60.0 rand
+26.0 61.0 jit
+26.0 62.0 jit
+26.0 63.0 rand
+26.0 64.0 rand
+26.0 65.0 Rot
+26.0 66.0 Rot
+26.0 67.0 jit
+26.0 68.0 jit
+26.0 69.0 TW
+26.0 70.0 Rot
+26.0 71.0 TW
+26.0 72.0 TW
+26.0 73.0 jit
+26.0 74.0 rand
+26.0 75.0 TW
+26.0 76.0 Rot
+26.0 77.0 jit
+26.0 78.0 TW
+26.0 79.0 TW
+26.0 80.0 rand
+26.0 81.0 jit
+26.0 82.0 Rot
+26.0 83.0 Rot
+26.0 84.0 Rot
+26.0 85.0 jit
+26.0 86.0 TW
+26.0 87.0 rand
+26.0 88.0 rand
+26.0 89.0 Rot
+27.0 0.0 TW
+27.0 1.0 Rot
+27.0 2.0 TW
+27.0 3.0 Rot
+27.0 4.0 TW
+27.0 5.0 rand
+27.0 6.0 TW
+27.0 7.0 Rot
+27.0 8.0 rand
+27.0 9.0 Rot
+27.0 10.0 rand
+27.0 11.0 TW
+27.0 12.0 TW
+27.0 13.0 rand
+27.0 14.0 TW
+27.0 15.0 jit
+27.0 16.0 jit
+27.0 17.0 TW
+27.0 18.0 TW
+27.0 19.0 jit
+27.0 20.0 TW
+27.0 21.0 jit
+27.0 22.0 TW
+27.0 23.0 Rot
+27.0 24.0 Rot
+27.0 25.0 TW
+27.0 26.0 TW
+27.0 27.0 Rot
+27.0 28.0 jit
+27.0 29.0 TW
+27.0 30.0 Rot
+27.0 31.0 Rot
+27.0 32.0 Rot
+27.0 33.0 rand
+27.0 34.0 jit
+27.0 35.0 rand
+27.0 36.0 TW
+27.0 37.0 jit
+27.0 38.0 Rot
+27.0 39.0 TW
+27.0 40.0 Rot
+27.0 41.0 jit
+27.0 42.0 TW
+27.0 43.0 TW
+27.0 44.0 rand
+27.0 45.0 TW
+27.0 46.0 rand
+27.0 47.0 rand
+27.0 48.0 Rot
+27.0 49.0 jit
+27.0 50.0 TW
+27.0 51.0 jit
+27.0 52.0 Rot
+27.0 53.0 TW
+27.0 54.0 rand
+27.0 55.0 jit
+27.0 56.0 TW
+27.0 57.0 Rot
+27.0 58.0 jit
+27.0 59.0 TW
+27.0 60.0 TW
+27.0 61.0 rand
+27.0 62.0 TW
+27.0 63.0 TW
+27.0 64.0 Rot
+27.0 65.0 jit
+27.0 66.0 jit
+27.0 67.0 jit
+27.0 68.0 TW
+27.0 69.0 jit
+27.0 70.0 jit
+27.0 71.0 Rot
+27.0 72.0 rand
+27.0 73.0 Rot
+27.0 74.0 jit
+27.0 75.0 jit
+27.0 76.0 TW
+27.0 77.0 jit
+27.0 78.0 TW
+27.0 79.0 jit
+27.0 80.0 rand
+27.0 81.0 TW
+27.0 82.0 rand
+27.0 83.0 rand
+27.0 84.0 jit
+27.0 85.0 rand
+27.0 86.0 jit
+27.0 87.0 TW
+27.0 88.0 jit
+27.0 89.0 rand
+28.0 0.0 TW
+28.0 1.0 Rot
+28.0 2.0 rand
+28.0 3.0 TW
+28.0 4.0 Rot
+28.0 5.0 jit
+28.0 6.0 TW
+28.0 7.0 Rot
+28.0 8.0 jit
+28.0 9.0 rand
+28.0 10.0 Rot
+28.0 11.0 jit
+28.0 12.0 Rot
+28.0 13.0 rand
+28.0 14.0 Rot
+28.0 15.0 TW
+28.0 16.0 Rot
+28.0 17.0 TW
+28.0 18.0 Rot
+28.0 19.0 TW
+28.0 20.0 jit
+28.0 21.0 rand
+28.0 22.0 jit
+28.0 23.0 rand
+28.0 24.0 rand
+28.0 25.0 jit
+28.0 26.0 jit
+28.0 27.0 rand
+28.0 28.0 rand
+28.0 29.0 Rot
+28.0 30.0 rand
+28.0 31.0 TW
+28.0 32.0 Rot
+28.0 33.0 jit
+28.0 34.0 Rot
+28.0 35.0 TW
+28.0 36.0 TW
+28.0 37.0 Rot
+28.0 38.0 TW
+28.0 39.0 jit
+28.0 40.0 Rot
+28.0 41.0 TW
+28.0 42.0 TW
+28.0 43.0 jit
+28.0 44.0 Rot
+28.0 45.0 jit
+28.0 46.0 rand
+28.0 47.0 Rot
+28.0 48.0 jit
+28.0 49.0 jit
+28.0 50.0 rand
+28.0 51.0 Rot
+28.0 52.0 jit
+28.0 53.0 jit
+28.0 54.0 rand
+28.0 55.0 jit
+28.0 56.0 jit
+28.0 57.0 TW
+28.0 58.0 TW
+28.0 59.0 TW
+28.0 60.0 Rot
+28.0 61.0 rand
+28.0 62.0 Rot
+28.0 63.0 TW
+28.0 64.0 jit
+28.0 65.0 Rot
+28.0 66.0 TW
+28.0 67.0 rand
+28.0 68.0 jit
+28.0 69.0 jit
+28.0 70.0 jit
+28.0 71.0 rand
+28.0 72.0 Rot
+28.0 73.0 jit
+28.0 74.0 Rot
+28.0 75.0 TW
+28.0 76.0 jit
+28.0 77.0 Rot
+28.0 78.0 Rot
+28.0 79.0 TW
+28.0 80.0 rand
+28.0 81.0 rand
+28.0 82.0 jit
+28.0 83.0 TW
+28.0 84.0 Rot
+28.0 85.0 rand
+28.0 86.0 Rot
+28.0 87.0 TW
+28.0 88.0 jit
+28.0 89.0 jit
+29.0 0.0 Rot
+29.0 1.0 rand
+29.0 2.0 TW
+29.0 3.0 Rot
+29.0 4.0 TW
+29.0 5.0 Rot
+29.0 6.0 rand
+29.0 7.0 TW
+29.0 8.0 Rot
+29.0 9.0 rand
+29.0 10.0 rand
+29.0 11.0 TW
+29.0 12.0 rand
+29.0 13.0 jit
+29.0 14.0 rand
+29.0 15.0 Rot
+29.0 16.0 TW
+29.0 17.0 rand
+29.0 18.0 Rot
+29.0 19.0 jit
+29.0 20.0 TW
+29.0 21.0 Rot
+29.0 22.0 Rot
+29.0 23.0 Rot
+29.0 24.0 rand
+29.0 25.0 TW
+29.0 26.0 Rot
+29.0 27.0 Rot
+29.0 28.0 jit
+29.0 29.0 rand
+29.0 30.0 rand
+29.0 31.0 jit
+29.0 32.0 jit
+29.0 33.0 jit
+29.0 34.0 rand
+29.0 35.0 jit
+29.0 36.0 jit
+29.0 37.0 TW
+29.0 38.0 Rot
+29.0 39.0 jit
+29.0 40.0 rand
+29.0 41.0 rand
+29.0 42.0 Rot
+29.0 43.0 Rot
+29.0 44.0 TW
+29.0 45.0 TW
+29.0 46.0 Rot
+29.0 47.0 Rot
+29.0 48.0 rand
+29.0 49.0 Rot
+29.0 50.0 TW
+29.0 51.0 jit
+29.0 52.0 rand
+29.0 53.0 rand
+29.0 54.0 Rot
+29.0 55.0 TW
+29.0 56.0 Rot
+29.0 57.0 rand
+29.0 58.0 Rot
+29.0 59.0 TW
+29.0 60.0 rand
+29.0 61.0 TW
+29.0 62.0 jit
+29.0 63.0 jit
+29.0 64.0 Rot
+29.0 65.0 TW
+29.0 66.0 TW
+29.0 67.0 TW
+29.0 68.0 Rot
+29.0 69.0 rand
+29.0 70.0 rand
+29.0 71.0 jit
+29.0 72.0 rand
+29.0 73.0 jit
+29.0 74.0 Rot
+29.0 75.0 Rot
+29.0 76.0 jit
+29.0 77.0 jit
+29.0 78.0 TW
+29.0 79.0 rand
+29.0 80.0 TW
+29.0 81.0 Rot
+29.0 82.0 TW
+29.0 83.0 jit
+29.0 84.0 TW
+29.0 85.0 jit
+29.0 86.0 jit
+29.0 87.0 jit
+29.0 88.0 jit
+29.0 89.0 rand

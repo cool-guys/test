@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import os
 from keras.models import Sequential,Model
-from keras.layers import LSTM, Dense, TimeDistributed,CuDNNLSTM,BatchNormalization,Flatten,Dropout,CuDNNGRU,MaxPooling1D,Conv1D,GlobalMaxPooling1D
+from keras.layers import LSTM, Dense, TimeDistributed,CuDNNLSTM,BatchNormalization,Flatten,Dropout,CuDNNGRU,MaxPooling1D,Conv1D,GlobalMaxPooling1D,Bidirectional
 from keras.layers import Input,concatenate
 
 from keras.layers.convolutional import Conv2D, MaxPooling2D
@@ -21,7 +21,7 @@ import time
 from imageloader import data_process
 from sklearn.metrics import classification_report, confusion_matrix
 import seaborn as sn
-
+import copy
 cb_checkpoint = ModelCheckpoint(filepath='model.hdf5',
                                 verbose=1)
 
@@ -31,22 +31,27 @@ early_stopping = EarlyStopping()
 
 scaler = MinMaxScaler((0,100))
 
-dp = data_process('./DATA/test')
-dp.point_data_load()
-dp.image_make()
+dp_train = data_process('./DATA/aug/all/train')
+dp_test = data_process('./DATA/aug/all/test')
+
+dp_train.point_data_load()
+dp_train.image_make()
+
+dp_test.point_data_load()
+dp_test.image_make()
 #dp.image_read()
-dp.data_shuffle()
 
 
 
-size = int(np.size(dp.point,0) * 0.7)
-X_train = dp.point[:size]
-X_test = dp.point[size:]
 
-X_train_img = dp.images[:size]
-X_test_img = dp.images[size:]
-Y_train = dp.label[:size]
-Y_test = dp.label[size:]
+
+X_train = dp_train.point
+X_test = dp_test.point
+
+X_train_img = dp_train.images
+X_test_img = dp_test.images
+Y_train = dp_train.label
+Y_test = dp_test.label
 Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
@@ -125,18 +130,20 @@ x_1 = Dense(units=512, activation='relu')(x_1)
 
 
 input_2 = Input(shape=(50, 2))
+'''
 x_2 = Conv1D(256,3,padding='valid',activation='relu',strides=1)(input_2)
 x_2 = MaxPooling1D(pool_size=3)(x_2)
 x_2 = Conv1D(256,3,padding='valid',activation='relu',strides=1)(x_2)
 x_2 = MaxPooling1D(pool_size=3)(x_2)
 x_2 = CuDNNLSTM(128)(x_2)
 '''
-x_2 = CuDNNGRU(128,return_sequences=True)(input_2)
+
+x_2 = Bidirectional(CuDNNLSTM(128,return_sequences=True))(input_2)
 x_2 = Dropout(0.3)(x_2)
-x_2 = CuDNNGRU(128,return_sequences=True)(x_2)
+x_2 = Bidirectional(CuDNNLSTM(128,return_sequences=True))(x_2)
 x_2 = Dropout(0.3)(x_2)
-x_2 = CuDNNGRU(128)(x_2)
-'''
+x_2 = CuDNNLSTM(128)(x_2)
+
 
 merged = concatenate([x_1,x_2])
 m = Dense(256, activation='relu')(merged)
@@ -176,7 +183,7 @@ for i in list_:
   img = cv2.flip(img, 1)
   mask = cv2.inRange(img, lower, upper)
   #img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
-  cv2.imwrite('./plot/lstm/{}lstm_seq.jpg'.format(i),img)
+  cv2.imwrite('./plot/lstm/train-test/{}lstm_seq{}{}.jpg'.format(i,true_value[i],predict_value[i]),img)
 ROW = 5
 COLUMN = 6
 j = 1
@@ -197,5 +204,13 @@ df_cm = pd.DataFrame(cm, index = [i for i in "0123456789"],
 plt.figure(figsize = (10,7))
 sn.heatmap(df_cm, annot=True)
 
-plt.show()
 
+for i in list_:
+  fig = plt.figure(figsize=(10,6))
+  ax = fig.add_subplot(1,1,1)
+  ax.title.set_text('Unchanged')
+  ax.plot(X_test[i])
+  ax.set_xlim([0,50])
+  ax.set_ylim([-50,150])
+  ax.title.set_fontsize(20)
+  plt.savefig('./plot/lstm/train-test/{}lstm+cnn{}{}.png'.format(i,true_value[i],predict_value[i]))
