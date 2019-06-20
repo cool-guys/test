@@ -4,11 +4,12 @@ import numpy as np
 import os
 from keras.models import Sequential,Model
 from keras.layers import LSTM, Dense, TimeDistributed,CuDNNLSTM,BatchNormalization,Flatten,Dropout,CuDNNGRU,MaxPooling1D,Conv1D,GlobalMaxPooling1D,Bidirectional
-from keras.layers import Input,concatenate
+from keras.layers import Input,concatenate,ReLU,Add
 
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.utils import to_categorical
 from keras.callbacks import ModelCheckpoint,EarlyStopping,ReduceLROnPlateau
+from keras.models import load_model
 import keras
 
 from sklearn.model_selection import StratifiedKFold
@@ -22,10 +23,20 @@ from imageloader import data_process
 from sklearn.metrics import classification_report, confusion_matrix
 import seaborn as sn
 import copy
-cb_checkpoint = ModelCheckpoint(filepath='model.hdf5',
-                                verbose=1)
+from keras.preprocessing import sequence
+
 
 #reduce_lr_loss = ReduceLROnPlateau(monitor='loss', factor=0.1, patience=patience_lr, verbose=1, epsilon=1e-4, mode='min')
+
+MODEL_SAVE_FOLDER_PATH = './model/lstm'
+if not os.path.exists(MODEL_SAVE_FOLDER_PATH):
+  os.mkdir(MODEL_SAVE_FOLDER_PATH)
+
+model_path = MODEL_SAVE_FOLDER_PATH + '.hdf5'
+
+cb_checkpoint = ModelCheckpoint(filepath=model_path, monitor='val_loss',
+                                verbose=1, save_best_only=True)
+
 
 early_stopping = EarlyStopping()
 
@@ -36,22 +47,47 @@ dp_test = data_process('./DATA/aug/all/test')
 
 dp_train.point_data_load()
 dp_train.image_make()
+dp_train.sequence_50()
 
 dp_test.point_data_load()
 dp_test.image_make()
+dp_test.sequence_50()
 #dp.image_read()
 
 
 
 
 
-X_train = dp_train.point
-X_test = dp_test.point
+X_train = copy.deepcopy(dp_train.point)
+X_test = copy.deepcopy(dp_test.point)
 
 X_train_img = dp_train.images
 X_test_img = dp_test.images
 Y_train = dp_train.label
 Y_test = dp_test.label
+
+
+'''
+dp = data_process('./DATA/test')
+dp.point_data_load()
+dp.image_make()
+dp.sequence_50()
+#dp.image_read()
+dp.data_shuffle()
+
+
+
+size = int(np.size(dp.point,0) * 0.7)
+X_train = dp.point[:size]
+#X_train = copy.deepcopy(dp.point)
+X_test = dp.point[size:]
+
+X_train_img = dp.images[:size]
+X_test_img = dp.images[size:]
+Y_train = dp.label[:size]
+Y_test = dp.label[size:]
+'''
+
 Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
@@ -59,6 +95,7 @@ Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
 for i in range(np.size(X_train,0)):
   X_train[i] = scaler.fit_transform(X_train[i])
+
 '''
   for j in range(np.size(X_train[i],0)):
     X_train[i][j][0] -= np.mean(X_train[i], axis=0)[0]
@@ -68,6 +105,7 @@ for i in range(np.size(X_train,0)):
 ''' 
 for i in range(np.size(X_test,0)):
   X_test[i] = scaler.fit_transform(X_test[i])
+
 '''
   for j in range(np.size(X_test[i],0)):
     X_test[i][j][0] -= np.mean(X_test[i], axis=0)[0]
@@ -112,7 +150,7 @@ sess = tf.Session(config=config)
 
 input_1 = Input(shape=(28, 28, 1))
 
-x_1 = Conv2D(32, kernel_size=5, padding="same", activation = 'relu')(input_1)
+x_1 = Conv2D(32, kernel_size=3, padding="same", activation = 'relu')(input_1)
 x_1 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(x_1)
 x_1 = Dropout(0.3)(x_1)
 
@@ -123,26 +161,70 @@ x_1 = Dropout(0.3)(x_1)
 x_1 = Conv2D(128, kernel_size=3, padding="same", activation = 'relu')(x_1)
 x_1 = MaxPooling2D(pool_size=(3, 3), strides=(1, 1))(x_1)
 
+x_1 = Conv2D(256, kernel_size=3, padding="same", activation = 'relu')(x_1)
+x_1 = MaxPooling2D(pool_size=(3, 3), strides=(1, 1))(x_1)
+
 x_1 = Dropout(0.3)(x_1)
 
 x_1 = Flatten()(x_1)
 x_1 = Dense(units=512, activation='relu')(x_1)
 
 
-input_2 = Input(shape=(50, 2))
+input_2 = Input(shape=(None, 2))
 '''
-x_2 = Conv1D(256,3,padding='valid',activation='relu',strides=1)(input_2)
-x_2 = MaxPooling1D(pool_size=3)(x_2)
-x_2 = Conv1D(256,3,padding='valid',activation='relu',strides=1)(x_2)
-x_2 = MaxPooling1D(pool_size=3)(x_2)
-x_2 = CuDNNLSTM(128)(x_2)
+shortcut = input_2
+shortcut = Conv1D(64,1,padding='same',strides=1)(shortcut)
+x_2 = Conv1D(64,3,padding='same',strides=1)(input_2)
+x_2 = BatchNormalization()(x_2)
+x_2 = ReLU()(x_2)
+x_2 = Dropout(0.2)(x_2)
+x_2 = Conv1D(64,3,padding='same',strides=1)(x_2)
+x_2 = BatchNormalization()(x_2)
+x_2 = ReLU()(x_2)
+x_2 = Add()([x_2,shortcut])
+x_2 = ReLU()(x_2)
+shortcut = x_2
+shortcut = Conv1D(64,1,padding='same',strides=1)(shortcut)
+x_2 = Conv1D(64,3,padding='same',strides=1)(x_2)
+x_2 = BatchNormalization()(x_2)
+x_2 = ReLU()(x_2)
+x_2 = Dropout(0.2)(x_2)
+x_2 = Conv1D(64,3,padding='same',strides=1)(x_2)
+x_2 = BatchNormalization()(x_2)
+x_2 = ReLU()(x_2)
+x_2 = Add()([x_2,shortcut])
+x_2 = ReLU()(x_2)
+
+x_2 = CuDNNLSTM(256)(x_2)
 '''
+'''
+x_2 = Conv1D(32,10,padding='valid',strides=1)(input_2)
+x_2 = ReLU()(x_2)
+x_2 = Dropout(0.45)(x_2)
+
+x_2 = Conv1D(64,10,padding='valid',strides=1)(x_2)
+x_2 = ReLU()(x_2)
+x_2 = Dropout(0.45)(x_2)
+
+x_2 = Conv1D(128,10,padding='valid',strides=1)(x_2)
+x_2 = ReLU()(x_2)
+x_2 = Dropout(0.45)(x_2)
+
+x_2 = Conv1D(256,10,padding='valid',strides=1)(x_2)
+x_2 = ReLU()(x_2)
+x_2 = Dropout(0.45)(x_2)
+
+x_2 = MaxPooling1D(pool_size=2)(x_2)
+'''
+
+#x_2 = CuDNNLSTM(256)(x_2)
 
 x_2 = Bidirectional(CuDNNLSTM(128,return_sequences=True))(input_2)
 x_2 = Dropout(0.3)(x_2)
 x_2 = Bidirectional(CuDNNLSTM(128,return_sequences=True))(x_2)
 x_2 = Dropout(0.3)(x_2)
 x_2 = CuDNNLSTM(128)(x_2)
+
 
 
 merged = concatenate([x_1,x_2])
@@ -158,8 +240,9 @@ model.compile(loss='categorical_crossentropy',
                 metrics=['accuracy'])
 
 #model.fit_generator(train_generator(),steps_per_epoch=2700, epochs=20,validation_data=test_generator(),validation_steps=300)
-model.fit([X_train_img,X_train],Y_train,epochs=100,batch_size=32,validation_data=([X_test_img,X_test],Y_test))
+model.fit([X_train_img,X_train],Y_train,epochs=200,batch_size=64,validation_data=([X_test_img,X_test],Y_test),callbacks=[cb_checkpoint])
 
+model = load_model('./model/lstm.hdf5')
 
 score = model.evaluate([X_test_img,X_test],Y_test)
 scores = model.predict([X_test_img,X_test])
@@ -195,6 +278,7 @@ for i in list_:
     plt.imshow(image, cmap='gray')  # cmap='gray' is for black and white picture.
     # train[i][1] is i-th digit label
     plt.title('predict = {}'.format(np.argmax(scores[i],0)))
+    print(i)
     plt.axis('off')  # do not show axis value
 plt.tight_layout()   # automatic padding between subplots
 plt.savefig('lstm+cnn.png')

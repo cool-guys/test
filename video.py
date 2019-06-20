@@ -153,7 +153,6 @@ while(True):
             Record = False            
 
 
-
         #print(prev_char)
 
     if(Record):

@@ -15,6 +15,8 @@ import cv2
 import time
 from imageloader import data_process
 from keras.models import load_model
+from keras.preprocessing import sequence
+from keras.preprocessing.sequence import TimeseriesGenerator
 
 MODEL_SAVE_FOLDER_PATH = './model/lstm_only'
 if not os.path.exists(MODEL_SAVE_FOLDER_PATH):
@@ -34,17 +36,17 @@ xt_img = []
 scaler = MinMaxScaler((0,100))
 
 
-
+'''
 dp_train = data_process('./DATA/aug/all/train')
 dp_test = data_process('./DATA/aug/all/test')
 
 dp_train.point_data_load()
 dp_train.image_make()
-dp_train.sequence_50()
+#dp_train.sequence_50()
 
 dp_test.point_data_load()
 dp_test.image_make()
-dp_test.sequence_50()
+#dp_test.sequence_50()
 #dp.image_read()
 
 
@@ -58,8 +60,8 @@ X_train_img = dp_train.images
 X_test_img = dp_test.images
 Y_train = dp_train.label
 Y_test = dp_test.label
-
 '''
+
 dp = data_process('./DATA/test')
 dp.point_data_load()
 dp.image_make()
@@ -76,12 +78,13 @@ X_train_img = dp.images[:size]
 X_test_img = dp.images[size:]
 Y_train = dp.label[:size]
 Y_test = dp.label[size:]
-'''
+
 Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
 Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
 for i in range(np.size(X_train,0)):
   X_train[i] = scaler.fit_transform(X_train[i])
+X_train = sequence.pad_sequences(X_train, maxlen=140)
 '''
   for j in range(np.size(X_train[i],0)):
     X_train[i][j][0] -= np.mean(X_train[i], axis=0)[0]
@@ -91,6 +94,7 @@ for i in range(np.size(X_train,0)):
 ''' 
 for i in range(np.size(X_test,0)):
   X_test[i] = scaler.fit_transform(X_test[i])
+X_test = sequence.pad_sequences(X_test, maxlen=140)
 '''
   for j in range(np.size(X_test[i],0)):
     X_test[i][j][0] -= np.mean(X_test[i], axis=0)[0]
@@ -98,7 +102,8 @@ for i in range(np.size(X_test,0)):
     X_test[i][j][0] /= np.std(X_test[i],axis=0)[0]
     X_test[i][j][1] /= np.std(X_test[i],axis=0)[1]
 '''
-
+#train_data_gen = TimeseriesGenerator(X_train, Y_train,length=(None,2),end_index=dp.seq_length)
+#print(dp.seq_length)
 '''
 for i in range(np.size(X_train,0)):
   img = np.zeros((500, 500, 1), np.uint8)
@@ -165,7 +170,7 @@ sess = tf.Session(config=config)
 
 model = Sequential()
 
-model.add(Bidirectional(CuDNNLSTM(128,return_sequences=True),input_shape=(50, 2)))
+model.add(Bidirectional(CuDNNLSTM(128,return_sequences=True),input_shape=(None, 2)))
 model.add(Dropout(0.3))
 model.add(Bidirectional(CuDNNLSTM(128,return_sequences=True)))
 model.add(Dropout(0.3))
@@ -196,7 +201,7 @@ model.summary()
 
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 
-
+#results = model.fit_generator(train_data_gen, steps_per_epoch=1, epochs=500, verbose=0)
 results = model.fit(X_train,Y_train,epochs=200,batch_size=64,validation_data=(X_test,Y_test),callbacks=[cb_checkpoint])
 
 model = load_model('./model/lstm_only.hdf5')

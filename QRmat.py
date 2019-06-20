@@ -4,12 +4,7 @@ import os
 import cv2
 
 import random
-import Augmentor
 import matplotlib.pyplot as plt
-from PIL import Image, ImageOps, ImageEnhance
-import math
-from math import floor, ceil
-from scipy.ndimage import gaussian_filter
 import time
 columns = ['x','y']
 j = 0
