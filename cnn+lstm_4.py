@@ -41,7 +41,7 @@ cb_checkpoint = ModelCheckpoint(filepath=model_path, monitor='val_loss',
 early_stopping = EarlyStopping()
 
 scaler = MinMaxScaler((0,100))
-
+'''
 dp_train = data_process('./DATA/aug/all/train')
 dp_test = data_process('./DATA/aug/all/test')
 
@@ -65,54 +65,35 @@ X_train_img = dp_train.images
 X_test_img = dp_test.images
 Y_train = dp_train.label
 Y_test = dp_test.label
-
-
 '''
-dp = data_process('./DATA/test')
+
+
+dp = data_process('./DATA/aug/all/train/Alphabet',False)
 dp.point_data_load()
-dp.image_make()
-dp.sequence_50()
 #dp.image_read()
+dp.sequence_50()
+dp.image_make()
 dp.data_shuffle()
 
 
-
-size = int(np.size(dp.point,0) * 0.7)
-X_train = dp.point[:size]
+data = dp.point.reshape((-1,1))
+data = scaler.fit_transform(data)
+data = data.reshape((-1,50,2))
+data = data.astype(int)
+size = int(np.size(data,0) * 0.7)
+X_train = data[:size]
 #X_train = copy.deepcopy(dp.point)
-X_test = dp.point[size:]
+X_test = data[size:]
 
 X_train_img = dp.images[:size]
 X_test_img = dp.images[size:]
 Y_train = dp.label[:size]
 Y_test = dp.label[size:]
-'''
-
-Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
-Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
 
 
+Y_train = keras.utils.to_categorical(Y_train,num_classes=26, dtype='float32')
+Y_test = keras.utils.to_categorical(Y_test,num_classes=26, dtype='float32')
 
-for i in range(np.size(X_train,0)):
-  X_train[i] = scaler.fit_transform(X_train[i])
-
-'''
-  for j in range(np.size(X_train[i],0)):
-    X_train[i][j][0] -= np.mean(X_train[i], axis=0)[0]
-    X_train[i][j][1] -= np.mean(X_train[i], axis=0)[1]
-    X_train[i][j][0] /= np.std(X_train[i],axis=0)[0]
-    X_train[i][j][1] /= np.std(X_train[i],axis=0)[1]
-''' 
-for i in range(np.size(X_test,0)):
-  X_test[i] = scaler.fit_transform(X_test[i])
-
-'''
-  for j in range(np.size(X_test[i],0)):
-    X_test[i][j][0] -= np.mean(X_test[i], axis=0)[0]
-    X_test[i][j][1] -= np.mean(X_test[i], axis=0)[1]
-    X_test[i][j][0] /= np.std(X_test[i],axis=0)[0]
-    X_test[i][j][1] /= np.std(X_test[i],axis=0)[1]
-'''
 
 '''
 def train_generator():
@@ -197,7 +178,7 @@ x_2 = ReLU()(x_2)
 
 x_2 = CuDNNLSTM(256)(x_2)
 '''
-'''
+
 x_2 = Conv1D(32,10,padding='valid',strides=1)(input_2)
 x_2 = ReLU()(x_2)
 x_2 = Dropout(0.45)(x_2)
@@ -214,23 +195,23 @@ x_2 = Conv1D(256,10,padding='valid',strides=1)(x_2)
 x_2 = ReLU()(x_2)
 x_2 = Dropout(0.45)(x_2)
 
-x_2 = MaxPooling1D(pool_size=2)(x_2)
+#x_2 = MaxPooling1D(pool_size=2)(x_2)
+
+
+x_2 = CuDNNLSTM(256)(x_2)
 '''
-
-#x_2 = CuDNNLSTM(256)(x_2)
-
 x_2 = Bidirectional(CuDNNLSTM(128,return_sequences=True))(input_2)
 x_2 = Dropout(0.3)(x_2)
 x_2 = Bidirectional(CuDNNLSTM(128,return_sequences=True))(x_2)
 x_2 = Dropout(0.3)(x_2)
 x_2 = CuDNNLSTM(128)(x_2)
-
+'''
 
 
 merged = concatenate([x_1,x_2])
 m = Dense(256, activation='relu')(merged)
 
-m = Dense(10, activation='softmax')(m)
+m = Dense(26, activation='softmax')(m)
 
 model = Model(inputs=[input_1, input_2], outputs = m)
 
@@ -266,25 +247,27 @@ for i in list_:
   img = cv2.flip(img, 1)
   mask = cv2.inRange(img, lower, upper)
   #img = cv2.resize(img,(28,28),interpolation=cv2.INTER_AREA)
-  cv2.imwrite('./plot/lstm/train-test/{}lstm_seq{}{}.jpg'.format(i,true_value[i],predict_value[i]),img)
+  cv2.imwrite('./plot/lstm/{}lstm_seq{}{}.jpg'.format(i,true_value[i],predict_value[i]),img)
 ROW = 5
 COLUMN = 6
 j = 1
 for i in list_:
+    if(j> 20):
+      j = 20
     # train[i][0] is i-th image data with size 28x28
     image = X_test_img[i].reshape(28, 28)   # not necessary to reshape if ndim is set to 2
     plt.subplot(ROW, COLUMN, j)         # subplot with size (width 3, height 5)
     j +=1
     plt.imshow(image, cmap='gray')  # cmap='gray' is for black and white picture.
     # train[i][1] is i-th digit label
-    plt.title('predict = {}'.format(np.argmax(scores[i],0)))
+    plt.title('predict = {}'.format(chr(97+ np.argmax(predict_value[i],0))))
     print(i)
     plt.axis('off')  # do not show axis value
 plt.tight_layout()   # automatic padding between subplots
 plt.savefig('lstm+cnn.png')
 cm = confusion_matrix(true_value, predict_value)
-df_cm = pd.DataFrame(cm, index = [i for i in "0123456789"],
-                  columns = [i for i in "0123456789"])
+df_cm = pd.DataFrame(cm, index = [i for i in "abcdefghijklmnopqrstuvwxyz"],
+                  columns = [i for i in "abcdefghijklmnopqrstuvwxyz"])
 plt.figure(figsize = (10,7))
 sn.heatmap(df_cm, annot=True)
 

@@ -15,9 +15,11 @@ from imageloader import data_process
 from keras.callbacks import ModelCheckpoint
 from keras.models import load_model
 
+number = False
+
 columns = ['x','y', 'label']
 
-MODEL_SAVE_FOLDER_PATH = './model/cnn'
+MODEL_SAVE_FOLDER_PATH = './model/cnn_alpha'
 if not os.path.exists(MODEL_SAVE_FOLDER_PATH):
   os.mkdir(MODEL_SAVE_FOLDER_PATH)
 
@@ -51,9 +53,9 @@ print(Y_train)
 
 dp = data_process('./DATA/aug/all/train/Alphabet',False)
 dp.point_data_load()
-dp.image_make()
 #dp.image_read()
 dp.sequence_50()
+dp.image_make()
 dp.data_shuffle()
 
 
@@ -70,8 +72,8 @@ config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 sess = tf.Session(config=config)
 
-Y_train = keras.utils.to_categorical(Y_train,num_classes=10, dtype='float32')
-Y_test = keras.utils.to_categorical(Y_test,num_classes=10, dtype='float32')
+Y_train = keras.utils.to_categorical(Y_train,num_classes=26, dtype='float32')
+Y_test = keras.utils.to_categorical(Y_test,num_classes=26, dtype='float32')
 
 model = Sequential()
 model.add(Conv2D(32, kernel_size=3, padding="valid",input_shape=(28, 28, 1)))
@@ -102,7 +104,7 @@ model.add(Flatten())
 model.add(Dense(units=1024, activation='relu'))
 model.add(Dropout(0.45))
 
-model.add(Dense(10,activation='softmax'))
+model.add(Dense(26,activation='softmax'))
 
 model.summary()
 
@@ -110,11 +112,11 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 hist = model.fit(X_train, Y_train,
                 batch_size=64,
                 validation_data=(X_test,Y_test),
-                epochs=150,
+                epochs=250,
                 verbose=1,
                 callbacks=[cb_checkpoint])
 
-model = load_model('./model/cnn.hdf5')
+model = load_model('./model/cnn_alpha.hdf5')
 
 score = model.evaluate(X_test, Y_test, verbose=0)
 pred = model.predict(X_test)
@@ -126,7 +128,10 @@ print(score[1]*100)
 list_ = []
 for i in range(np.size(true_value,0)):
   if(true_value[i] != predict_value[i]):
-    print('t:{},p:{}'.format(true_value[i],predict_value[i]))
+    if(number):
+      print('t:{},p:{}'.format(true_value[i],predict_value[i]))
+    else:
+      print('t:{},p:{}'.format(chr(97+true_value[i]),chr(97+predict_value[i])))
     list_.append(i)
 
 
@@ -143,7 +148,10 @@ for i in list_:
     j +=1
     plt.imshow(image, cmap='gray')  # cmap='gray' is for black and white picture.
     # train[i][1] is i-th digit label
-    plt.title('predict = {}'.format(np.argmax(pred[i],0)))
+    if(number):
+      plt.title('predict = {}'.format((np.argmax(pred[i],0))))
+    else:
+      plt.title('predict = {}'.format(chr(97+ np.argmax(pred[i],0))))  
     plt.axis('off')  # do not show axis value
 plt.tight_layout()   # automatic padding between subplots
 plt.savefig('cnn.png')

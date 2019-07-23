@@ -6,14 +6,21 @@ import matplotlib.pyplot as plt
 from scipy.interpolate import CubicSpline 
 from imageloader import data_process
 import random
-def DA_Jitter(X, sigma):
+import shutil
+
+# https://github.com/terryum/Data-Augmentation-For-Wearable-Sensor-Data
+
+#jitter: 데이터에 노이즈 추가, 랜덤한 10개의 index에 노이즈를 추가한다.
+def DA_Jitter(X, sigma): 
     myNoise = np.random.normal(loc=0, scale=sigma, size=(1,2))
     for i in range(10):
         j = np.random.randint(0,X.shape[0])
         X[j] = X[j]+myNoise
     return X
-
-def GenerateRandomCurves(X, sigma=0.01, knot=3):
+# sigma는 표준편차
+# 랜덤한 커브 만들기, knot은 그래프를 몇개로 나눌지에 대한 하이퍼파라미터, knot이 클수록 RandomCurves가 복잡해짐
+# x축을 knot만큼 나누고 y의 값은 랜덤한 값을 가진 점을 만들고 Cubicspline을 써서 점들을 연결한다.
+def GenerateRandomCurves(X, sigma=0.01, knot=3): 
     xx = (np.ones((X.shape[1],1))*(np.arange(0,X.shape[0], (X.shape[0]-1)/(knot+1)))).transpose()
     yy = np.random.normal(loc=1.0, scale=sigma, size=(knot+2, X.shape[1]))
     x_range = np.arange(X.shape[0])
@@ -22,9 +29,11 @@ def GenerateRandomCurves(X, sigma=0.01, knot=3):
     #cs_z = CubicSpline(xx[:,2], yy[:,2])
     return np.array([cs_x(x_range),cs_y(x_range)]).transpose()
 
+# Randomcurves를 원래 데이터와 곱하여 특정구간의 크기를 늘리거나 줄인다.
 def DA_MagWarp(X, sigma):
     return X * GenerateRandomCurves(X, sigma)
 
+# tt_cum: random curve의 값을 점진적으로 더한다.
 def DistortTimesteps(X, sigma=0.01):
     tt = GenerateRandomCurves(X, sigma) # Regard these samples aroun 1 as time intervals
     tt_cum = np.cumsum(tt, axis=0)        # Add intervals to make a cumulative graph
@@ -34,7 +43,7 @@ def DistortTimesteps(X, sigma=0.01):
     tt_cum[:,1] = tt_cum[:,1]*t_scale[1]
     #tt_cum[:,2] = tt_cum[:,2]*t_scale[2]
     return tt_cum
-
+# np.interp:보간법, x_range: 적용할범위, tt_new[:,0]: 기준이 되는범위(점진적으로 더해졌기에 특정범위는 길고 짧음이 있다), X[:,0]: y값의 범위
 def DA_TimeWarp(X, sigma=0.01):
     tt_new = DistortTimesteps(X, sigma)
     X_new = np.zeros(X.shape)
@@ -43,24 +52,7 @@ def DA_TimeWarp(X, sigma=0.01):
     X_new[:,1] = np.interp(x_range, tt_new[:,1], X[:,1])
     #X_new[:,2] = np.interp(x_range, tt_new[:,2], X[:,2])
     return X_new
-
-def DA_Permutation(X, nPerm=4, minSegLength=10):
-    X_new = np.zeros(X.shape)
-    idx = np.random.permutation(nPerm)
-    bWhile = True
-    while bWhile == True:
-        segs = np.zeros(nPerm+1, dtype=int)
-        segs[1:-1] = np.sort(np.random.randint(minSegLength, X.shape[0]-minSegLength, nPerm-1))
-        segs[-1] = X.shape[0]
-        if np.min(segs[1:]-segs[0:-1]) > minSegLength:
-            bWhile = False
-    pp = 0
-    for ii in range(nPerm):
-        x_temp = X[segs[idx[ii]]:segs[idx[ii]+1],:]
-        X_new[pp:pp+len(x_temp),:] = x_temp
-        pp += len(x_temp)
-    return(X_new)
-
+# 1~X.shape[0]에서 nSample-2만큼 뽑고 정렬하기
 def RandSampleTimesteps(X, nSample=80):
     X_new = np.zeros(X.shape)
     tt = np.zeros((nSample,X.shape[1]), dtype=int)
@@ -68,7 +60,7 @@ def RandSampleTimesteps(X, nSample=80):
     tt[1:-1,1] = np.sort(np.random.randint(1,X.shape[0]-1,nSample-2))
     tt[-1,:] = X.shape[0]-1
     return tt
-
+# 점을 nSample-2만큼 뽑고 그 점을 이용하여 그래프를 추정하여 그린다.
 def DA_RandSampling(X, nSample=100):
     tt = RandSampleTimesteps(X, nSample)
     X_new = np.zeros(X.shape)
@@ -92,7 +84,7 @@ dp = data_process('./DATA/Centered/Alphabet',False)
 dp.point_data_load()
 #dp.image_make()
 #dp.image_read()
-dp.data_shuffle(point_only=True)
+#dp.data_shuffle(point_only=True)
 size = int(np.size(dp.point,0))
 size_ = np.size(dp.point,0)-size
 X_train = dp.point[:]
@@ -104,7 +96,21 @@ print(int(Y_train[0]))
 lnegth = np.size(X_train,0)
 aug_list = []
 if(dp.number):
-    for i in range(size * 3):
+    try:
+        shutil.rmtree('./DATA/aug/all/train/number')
+        os.mkdir('./DATA/aug/all/train/number')
+        shutil.rmtree('./DATA/aug/all/test/number')
+        os.mkdir('./DATA/aug/all/test/number')
+        shutil.rmtree('./DATA/aug/all/train_org/number')
+        os.mkdir('./DATA/aug/all/train_org/number')
+    except OSError as e:
+        if e.errno == 2:
+            print('No such file or directory')
+            pass
+        else:
+            raise
+
+    for i in range(size * 1):
         a = random.randint(0,3)
 
         A = str(i//(size/10))
@@ -178,6 +184,21 @@ if(dp.number):
         else:
             dataframe.to_pickle("./DATA/aug/all/test/number/{}number{}.pickle".format(int(i//(size_/10)),int(i%(size_/10))))
 else:
+
+    try:
+        shutil.rmtree('./DATA/aug/all/train/Alphabet')
+        os.mkdir('./DATA/aug/all/train/Alphabet')
+        shutil.rmtree('./DATA/aug/all/test/Alphabet')
+        os.mkdir('./DATA/aug/all/test/Alphabet')
+        shutil.rmtree('./DATA/aug/all/train_org/Alphabet')
+        os.mkdir('./DATA/aug/all/train_org/Alphabet')
+    except OSError as e:
+        if e.errno == 2:
+            print('No such file or directory')
+            pass
+        else:
+            raise
+
     for i in range(size):
         a = random.randint(0,3)
 

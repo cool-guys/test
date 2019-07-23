@@ -31,10 +31,11 @@ early_stopping = EarlyStopping()
 
 scaler = MinMaxScaler((0,100))
 
-dp = data_process('./DATA/test')
+dp = data_process('./DATA/aug/all/train/Alphabet',False)
 dp.point_data_load()
-dp.image_make()
 #dp.image_read()
+dp.sequence_50()
+dp.image_make()
 dp.data_shuffle()
 
 
@@ -120,8 +121,8 @@ for l, (train_idx, val_idx) in enumerate(folds):
   Y_train_cv = Y_train[train_idx]
   Y_valid_cv = Y_train[val_idx]
 
-  Y_train_cv = keras.utils.to_categorical(Y_train_cv,num_classes=10, dtype='float32')
-  Y_valid_cv = keras.utils.to_categorical(Y_valid_cv,num_classes=10, dtype='float32')
+  Y_train_cv = keras.utils.to_categorical(Y_train_cv,num_classes=26, dtype='float32')
+  Y_valid_cv = keras.utils.to_categorical(Y_valid_cv,num_classes=26, dtype='float32')
 
   input_1 = Input(shape=(28, 28, 1))
 
@@ -163,7 +164,7 @@ for l, (train_idx, val_idx) in enumerate(folds):
   merged = concatenate([x_1,x_2])
   m = Dense(256, activation='relu')(merged)
 
-  m = Dense(10, activation='softmax')(m)
+  m = Dense(26, activation='softmax')(m)
 
   model = Model(inputs=[input_1, input_2], outputs = m)
 
@@ -178,6 +179,7 @@ for l, (train_idx, val_idx) in enumerate(folds):
   scores = model.predict([X_valid_img_cv,X_valid_cv])
   true_value = np.argmax(Y_valid_cv,1)
   predict_value = np.argmax(scores,1)
+  
   list_ = []
   for i in range(np.size(true_value,0)):
     if(true_value[i] != predict_value[i]):
@@ -188,6 +190,7 @@ for l, (train_idx, val_idx) in enumerate(folds):
   upper = np.array([0,0,255])
   lower = np.array([0,0,5])
   acc_list.append(score[1]*100)
+  '''
   ROW = 5
   COLUMN = 4
   j = 1
@@ -226,6 +229,7 @@ for l, (train_idx, val_idx) in enumerate(folds):
   plt.tight_layout()   # automatic padding between subplots
   plt.savefig('./plot/lstm/all/LSTM{}.png'.format(l))
   plt.clf()
+  '''
 
 print(acc_list)
 '''  

@@ -19,8 +19,10 @@ x_data = []
 y_data = []
 scaler = MinMaxScaler()
 
-dp = data_process('./DATA/test')
+dp = data_process('./DATA/aug/all/train/Alphabet',False)
 dp.point_data_load()
+#dp.image_read()
+dp.sequence_50()
 dp.image_make()
 dp.data_shuffle()
 
@@ -47,8 +49,8 @@ for l, (train_idx, val_idx) in enumerate(folds):
   Y_train_cv = Y_train[train_idx]
   Y_valid_cv = Y_train[val_idx]
 
-  Y_train_cv = keras.utils.to_categorical(Y_train_cv,num_classes=10, dtype='float32')
-  Y_valid_cv = keras.utils.to_categorical(Y_valid_cv,num_classes=10, dtype='float32')
+  Y_train_cv = keras.utils.to_categorical(Y_train_cv,num_classes=26, dtype='float32')
+  Y_valid_cv = keras.utils.to_categorical(Y_valid_cv,num_classes=26, dtype='float32')
 
   model = Sequential()
   model.add(Conv2D(32, kernel_size=5, padding="same",input_shape=(28, 28, 1), activation = 'relu'))
@@ -61,7 +63,7 @@ for l, (train_idx, val_idx) in enumerate(folds):
   model.add(Dense(units=1024, activation='relu'  ))
   model.add(Dropout(0.3))
 
-  model.add(Dense(10,activation='softmax'))
+  model.add(Dense(26,activation='softmax'))
 
   #model.summary()
 
@@ -83,6 +85,7 @@ for l, (train_idx, val_idx) in enumerate(folds):
 
   acc_list.append(score[1]*100)
   print(np.argmax(pred,axis=1))
+
   #print("복원된 모델의 정확도: {:5.2f}%".format(100*score))
   list_ = []
   for i in range(np.size(true_value,0)):
@@ -93,6 +96,7 @@ for l, (train_idx, val_idx) in enumerate(folds):
 
   print(list_)
   print(j)
+  '''
   ROW = 5
   COLUMN = 4
   j = 1
@@ -119,5 +123,6 @@ for l, (train_idx, val_idx) in enumerate(folds):
   plt.tight_layout()   # automatic padding between subplots
   plt.savefig('./plot/cnn/cnn{}.png'.format(l))
   plt.clf()
+  '''
 
 print(acc_list)
