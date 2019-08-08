@@ -92,22 +92,28 @@ class data_process:
       try:
           shutil.rmtree('./DATA/image/train/number')
           os.mkdir('./DATA/image/train/number')
+          shutil.rmtree('./DATA/image/test/number')
+          os.mkdir('./DATA/image/test/number')
       except OSError as e:
           if e.errno == 2:
               print('No such file or directory')
               pass
           else:
               raise
-    else:     
+    elif(self.dir == './DATA/aug/all/train/Alphabet'):     
       try:
           shutil.rmtree('./DATA/image/train/Alphabet')
           os.mkdir('./DATA/image/train/Alphabet')
+          shutil.rmtree('./DATA/image/test/Alphabet')
+          os.mkdir('./DATA/image/test/Alphabet')
       except OSError as e:
           if e.errno == 2:
               print('No such file or directory')
               pass
           else:
               raise  
+    else:
+      pass
     for i in range(np.size(self.point,0)):
       img = np.zeros((550, 550, 1), np.uint8)
 #      if(self.point[i][49][0] != 0):
@@ -261,28 +267,30 @@ class data_process:
       points = self.point[i]
       leng = np.size(points,0)
       point = []
-      if(leng > 50):
+      if(leng > 64):
         #print(i,k)
-        for l in range(50):
-          point.append(points[int(leng*l/50)])
+        for l in range(64):
+          point.append(points[int(leng*l/64)])
       else:
         for l in range(leng):
           point.append(points[l])#points[l]
-        while(len(point) != 50):
+        while(len(point) != 64):
           point.append(points[leng-1])#points[leng-1]
       point = np.array(point)
-      point.reshape((50,2))
+      point.reshape((64,2))
 
-      for j in range(48):
+      for j in range(62):
         grads = np.array([point[j+2][0] - point[j][0],point[j+2][1] - point[j][1]])
         if(abs(point[j][0] - point[j+1][0]) > 100 or abs(point[j][1] - point[j+1][1]) > 100):
           point[j+1][0] = int(point[j][0] + grads[0]/2)
           point[j+1][1] = int(point[j][1] + grads[1]/2)
+        else:
+          pass
       point_list.append(point)
   #  for i in range(np.size(self.point,0)):
 
     Point_DATA = np.array(point_list)
-    Point_DATA = Point_DATA.reshape((-1,50,2))
+    Point_DATA = Point_DATA.reshape((-1,64,2))
     self.point = Point_DATA
 
 

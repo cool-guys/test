@@ -80,22 +80,28 @@ def Rotation(X):
 
         
 
-dp = data_process('./DATA/Centered/Alphabet',False)
-dp.point_data_load()
+dp_train = data_process('./DATA/Centered/Alphabet/train',False)
+dp_train.point_data_load()
 #dp.image_make()
 #dp.image_read()
 #dp.data_shuffle(point_only=True)
-size = int(np.size(dp.point,0))
-size_ = np.size(dp.point,0)-size
-X_train = dp.point[:]
-X_test = dp.point[:]
 
-Y_train = dp.label[:]
-Y_test = dp.label[:]
-print(int(Y_train[0]))
-lnegth = np.size(X_train,0)
+dp_test = data_process('./DATA/Centered/Alphabet/test',False)
+dp_test.point_data_load()
+#dp.image_make()
+#dp.image_read()
+#dp.data_shuffle(point_only=True)
+size = int(np.size(dp_train.point,0))
+size_ = int(np.size(dp_test.point,0))
+
+X_train = dp_train.point[:]
+X_test = dp_test.point[:]
+
+Y_train = dp_train.label[:]
+Y_test = dp_test.label[:]
+
 aug_list = []
-if(dp.number):
+if(dp_test.number):
     try:
         shutil.rmtree('./DATA/aug/all/train/number')
         os.mkdir('./DATA/aug/all/train/number')
