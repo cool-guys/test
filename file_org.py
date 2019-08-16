@@ -78,6 +78,6 @@ def name_change_3():
 
             os.rename(name,name_2)
 
-name_change_3()
-#order_file()
+name_change()
+order_file()
 #file_move()

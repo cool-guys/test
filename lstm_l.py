@@ -25,11 +25,10 @@ import seaborn as sn
 import copy
 from keras.preprocessing import sequence
 
-
 #reduce_lr_loss = ReduceLROnPlateau(monitor='loss', factor=0.1, patience=patience_lr, verbose=1, epsilon=1e-4, mode='min')
 lr_reduce = keras.callbacks.ReduceLROnPlateau(monitor='val_acc',factor=0.5, patience=20)
 #model save
-MODEL_SAVE_FOLDER_PATH = '../model/lstm'
+MODEL_SAVE_FOLDER_PATH = '../model/lstm_only'
 if not os.path.exists(MODEL_SAVE_FOLDER_PATH):
   os.mkdir(MODEL_SAVE_FOLDER_PATH)
 
@@ -121,27 +120,32 @@ input_2 = Input(shape=(64, 2))
 x_2 = Conv1D(32,kernel_size=4, padding='same',strides=1)(input_2)
 x_2 = BatchNormalization(momentum=0.8)(x_2)
 x_2 = LeakyReLU(0.2)(x_2)
+x_2 = AveragePooling1D()(x_2)
 x_2 = Dropout(0.5)(x_2)
 
 x_2 = Conv1D(64,kernel_size=5, strides=1, padding='same')(x_2)
 x_2 = BatchNormalization(momentum=0.8)(x_2)
 x_2 = LeakyReLU(alpha=0.2)(x_2)
+x_2 = AveragePooling1D()(x_2)
 x_2 = Dropout(0.5)(x_2)
 
 x_2 = Conv1D(128, kernel_size=6, strides=1, padding='same')(x_2)
 x_2 = BatchNormalization(momentum=0.8)(x_2)
 x_2 = LeakyReLU(0.2)(x_2)
+x_2 = AveragePooling1D()(x_2)
 x_2 = Dropout(0.5)(x_2)
 
 
 x_2 = Conv1D(256, kernel_size=7, strides=1, padding='same')(x_2)
 x_2 = BatchNormalization(momentum=0.8)(x_2)
 x_2 = LeakyReLU(0.2)(x_2)
+x_2 = AveragePooling1D()(x_2)
 x_2 = Dropout(0.5)(x_2)
 
 x_2 = Conv1D(512, kernel_size=8, strides=1, padding='same')(x_2)
 x_2 = BatchNormalization(momentum=0.8)(x_2)
 x_2 = LeakyReLU(0.2)(x_2)
+x_2 = AveragePooling1D()(x_2)
 x_2 = Dropout(0.5)(x_2)
 
 x_2 = GlobalAveragePooling1D()(x_2)

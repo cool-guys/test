@@ -76,18 +76,18 @@ class data_process:
   
     Point_DATA = np.array(point_list)
     Label_DATA = np.array(label_list)
-
+    print(Point_DATA.size)
 
     #for i in range(np.size(Label_DATA,0)):
     #  Label_DATA[i] = np.unique(Label_DATA[i],axis=0)
     Label_DATA = Label_DATA.reshape((np.size(Label_DATA,0),1))
-    print("--- %s seconds ---" %(time.time() - start_time))
+    #print("--- %s seconds ---" %(time.time() - start_time))
 
     self.point = Point_DATA
     self.label = Label_DATA
 
   def image_make(self):
-    print(self.label[0,0])
+
     if(self.dir == './DATA/aug/all/train/number'):
       try:
           shutil.rmtree('./DATA/image/train/number')
