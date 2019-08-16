@@ -1,6 +1,16 @@
 import cv2
 import os
 
+if(not os.path.isdir("../DATA/Video")):
+    os.mkdir("../DATA/Video")
+else:
+    pass
+
+for i in range(10):
+    if(not os.path.isdir("../DATA/Video/{}".format(i))):
+        os.mkdir("../DATA/Video/{}".format(i))
+    else:
+        pass
 
 cam = cv2.VideoCapture(0)
 # Process and display images

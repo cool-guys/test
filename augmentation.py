@@ -205,7 +205,7 @@ else:
         else:
             raise
 
-    for i in range(size):
+    for i in range(size * 1):
         a = random.randint(0,3)
 
         A = str(i//(size/10))

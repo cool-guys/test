@@ -1,13 +1,24 @@
 import cv2
 import os
 
+if(not os.path.isdir("../DATA/Video")):
+    os.mkdir("../DATA/Video")
+else:
+    pass
+
+for i in range(26):
+    if(not os.path.isdir("../DATA/Video/{}".format(chr(97+i)))):
+        os.mkdir("../DATA/Video/{}".format(chr(97+i)))
+    else:
+        pass
+
 cam = cv2.VideoCapture(0)
 # Process and display images
 
 c = cv2.waitKey(0)
 data = []
 i = 0
-prev_char = -1
+prev_char = -1 
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 Record = False
 
