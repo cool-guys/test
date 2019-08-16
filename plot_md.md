@@ -12,11 +12,11 @@
 
 ## CNN_ONLY
 
-![](./cnn_model_plot.png)
+![](./plot/cnn_model_plot.png)
 
 ## CNN 2D + CNN 1D
 
-![](./CNN1d_model_plot.png)
+![](./plot/CNN1d_model_plot.png)
 
 # Data Augmentation
 
