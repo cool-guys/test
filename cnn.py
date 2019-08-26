@@ -224,24 +224,6 @@ def conv5_layer(x):
  
     return x
 
-'''
-dp_train = data_process('./DATA/aug/all/train')
-dp_test = data_process('./DATA/aug/all/test')
-
-dp_train.point_data_load()
-dp_train.image_make()
-dp_train.sequence_50()
-
-dp_test.point_data_load()
-dp_test.image_make()
-dp_test.sequence_50()
-
-X_train = dp_train.images
-X_test = dp_test.images
-Y_train = dp_train.label
-Y_test = dp_test.label
-print(Y_train)
-'''
 
 #숫자인지 아닌지
 number = False
@@ -251,7 +233,7 @@ if(number):
   dp = data_process('./DATA/aug/all/train/number',number)
   dp.point_data_load()
   #dp.image_read()
-  dp.sequence_50()
+  dp.sequence_64()
   dp.image_make()
   dp.data_shuffle()
 
@@ -261,14 +243,14 @@ else:
   dp_train = data_process('./DATA/aug/all/train/Alphabet',number)
   dp_train.point_data_load()
   #dp.image_read()
-  dp_train.sequence_50()
+  dp_train.sequence_64()
   dp_train.image_make()
   dp_train.data_shuffle()
   
   dp_test = data_process('./DATA/aug/all/test/Alphabet',number)
   dp_test.point_data_load()
   #dp.image_read()
-  dp_test.sequence_50()
+  dp_test.sequence_64()
   dp_test.image_make()
   dp_test.data_shuffle()
  

@@ -76,12 +76,11 @@ class data_process:
   
     Point_DATA = np.array(point_list)
     Label_DATA = np.array(label_list)
-    print(Point_DATA.size)
 
     #for i in range(np.size(Label_DATA,0)):
     #  Label_DATA[i] = np.unique(Label_DATA[i],axis=0)
     Label_DATA = Label_DATA.reshape((np.size(Label_DATA,0),1))
-    #print("--- %s seconds ---" %(time.time() - start_time))
+
 
     self.point = Point_DATA
     self.label = Label_DATA
@@ -224,7 +223,6 @@ class data_process:
       img = np.reshape(img,(28,28,1))
       img = img/255
       self.images.append(img)
-      #print(self.label[i][0][0][0])
     
 
     self.images = np.array(self.images)
@@ -260,7 +258,7 @@ class data_process:
       self.images = self.images[indices]
       self.label = self.label[indices]
 
-  def sequence_50(self):
+  def sequence_64(self):
     point_list = []
     
     for i in range(np.size(self.point,0)):
@@ -268,7 +266,6 @@ class data_process:
       leng = np.size(points,0)
       point = []
       if(leng > 64):
-        #print(i,k)
         for l in range(64):
           point.append(points[int(leng*l/64)])
       else:

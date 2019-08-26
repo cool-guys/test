@@ -123,5 +123,4 @@ else:
             dataframe = pd.DataFrame(df_img, columns= ['x','y'])
             dataframe['label'] = i
             dataframe.to_pickle("./DATA/Centered/Alphabet/test/{}_Alphabet{}.pickle".format(chr(97+i),k))      
-print("--- %s seconds ---" %(time.time() - start_time))
 

@@ -36,11 +36,11 @@ while(True):
     
     for j in range(26):
         if(c == ord('a') + j):
-            while(os.path.exists("./DATA/Video/{}/{}train_{}.mp4".format(chr(97+j),chr(97+j),i))):
+            while(os.path.exists("../DATA/Video/{}/{}train_{}.mp4".format(chr(97+j),chr(97+j),i))):
                 i += 1
 
             if(not Record): 
-                video = cv2.VideoWriter("DATA/Video/{}/{}train_{}.mp4".format(chr(97+j),chr(97+j),i), fourcc, 30.0, (image.shape[1], image.shape[0]))
+                video = cv2.VideoWriter("../DATA/Video/{}/{}train_{}.mp4".format(chr(97+j),chr(97+j),i), fourcc, 30.0, (image.shape[1], image.shape[0]))
                 Record = True
                 i=0
             else:

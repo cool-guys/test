@@ -82,15 +82,11 @@ def Rotation(X):
 
 dp_train = data_process('./DATA/Centered/Alphabet/train',False)
 dp_train.point_data_load()
-#dp.image_make()
-#dp.image_read()
-#dp.data_shuffle(point_only=True)
+
 
 dp_test = data_process('./DATA/Centered/Alphabet/test',False)
 dp_test.point_data_load()
-#dp.image_make()
-#dp.image_read()
-#dp.data_shuffle(point_only=True)
+
 size = int(np.size(dp_train.point,0))
 size_ = int(np.size(dp_test.point,0))
 
@@ -101,6 +97,7 @@ Y_train = dp_train.label[:]
 Y_test = dp_test.label[:]
 
 aug_list = []
+
 if(dp_test.number):
     try:
         shutil.rmtree('./DATA/aug/all/train/number')
@@ -155,40 +152,6 @@ if(dp_test.number):
     df = pd.DataFrame(aug_list)
     df.to_csv('aug_train',index=False)
 
-    aug_list = []
-
-    for i in range(size_):
-        a = random.randint(0,3)
-
-        A = str(i//(size_/10))
-        B = str(i%(size_/10))
-        if(i > size_):
-            if(a == 0):
-                point = DA_RandSampling(X_test[i%size_])
-                C = A + ' ' + B + ' ' + 'rand'
-            elif(a == 1):
-                point = DA_TimeWarp(X_test[i%size_],0.03)
-                C = A + ' ' + B + ' ' + 'TW'
-            elif(a == 2):
-                point = Rotation(X_test[i%size_])
-                C = A + ' ' + B + ' ' + 'Rot'
-            else:
-                point = DA_Jitter(X_test[i%size_],5)
-                C = A + ' ' + B + ' ' + 'jit'
-        else:
-            point = X_test[i%size_]
-            C = 'org'
-
-        print(C)
-        aug_list.append(C)
-        dataframe = pd.DataFrame(point.astype(int), columns= ['x','y'])
-        dataframe['label'] = int(Y_test[i%size_])
-        if(i >= size_ and i < size_*2):
-            dataframe.to_pickle("./DATA/aug/all/test/number/{}number{}.pickle".format(int((i-size_)//(size_/10)),int(i%(size_/10) + (size_/10))))
-        elif(i >= size_*2 and i < size_*3):
-            dataframe.to_pickle("./DATA/aug/all/test/number/{}number{}.pickle".format(int((i-size_*2)//(size_/10)),int(i%(size_/10) + (size_*2/10))))
-        else:
-            dataframe.to_pickle("./DATA/aug/all/test/number/{}number{}.pickle".format(int(i//(size_/10)),int(i%(size_/10))))
 else:
 
     try:
@@ -245,39 +208,3 @@ else:
     df.to_csv('aug_train',index=False)
 
     aug_list = []
-
-    for i in range(size_):
-        a = random.randint(0,3)
-
-        A = str(i//(size_/10))
-        B = str(i%(size_/10))
-        if(i > size_):
-            if(a == 0):
-                point = DA_RandSampling(X_test[i%size_])
-                C = A + ' ' + B + ' ' + 'rand'
-            elif(a == 1):
-                point = DA_TimeWarp(X_test[i%size_],0.03)
-                C = A + ' ' + B + ' ' + 'TW'
-            elif(a == 2):
-                point = Rotation(X_test[i%size_])
-                C = A + ' ' + B + ' ' + 'Rot'
-            else:
-                point = DA_Jitter(X_test[i%size_],5)
-                C = A + ' ' + B + ' ' + 'jit'
-        else:
-            point = X_test[i%size_]
-            C = 'org'
-
-        print(C)
-        aug_list.append(C)
-        dataframe = pd.DataFrame(point.astype(int), columns= ['x','y'])
-        dataframe['label'] = int(Y_test[i%size_])
-        if(i >= size_ and i < size_*2):
-            dataframe.to_pickle("./DATA/aug/all/test/Alphabet/{}_Alphabet{}.pickle".format(chr(97+int((i-size_)//(size_/26))),int(i%(size_/26) + (size_/26))))
-        elif(i >= size_*2 and i < size_*3):
-            dataframe.to_pickle("./DATA/aug/all/test/Alphabet/{}_Alphabet{}.pickle".format(chr(97+int((i-size_*2)//(size_/26))),int(i%(size_/26) + (size_*2/26))))
-        else:
-            dataframe.to_pickle("./DATA/aug/all/test/Alphabet/{}_Alphabet{}.pickle".format(chr(97+int(i//(size_/26))),int(i%(size_/26))))    
-    aug_list = np.array(aug_list)
-    df = pd.DataFrame(aug_list)
-    df.to_csv('aug_test',index=False)
